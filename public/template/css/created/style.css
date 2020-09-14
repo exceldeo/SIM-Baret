@@ -1,0 +1,28 @@
+.css-switch .css-control-input~.css-control-indicator {
+	background-color: #ef5350;
+}
+
+.no-margin {
+	margin-bottom: 0px !important;
+}
+
+.background-inactive {
+	color : #939596;
+	background-color: #eff3f7;
+	border-color: #eff3f7;
+	border-width: 1.5px;
+	/*border-color: white;*/
+}
+
+.no-padding {
+	padding-left : 0px;
+}
+
+.disabled-href {
+	pointer-events: none;
+  	cursor: default;
+}
+
+.no-data {
+	text-align: center;
+}
