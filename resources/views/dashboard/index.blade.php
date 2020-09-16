@@ -47,7 +47,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-file-text-o" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Barang masuk</p>
+                            <p class="" style="color: #013880">Draft masuk</p>
                         </div>
                     </a>
                 </div>  
@@ -55,7 +55,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-book" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Barang keluar</p>
+                            <p class="" style="color: #013880">Draft keluar</p>
                         </div>
                     </a>
                 </div> 
