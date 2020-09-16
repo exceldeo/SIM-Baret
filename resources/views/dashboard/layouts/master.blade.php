@@ -67,7 +67,7 @@
 							<i class="fa fa-barcode d-sm-none"></i>
 								<span class="d-none d-sm-inline-block"><i class="fa fa-barcode">
 									</i> 
-										<span>Scan Barcode</span>
+										<span>Pindai Barcode</span>
 								</span>
 						</button>
 					</div>
