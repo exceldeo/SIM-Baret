@@ -19,7 +19,7 @@
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="{{asset('template')}}/js/plugins/select2/css/select2.min.css">
-	<link rel="stylesheet" href="{{asset('template')}}/js/plugins/clockpicker/dist/jquery-clockpicker.min.css">
+	<!-- <link rel="stylesheet" href="{{asset('template')}}/js/plugins/clockpicker/dist/jquery-clockpicker.min.css"> -->
 	<link rel="stylesheet" href="{{asset('template')}}/js/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="{{asset('template')}}/js/plugins/magnific-popup/magnific-popup.css">
 	<link rel="stylesheet" href="{{asset('template')}}/js/plugins/chartjs/Chart.min.css">
@@ -60,6 +60,19 @@
 
 			<!-- Right Section -->
 			<div class="content-header-section">
+				<!-- Scan Barcode -->
+				<a href="{{route('scan')}}">
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-rounded btn-dual-secondary" id="scan-barcode">
+							<i class="fa fa-barcode d-sm-none"></i>
+								<span class="d-none d-sm-inline-block"><i class="fa fa-barcode">
+									</i> 
+										<span>Scan Barcode</span>
+								</span>
+						</button>
+					</div>
+				</a>
+				<!-- END Scan Barcode -->
                 <!-- User Dropdown -->
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

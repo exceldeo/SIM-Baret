@@ -4,7 +4,7 @@ Dashboard
 @endsection
 @section('breadcrumb')
 <div class="content">
-    <nav class="breadcrumb bg-white push">
+    <nav class="breadcrumb bg-white push" >
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item active">Dashboard</a>
     </nav>
 </div>
@@ -32,6 +32,7 @@ Dashboard
     <div class="block block-transparent">
         <div class="block-content">
             <div class="row gutters-tiny push">
+                <!-- User Management card -->
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
                         <div class="my-5 block-content">
@@ -39,7 +40,48 @@ Dashboard
                             <p class="" style="color: #013880">User Management</p>
                         </div>
                     </a>
+                </div>
+                <!-- END User Management card -->
+                <!-- Draft card -->
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-book" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Draft</p>
+                        </div>
+                    </a>
                 </div>  
+                <!-- END Draft card -->
+                <!-- Warehouse card -->
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-archive" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Gudang</p>
+                        </div>
+                    </a>
+                </div>  
+                <!-- END Warehouse card -->
+                <!-- Items card -->
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-briefcase" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Barang</p>
+                        </div>
+                    </a>
+                </div>  
+                <!-- END Items card -->
+                <!-- Log card -->
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-list" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Log</p>
+                        </div>
+                    </a>
+                </div>  
+                <!-- END Log card -->
             </div>
         </div>
     </div>
