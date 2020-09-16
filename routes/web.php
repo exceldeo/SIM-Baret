@@ -45,3 +45,9 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     })->name('scan')->middleware('auth');
 
 });
+
+Route::prefix('barang')->name('barang.')->group(function () {
+    Route::get('', 'Barang\BarangController@index')->name('index');
+
+
+});
