@@ -30,3 +30,5 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::get('logout', 'User\UserController@logout')->name('logout');
 
 });
+
+Route::resource('user','User\UserController');
