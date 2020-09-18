@@ -62,4 +62,3 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
 });
 
-Route::resource('user','User\UserController');
