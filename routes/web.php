@@ -18,6 +18,9 @@ Route::get('/', function () {
     // return redirect()->route('login');
 });
 
+Route::resource('user','User\UserController');
+
+
 Route::get('login', 'User\UserController@login')->name('login');
 Route::post('authenticate', 'User\UserController@authenticate')->name('authenticate');
 

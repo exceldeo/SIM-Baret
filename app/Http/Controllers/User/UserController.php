@@ -5,7 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\User;
+
 
 class UserController extends Controller
 {
@@ -32,7 +34,8 @@ class UserController extends Controller
         return redirect()->route('login');
     }
 
-     /**
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -40,7 +43,7 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
-        return view('/user/index',['user'=>$user]);
+        return view('user.index', ['user'=> $user]);
     }
 
     /**
@@ -50,7 +53,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('/users/create');
+        return view('/user/create');
     }
 
     /**
@@ -61,8 +64,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        user::create($request->all());
-        return redirect('/home');
+        User::create($request->all());
+        return redirect('/user');
     }
 
     /**
@@ -71,10 +74,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(user $user, Jawaban $jawaban)
+    public function show(User $user)
     {
-        $jawaban = Jawaban::where('user_id','=', $user->id)->get();
-        return view('users.show', compact('user','jawaban'));
+        //
     }
 
     /**
@@ -83,9 +85,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(user $user)
+    public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -95,14 +97,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user $user)
+    public function update(Request $request, User $user)
     {
         {
-            user::where('id', $user->id)
+            User::where('id', $user->id)
                 ->update([
                     'user'=> $request->user
                 ]);
-            return redirect('/users/'.$user->id);
+            return redirect('user/'.$user->id);
         }
     }
 
@@ -112,14 +114,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::destroy($id);
+        User::destroy($user->id);
         return redirect('/user');
+        
     }
-
-
-
-
 
 }
