@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     // return view('dashboard.index');
     return redirect()->route('dashboard.index');
-});
+})->name('index');
 
 Route::get('scan', function () {
-    return view('dashboard.scan');
+    return view('dashboard.barcode.index');
 })->name('scan');
 
 Route::get('detail_item/{id}', function ($id) {
@@ -41,7 +41,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('logout', 'User\UserController@logout')->name('logout');
 
     Route::get('scan', function () {
-        return view('dashboard.scan');
+        return view('dashboard.barcode.index');
     })->name('scan');
 
     Route::prefix('barang')->name('barang.')->group(function () {
