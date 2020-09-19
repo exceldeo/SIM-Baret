@@ -24,7 +24,7 @@ Route::get('scan', function () {
 })->name('scan');
 
 Route::get('detail_item/{id}', function ($id) {
-    return view('dashboard.detail_item', ['id' => $id]);
+    return view('dashboard.barang.view', ['id' => $id]);
 })->name('detail_item');
 
 /* END Temporary route */
