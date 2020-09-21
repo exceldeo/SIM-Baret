@@ -45,7 +45,7 @@ Gudang
             <div class="block-options">
                 <!-- <form action="{{route('dashboard.gudang.create')}}" method="GET"> -->
                     <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
-                    data-target="#modal-normal3">
+                    data-target="#modal-normal">
                         <i class="fa fa-plus"></i> Buat Gudang
                     </button>
                 <!-- </form> -->
@@ -91,11 +91,18 @@ Gudang
                                                         @csrf
                                                         <button class="btn btn-sm btn-danger"><i class="fa fa-trash mr-1"></i> Delete</button>
                                                     </form>
-                                                    <a
-                                                        href="{{route('dashboard.gudang.edit', ['id_gudang' => $g->id_gudang])}}">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-pencil mr-1"></i> Edit</button>
-                                                    </a>
+                                                    <!-- <input type="hidden" name="user_id" value="">
+                                                    <a data-toggle="modal" data-userid=""
+                                                        href="main_user.php#myModal" 
+                                                        class="btn btn-warning">
+                                                    </a> -->
+                                                    <button type="submit" class="btn btn-sm btn-its-primary pull-right mr-3" data-toggle="modal"
+                                                        data-target="#modalEdit{{ $g->id_gudang }}">
+                                                    <i class="fa fa-pencil mr-1"></i> Edit </button>
+                                                    <!-- <a
+                                                        href="#modalEdit">
+                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3">
+                                                    </a> -->
                                                     <a
                                                         href="{{route('dashboard.gudang.show', ['id_gudang' => $g->id_gudang])}}">
                                                         <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
@@ -116,7 +123,7 @@ Gudang
 </div>
 <!-- END Page Content -->
 
-<div class="modal" id="modal-normal3" tabindex="-1" role="dialog" aria-labelledby="modal-normal3" aria-hidden="true">
+<div class="modal" id="modal-normal" tabindex="-1" role="dialog" aria-labelledby="modal-normal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="block block-themed block-transparent mb-0">
@@ -194,7 +201,7 @@ Gudang
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
-                            Close
+                            Tutup
                         </button>
                     <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
                         <i class="fa fa-check"></i> Buat
@@ -207,6 +214,106 @@ Gudang
 </div>
 <!-- END Normal Modal -->
 
+
+@foreach ($gudang as $g)
+<div class="modal" id="modalEdit{{ $g->id_gudang }}" tabindex="-1" role="dialog" aria-labelledby="modalEdit{{ $g->id_gudang }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Edit Gudang</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <form action="{{route('dashboard.gudang.update', ['id_gudang' => $g->id_gudang])}}" method="post">
+                @method('patch')
+                @csrf
+                <div class="block-content">
+                    <div class="form-group row">
+                        <div class="col-md-11">
+                            <div class="form-material">
+                                <input autocomplete="off" type="text" 
+                                class="form-control" id="nama" name="nama" required
+                                value="{{$g->nama_gudang}}">
+                                <label for="nama">Nama Gudang</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                class="form-control" id="panjang" name="panjang" required
+                                value="{{$g->panjang_gudang}}">
+                                <label for="panjang">Panjang Gudang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="lebar" name="lebar" required
+                                 value="{{$g->lebar_gudang}}">
+                                <label for="lebar">Lebar Gudang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="tinggi" name="tinggi" required
+                                 value="{{$g->tinggi_gudang}}">
+                                <label for="tinggi">Tinggi Gudang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-11">
+                            <div class="form-material">
+                                <input autocomplete="off" type="text" 
+                                class="form-control" id="lokasi" name="lokasi" required
+                                value="{{$g->lokasi_gudang}}">
+                                <label for="lokasi">Lokasi Gudang</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                            Tutup
+                        </button>
+                    <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
+                        <i class="fa fa-check"></i> perbaharui
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+<!-- END Normal Modal -->
+
 @endsection
 @section('js')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -216,5 +323,9 @@ Gudang
         var table = $('#gudang_table').DataTable( {
         } );
     } );
+    // $('#myModal').on('show.bs.modal', function(e) {
+    //     var userid = $(e.relatedTarget).data('userid');
+    //     $(e.currentTarget).find('input[name="user_id"]').val(userid);
+    // });
 </script>
 @endsection

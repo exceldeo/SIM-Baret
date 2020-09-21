@@ -54,7 +54,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('{id_gudang}/edit', 'Gudang\GudangController@edit')->name('edit');
         Route::get('{id_gudang}/show', 'Gudang\GudangController@show')->name('show');
         Route::post('store', 'Gudang\GudangController@store')->name('store');
-        Route::patch('{id_gudang}/edit', 'Gudang\GudangController@update');
+        Route::patch('{id_gudang}/edit', 'Gudang\GudangController@update')->name('update');
         Route::delete('{id_gudang}/delete', 'Gudang\GudangController@destroy')->name('delete');
     });
 
