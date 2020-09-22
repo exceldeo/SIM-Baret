@@ -69,11 +69,11 @@ Usulan Pemasukan Barang
                         @foreach($carts as $key=>$c)
                             <tr>
                                 <th class="text-center" scope="row">{!! $loop->iteration !!}</th>
-                                <td>{{ $c['nama'] }}</td>
-                                <td class="text-center">{{ $c['panjang'] }} m</td>
-                                <td class="text-center">{{ $c['lebar'] }} m</td>
-                                <td class="text-center">{{ $c['tinggi'] }} m</td>
-                                <td class="text-center">{{ $c['lokasi'] }}</td>
+                                <td>{{ $c['name'] }}</td>
+                                <td class="text-center">{{ $c['attributes']['panjang'] }} m</td>
+                                <td class="text-center">{{ $c['attributes']['lebar'] }} m</td>
+                                <td class="text-center">{{ $c['attributes']['tinggi'] }} m</td>
+                                <td class="text-center">{{ $c['attributes']['lokasi'] }}</td>
                                 <td class="text-center">
                                     <form onclick="return confirm('Are you sure?')"
                                         action="{{route('dashboard.usulan_pemasukan.delete')}}"
