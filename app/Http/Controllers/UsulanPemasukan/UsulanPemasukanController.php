@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UsulanPemasukan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gudang\gudang;
+use Melihovv\ShoppingCart\Facades\ShoppingCart as Cart;
 
 class UsulanPemasukanController extends Controller
 {
