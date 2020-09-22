@@ -58,4 +58,12 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::delete('{id_gudang}/delete', 'Gudang\GudangController@destroy')->name('delete');
     });
 
+    Route::prefix('usulan_pemasukan')->name('usulan_pemasukan.')->group(function () {
+        Route::get('', 'UsulanPemasukan\UsulanPemasukanController@index')->name('index');
+        Route::post('store', 'UsulanPemasukan\UsulanPemasukanController@store')->name('store');
+        Route::post('save', 'UsulanPemasukan\UsulanPemasukanController@save')->name('save');
+        Route::delete('delete', 'UsulanPemasukan\UsulanPemasukanController@destroy')->name('delete');
+    });
+
+
 });

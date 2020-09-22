@@ -70,7 +70,7 @@ Gudang
                                                         </a>
                                                     </h5>
                                                     <span class="mr-10">
-                                                        Tersedia : 
+                                                        Tersedia : {!! $g->ruang_sisa !!} m<sup>3</sup>
                                                     </span>
                                                     <span class="mr-10">
                                                     @php

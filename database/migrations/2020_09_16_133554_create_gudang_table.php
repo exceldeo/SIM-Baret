@@ -19,6 +19,7 @@ class CreateGudangTable extends Migration
             $table->float('panjang_gudang');
             $table->float('lebar_gudang');
             $table->float('tinggi_gudang');
+            $table->float('ruang_sisa');
             $table->string('lokasi_gudang');
             $table->timestamps();
         });

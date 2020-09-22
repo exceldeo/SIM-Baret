@@ -27,13 +27,14 @@ class GudangController extends Controller
 
         $message = "";
         try {
-
+            $sisa = $request->panjang * $request->lebar * $request->tinggi;
             gudang::create([
                 'nama_gudang' => $request->nama,
                 'panjang_gudang' => $request->panjang,
                 'lebar_gudang' => $request->lebar,
                 'tinggi_gudang' => $request->tinggi,
                 'lokasi_gudang' => $request->lokasi,
+                'ruang_sisa'    => $sisa
             ]);
 
             $message = ["success" => "Gudang berhasil di buat!"];
@@ -51,6 +52,7 @@ class GudangController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request);
         $request->validate([
             'nama' => 'required',
             'panjang' => 'required',
@@ -61,6 +63,9 @@ class GudangController extends Controller
 
         $message = "";
         try {
+            $gudang = gudang::where('id_gudang',$id)->first();
+            // dd($request->panjang * $request->lebar * $request->tinggi,$gudang->panjang_gudang * $gudang->lebar_gudang * $gudang->tinggi_gudang,$gudang->ruang_sisa);
+            $sisa = ($request->panjang * $request->lebar * $request->tinggi) - ($gudang->panjang_gudang * $gudang->lebar_gudang * $gudang->tinggi_gudang) + $gudang->ruang_sisa;
 
             gudang::where('id_gudang',$id)
             ->update([
@@ -69,6 +74,7 @@ class GudangController extends Controller
                 'lebar_gudang' => $request->lebar,
                 'tinggi_gudang' => $request->tinggi,
                 'lokasi_gudang' => $request->lokasi,
+                'ruang_sisa'    => $sisa
             ]);
 
             $message = ["success" => "Gudang berhasil di edit!"];
