@@ -67,6 +67,9 @@ Usulan Pemasukan Barang
                 <tbody>
                     @if(!is_null($carts))
                         @foreach($carts as $key=>$c)
+                        @if($c['attributes']['role'] != 1)
+                            @continue
+                        @endif
                             <tr>
                                 <th class="text-center" scope="row">{!! $loop->iteration !!}</th>
                                 <td>{{ $c['name'] }}</td>

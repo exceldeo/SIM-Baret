@@ -40,34 +40,9 @@ class UsulanPemasukanController extends Controller
                         'tinggi'    => $request->tinggi,
                         'lokasi'    => $gudang->nama_gudang,
                         'id_gudang' => $request->gudang_id,
+                        'role'      => 1
                     ),
                 ]);
-                // Cart::instance('shopping')->add(date("ymdhis"), $request->nama, 0,0,[
-                //     'panjang'   => $request->panjang,
-                //     'lebar'     => $request->lebar,
-                //     'tinggi'    => $request->tinggi,
-                //     'lokasi'    => $gudang->nama_gudang,
-                //     'id_gudang' => $request->gudang_id,
-                // ]);
-                // $carts = Cart::getContent();
-                // dd($carts);
-                // Cart::add(array(
-                //     'id'        => date("ymdhis"),
-                //     'nama'      => $request->nama,
-                //     'panjang'   => $request->panjang,
-                //     'lebar'     => $request->lebar,
-                //     'tinggi'    => $request->tinggi,
-                //     'lokasi'    => $gudang->nama_gudang,
-                //     'id_gudang' => $request->gudang_id,
-                // ));
-                // $carts[date("ymdhis")] = [
-                //     'nama'      => $request->nama,
-                //     'panjang'   => $request->panjang,
-                //     'lebar'     => $request->lebar,
-                //     'tinggi'    => $request->tinggi,
-                //     'lokasi'    => $gudang->nama_gudang,
-                //     'id_gudang' => $request->gudang_id,
-                // ];
                 $message = ["success" => "Barang berhasil di tambahkan!"];
     
             } catch (\Throwable $th) {
