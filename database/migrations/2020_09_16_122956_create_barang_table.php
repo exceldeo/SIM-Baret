@@ -22,8 +22,8 @@ class CreateBarangTable extends Migration
             $table->float('tinggi_barang');
             $table->integer('catatan_id');
             $table->integer('status');
-            $table->string('nama_gudang');
-            $table->text('validasi_oleh')->nullable();
+            $table->string('nama_gudang')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

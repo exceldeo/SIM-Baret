@@ -17,9 +17,9 @@ class CreateCatatanTable extends Migration
             $table->increments('id_catatan');
             $table->dateTime('tanggal_catatan', 0);
             $table->integer('user_id_unit');
-            $table->integer('validasi_oleh');
+            $table->integer('validasi_oleh')->nullable();
             $table->integer('status');
-            $table->dateTime('tanggal_validasi', 0);
+            $table->dateTime('tanggal_validasi', 0)->nullable();
             $table->timestamps();
         });
     }

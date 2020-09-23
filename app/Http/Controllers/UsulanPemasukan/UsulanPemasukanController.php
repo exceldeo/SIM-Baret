@@ -5,6 +5,8 @@ namespace App\Http\Controllers\UsulanPemasukan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gudang\gudang;
+use App\Models\Catatan\Catatan;
+use App\Models\Barang\Barang;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 
 class UsulanPemasukanController extends Controller
@@ -67,10 +69,31 @@ class UsulanPemasukanController extends Controller
         }
         return redirect()->back()->with($message);
     }
-    public function save(Request $request)
+    public function save()
     {
         $message = "";
         try {
+            $catatan                    = new Catatan;
+            $catatan->tanggal_catatan   = date("Y-m-d h:i:s");
+            $catatan->user_id_unit      = 1;
+            $catatan->status            = 1;
+            $catatan->save();
+
+            $carts = Cart::getContent();
+
+            foreach($carts as $c){
+                $barang                     = new Barang;
+                $barang->barcode            = $c['id'];
+                $barang->nama_barang        = $c['name'];
+                $barang->panjang_barang     = $c['attributes']['panjang'];  
+                $barang->lebar_barang       = $c['attributes']['lebar'];
+                $barang->tinggi_barang      = $c['attributes']['tinggi'];       
+                $barang->catatan_id         = $catatan->id_catatan;  
+                $barang->status             = -1;  
+                $barang->nama_gudang        = $c['attributes']['id_gudang']; 
+                $barang->save();
+            }
+
             Cart::clear();
             $message = ["success" => "Usulan berhasil di simpan!"];
         } catch (\Throwable $th) {

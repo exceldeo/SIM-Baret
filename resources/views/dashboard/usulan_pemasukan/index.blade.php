@@ -102,7 +102,6 @@ Usulan Pemasukan Barang
                             action="{{route('dashboard.usulan_pemasukan.save')}}"
                             method="post">
                             @csrf
-                            <input type="hidden" name="id" value="1">
                             <button class="btn btn-its-primary">Simpan</button>
                         </form>
                     </div>

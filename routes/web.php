@@ -65,5 +65,21 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::delete('delete', 'UsulanPemasukan\UsulanPemasukanController@destroy')->name('delete');
     });
 
+    Route::prefix('validasi')->name('validasi.')->group(function () {
+        Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
+            Route::get('', 'Validasi\ValidasiPemasukanController@index')->name('index');
+            Route::get('{id_catatan}/show', 'Validasi\ValidasiPemasukanController@show')->name('show');
+            Route::post('save', 'Validasi\ValidasiPemasukanController@save')->name('save');
+        });
+    });
+
+    Route::prefix('catatan')->name('catatan.')->group(function () {
+        Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
+            Route::get('', 'Catatan\CatatanPemasukanController@index')->name('index');
+            Route::post('store', 'UsulanPemasukan\UsulanPemasukanController@store')->name('store');
+            Route::post('save', 'UsulanPemasukan\UsulanPemasukanController@save')->name('save');
+            Route::delete('delete', 'UsulanPemasukan\UsulanPemasukanController@destroy')->name('delete');
+        });
+    });
 
 });
