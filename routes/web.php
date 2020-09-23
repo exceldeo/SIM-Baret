@@ -76,9 +76,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::prefix('catatan')->name('catatan.')->group(function () {
         Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
             Route::get('', 'Catatan\CatatanPemasukanController@index')->name('index');
-            Route::post('store', 'UsulanPemasukan\UsulanPemasukanController@store')->name('store');
-            Route::post('save', 'UsulanPemasukan\UsulanPemasukanController@save')->name('save');
-            Route::delete('delete', 'UsulanPemasukan\UsulanPemasukanController@destroy')->name('delete');
+            Route::get('{id_catatan}/show', 'Catatan\CatatanPemasukanController@show')->name('show');
         });
     });
 

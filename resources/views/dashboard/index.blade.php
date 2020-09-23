@@ -66,7 +66,7 @@ Dashboard
                     </a>
                 </div>  
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.pemasukan.index')}}">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-book" style="color: #013880"></i></p>
                             <p class="" style="color: #013880">Usulan Penghapusan Barang</p>
@@ -82,7 +82,7 @@ Dashboard
                     </a>
                 </div> 
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.pemasukan.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-list" style="color: #013880"></i></p>
                             <p class="" style="color: #013880">Catatan Pemasukan</p>
