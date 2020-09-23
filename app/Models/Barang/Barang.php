@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
-    protected $table = 'scenario';
-    protected $primaryKey = 'scenario_id';
-    protected $guarded = ['scenario_id'];
+    protected $table = 'barang';
+    protected $primaryKey = 'id_barang';
+    protected $guarded = ['id_barang'];
 }
