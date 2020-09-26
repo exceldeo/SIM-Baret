@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Validasi Pemasukan
+Asset
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -9,7 +9,7 @@ Validasi Pemasukan
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.validasi.pemasukan.index')}}" class="breadcrumb-item active">Validasi Pemasukan</a>
+        <a href="{{route('dashboard.barang.index')}}" class="breadcrumb-item active">Asset</a>
     </nav>
 </div>
 @endsection
@@ -40,7 +40,7 @@ Validasi Pemasukan
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Daftar Usulan Pemasukan</div>
+                <div class="font-size-lg font-w600">Daftar Asset</div>
             </div>
             <div class="block-options">
             </div>
@@ -52,26 +52,32 @@ Validasi Pemasukan
                         <thead>
                             <tr>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
-                                <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Tanggal</th>
-                                <th class="text-center" style="width: 10%;">Action</th>
+                                <th class="d-none d-sm-table-cell text-center">Nama Asset</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 5%;">Volume</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Gudang</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Unit</th>
+                                <th class="text-center" style="width: 27%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!is_null($list))
-                                @foreach ($list as $l)
+                            @if(!is_null($assets))
+                                @foreach ($assets as $as)
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
+                                            <td class="d-none d-sm-table-cell">{!! $as->nama_barang !!}</td>
+                                            <td class="d-none d-sm-table-cell">{!! $as->panjang_barang * $as->lebar_barang * $as->tinggi_barang !!} m<sup>3</sup></td>
+                                            <td class="d-none d-sm-table-cell">{!! $as->nama_gudang !!}</td>
+                                            <td class="d-none d-sm-table-cell">{!! $as->unit !!}</td>
                                             <td>
-                                                <a href="{{route('dashboard.validasi.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
+                                                <a href="{{route('dashboard.barang.show', ['id_barang' => $as->id_master_barang])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                            class="si si-eye mr-1"></i> Detail</button>
+                                                            class="si si-eye mr-1"></i> Detail Asset </button>
                                                 </a>
-                                                
+                                                <a
+                                                    href="{{route('dashboard.gudang.show', ['id_gudang' => $as->id_gudang])}}">
+                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                            class="si si-eye mr-1"></i> Detail Gudang</button>
+                                                </a>
                                             </td>
                                         </tr>
                                 @endforeach

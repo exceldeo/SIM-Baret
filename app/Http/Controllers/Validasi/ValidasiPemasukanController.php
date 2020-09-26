@@ -53,6 +53,7 @@ class ValidasiPemasukanController extends Controller
                     'lebar_barang'      => $barang->lebar_barang,
                     'tinggi_barang'     => $barang->tinggi_barang,
                     'gudang_id'         => $barang->nama_gudang,
+                    'unit'              => "informatika",
                     'tanggal'           => date("Y-m-d h:i:s"),
                     'tervalidasi'       => 0
                 ]);
@@ -63,7 +64,7 @@ class ValidasiPemasukanController extends Controller
             $message = ["fail" => $th->getMessage()];
         }
 
-        return redirect()-route('dashboard.validasi.pemasukan.index')->with($message);
+        return redirect()->route('dashboard.validasi.pemasukan.index')->with($message);
         
     }
 

@@ -46,6 +46,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::prefix('barang')->name('barang.')->group(function () {
         Route::get('', 'Barang\BarangController@index')->name('index');
+        Route::get('{id_barang}/show', 'Barang\BarangController@show')->name('show');
     });
     
     Route::prefix('gudang')->name('gudang.')->group(function () {
