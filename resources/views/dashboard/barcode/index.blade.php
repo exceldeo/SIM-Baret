@@ -83,7 +83,7 @@ Scan Barcode
                 if (result) {
                     console.log(result.text)
                     document.getElementById('scanned-id').innerHTML = result.text
-                    var url = '{{ route("detail_item", ":id") }}';
+                    var url = '{{ route("dashboard.barang.detail", ":id") }}';
                     url = url.replace(':id', result.text);
                     console.log(url)
                     $('#view-detail-btn').attr("href", url);

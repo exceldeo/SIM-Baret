@@ -23,15 +23,20 @@ Scan Barcode
                 <!-- Detail card -->
                 <div class="card w-100">
                     <div class="card-header bg-light" style="padding: 10px">
-                        <h5 class="m-0 d-inline">
-                            <a class="text-dark" href="{{route('index')}}">
-                                <i class="fa fa-1x fa-arrow-circle-o-left pl-5"></i>
+                        <div class="m-0">
+                            <a href="{{route('dashboard.index')}}" id="arrow-back" class="d-inline">
+                                <button type="button" class="btn btn-sm btn-circle btn-secondary mr-5 mb-5">
+                                    <i class="fa fa-arrow-left"></i>
+                                </button>
                             </a>
-                                Detail Barang
-                        </h5>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-danger">+ Draft Penghapusan</button>
-                            <button class="btn btn-sm btn-primary">Edit</button>
+                            <div class="d-inline font-size-lg font-w600">
+                                    Detail Barang
+                            </div>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-danger d-sm-none">+</button>
+                                <button class="btn btn-sm btn-danger d-none d-sm-inline-block">+ Draft Penghapusan</button>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body bg-white p-5">

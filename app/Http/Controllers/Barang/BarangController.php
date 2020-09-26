@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Barang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
@@ -14,7 +15,8 @@ class BarangController extends Controller
      */
     public function index()
     {
-        
+        $results = DB::select('SELECT * from barang LEFT JOIN gudang ON barang.nama_gudang = gudang.id_gudang');
+        return view('dashboard.barang.index', ['results' => $results]);
     }
 
     /**
@@ -44,7 +46,7 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($barcode)
     {
         //
     }

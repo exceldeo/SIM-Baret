@@ -23,9 +23,6 @@ Route::get('scan', function () {
     return view('dashboard.barcode.index');
 })->name('scan');
 
-Route::get('detail_item/{id}', function ($id) {
-    return view('dashboard.barang.view', ['id' => $id]);
-})->name('detail_item');
 
 /* END Temporary route */
 
@@ -33,19 +30,22 @@ Route::get('login', 'User\UserController@login')->name('login');
 Route::post('authenticate', 'User\UserController@authenticate')->name('authenticate');
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
-
+    
     Route::get('/', function () {
         return view('dashboard.index');
     })->name('index');
 
     Route::get('logout', 'User\UserController@logout')->name('logout');
-
+    
     Route::get('scan', function () {
         return view('dashboard.barcode.index');
     })->name('scan');
-
+    
     Route::prefix('barang')->name('barang.')->group(function () {
         Route::get('', 'Barang\BarangController@index')->name('index');
+        Route::get('detail/{id}', function ($id) {
+            return view('dashboard.barang.view', ['id' => $id]);
+        })->name('detail');
     });
     
     Route::prefix('gudang')->name('gudang.')->group(function () {

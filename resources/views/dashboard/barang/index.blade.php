@@ -1,0 +1,227 @@
+@extends('dashboard.layouts.master')
+@section('title')
+Barang
+@endsection
+@section('css')
+<link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
+<style>
+table {
+  counter-reset: rowNumber;
+}
+table tr {
+  counter-increment: row-num;
+}
+.row-detail td:first-child::before {
+    content: counter(row-num);
+}
+</style>
+@endsection
+@section('breadcrumb')
+<div class="content">
+    <nav class="breadcrumb bg-white push">
+        <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
+        <a href="#" class="breadcrumb-item active">Barang</a>
+    </nav>
+</div>
+@endsection
+@section('main')
+
+<!-- Page Content -->
+<div class="content">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('fail'))
+        <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('fail') }}
+        </div>
+    @endif
+    <div class="block">
+        <div class="block-header block-header-default">
+            <div class="row">
+                <a href="{{route('dashboard.index')}}" id="arrow-back" style="padding: 0px 0px 0px 12px;">
+                    <button type="button" class="btn btn-sm btn-circle btn-secondary mr-5 mb-5">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </a>
+                <div class="font-size-lg font-w600">List Barang</div>
+            </div>
+        </div>
+        <div class="block-content">
+            <div class="row">
+                <div class="col-12" >
+                    <table id="barang_table" class="table table-striped text-dark w-100">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">No</th>
+                                <th style="width: 15%">Nama Barang</th>
+                                <th style="width: 10%">Panjang</th>
+                                <th style="width: 10%">Lebar</th>
+                                <th style="width: 10%">Tinggi</th>
+                                <th style="width: 15%">Lokasi</th>
+                                <th style="width: 40%" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @foreach ($results as $barang)
+                                        <tr class="row-detail">
+                                            <td></td>
+                                            <td>{{ $barang->nama_barang }}</td>
+                                            <td>{{ $barang->panjang_barang }}m</td>
+                                            <td>{{ $barang->lebar_barang }}m</td>
+                                            <td>{{ $barang->tinggi_barang }}m</td>
+                                            <td>{{ $barang->nama_gudang }}</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-archive d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Ke Gudang</span>
+                                                    </span>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-pencil d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Edit</span>
+                                                    </span>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-info d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Detail</span>
+                                                    </span>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-trash d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Usulan Hapus</span>
+                                                    </span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Page Content -->
+
+<!-- Edit Modal -->
+<div class="modal" id="modal-normal" tabindex="-1" role="dialog" aria-labelledby="modal-normal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Buat Gudang</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <form action="{{route('dashboard.gudang.store')}}" method="post">
+                @csrf
+                <div class="block-content">
+                    <div class="form-group row">
+                        <div class="col-md-11">
+                            <div class="form-material">
+                                <input autocomplete="off" type="text" 
+                                class="form-control" id="nama" name="nama" required>
+                                <label for="nama">Nama Gudang</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                class="form-control" id="panjang" name="panjang" required>
+                                <label for="panjang">Panjang Gudang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="lebar" name="lebar" required>
+                                <label for="lebar">Lebar Gudang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="tinggi" name="tinggi" required>
+                                <label for="tinggi">Tinggi Gudang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-11">
+                            <div class="form-material">
+                                <input autocomplete="off" type="text" 
+                                class="form-control" id="lokasi" name="lokasi" required>
+                                <label for="lokasi">Lokasi Gudang</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                            Tutup
+                        </button>
+                    <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
+                        <i class="fa fa-check"></i> Buat
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Edit Modal -->
+
+
+@endsection
+@section('js')
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = $('#barang_table').DataTable( {
+            "scrollX": true
+        } );
+    } );
+    // $('#myModal').on('show.bs.modal', function(e) {
+    //     var userid = $(e.relatedTarget).data('userid');
+    //     $(e.currentTarget).find('input[name="user_id"]').val(userid);
+    // });
+</script>
+@endsection
