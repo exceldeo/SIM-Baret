@@ -15,8 +15,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $results = DB::select('SELECT * from barang LEFT JOIN gudang ON barang.nama_gudang = gudang.id_gudang');
-        return view('dashboard.barang.index', ['results' => $results]);
+        $results = DB::select('SELECT * from master_barang LEFT JOIN gudang ON master_barang.gudang_id = gudang.id_gudang');
+        $gudangs = DB::select('SELECT * from gudang');
+        return view('dashboard.barang.index', ['results' => $results, 'gudangs' => $gudangs]);
     }
 
     /**
@@ -46,9 +47,19 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($barcode)
+    public function show($id)
     {
-        //
+        $result = DB::select(
+        "SELECT * from master_barang 
+        LEFT JOIN gudang ON master_barang.gudang_id = gudang.id_gudang
+        WHERE id_master_barang = ?",
+        array($id)
+        );
+
+        if(count($result) > 0)
+            return view('dashboard.barang.view', ['result' => $result[0]]);
+        else
+            return view('dashboard.barang.view');
     }
 
     /**
@@ -71,7 +82,29 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $query =
+        "BEGIN TRANSACTION;
+ 
+        UPDATE master_barang
+        SET nama_barang = ?, panjang_barang = ?, lebar_barang = ?, tinggi_barang = ?, gudang_id = ?
+        WHERE id_master_barang = ?;
+        
+        UPDATE barang
+        SET nama_barang = ?, panjang_barang = ?, lebar_barang = ?, tinggi_barang = ?, nama_gudang = ?
+        WHERE id_barang = ?;
+        
+        COMMIT;";
+
+        $values = array($request->nama, $request->panjang, $request->lebar, $request->tinggi, $request->gudang_id, $id);
+        try{
+            $result = DB::update($query, array_merge($values, $values));
+
+            $message = ["success" => "Barang berhasil diperbarui!"];
+        } catch (\Throwable $th) {
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->route('dashboard.barang.index')->with($message);
     }
 
     /**

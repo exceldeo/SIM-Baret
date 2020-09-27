@@ -80,24 +80,25 @@ table tr {
                                             <td>{{ $barang->tinggi_barang }}m</td>
                                             <td>{{ $barang->nama_gudang }}</td>
                                             <td class="text-center">
-                                                <button class="btn btn-sm btn-primary">
+                                                <a href="{{ route('dashboard.gudang.show', $barang->gudang_id) }}" class="btn btn-sm btn-its-primary">
                                                     <i class="fa fa-archive d-sm-none"></i>
                                                     <span class="d-none d-sm-inline-block">
                                                         <span>Ke Gudang</span>
                                                     </span>
-                                                </button>
-                                                <button class="btn btn-sm btn-primary">
+                                                </a>
+                                                <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
+                                                data-target="#modalEdit{{ $barang->id_master_barang }}">
                                                     <i class="fa fa-pencil d-sm-none"></i>
                                                     <span class="d-none d-sm-inline-block">
                                                         <span>Edit</span>
                                                     </span>
                                                 </button>
-                                                <button class="btn btn-sm btn-primary">
+                                                <a href="{{ route('dashboard.barang.show', $barang->id_master_barang) }}" class="btn btn-sm btn-its-primary">
                                                     <i class="fa fa-info d-sm-none"></i>
                                                     <span class="d-none d-sm-inline-block">
                                                         <span>Detail</span>
                                                     </span>
-                                                </button>
+                                                </a>
                                                 <button class="btn btn-sm btn-danger">
                                                     <i class="fa fa-trash d-sm-none"></i>
                                                     <span class="d-none d-sm-inline-block">
@@ -117,27 +118,30 @@ table tr {
 <!-- END Page Content -->
 
 <!-- Edit Modal -->
-<div class="modal" id="modal-normal" tabindex="-1" role="dialog" aria-labelledby="modal-normal" aria-hidden="true">
+@foreach ($results as $barang)
+<div class="modal" id="modalEdit{{ $barang->id_master_barang }}" tabindex="-1" role="dialog" aria-labelledby="modalEdit{{ $barang->id_master_barang }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="block block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Buat Gudang</h3>
+                    <h3 class="block-title">Edit Barang</h3>
                     <div class="block-options">
                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                             <i class="si si-close"></i>
                         </button>
                     </div>
                 </div>
-                <form action="{{route('dashboard.gudang.store')}}" method="post">
+                <form action="{{route('dashboard.barang.update', ['id_barang' => $barang->id_master_barang])}}" method="post">
+                @method('patch')
                 @csrf
                 <div class="block-content">
                     <div class="form-group row">
                         <div class="col-md-11">
                             <div class="form-material">
                                 <input autocomplete="off" type="text" 
-                                class="form-control" id="nama" name="nama" required>
-                                <label for="nama">Nama Gudang</label>
+                                class="form-control" id="nama" name="nama" required
+                                value="{{$barang->nama_barang}}">
+                                <label for="nama">Nama Barang</label>
                             </div>
                         </div>
                     </div>
@@ -145,8 +149,9 @@ table tr {
                         <div class="col-9">
                             <div class="form-material">
                                 <input autocomplete="off" type="number" step="any" 
-                                class="form-control" id="panjang" name="panjang" required>
-                                <label for="panjang">Panjang Gudang</label>
+                                class="form-control" id="panjang" name="panjang" required
+                                value="{{$barang->panjang_barang}}">
+                                <label for="panjang">Panjang Barang</label>
                             </div>
                         </div>
                         <div class="col-1">
@@ -159,8 +164,9 @@ table tr {
                         <div class="col-9">
                             <div class="form-material">
                                 <input autocomplete="off" type="number" step="any" 
-                                 class="form-control" id="lebar" name="lebar" required>
-                                <label for="lebar">Lebar Gudang</label>
+                                 class="form-control" id="lebar" name="lebar" required
+                                 value="{{$barang->lebar_barang}}">
+                                <label for="lebar">Lebar Barang</label>
                             </div>
                         </div>
                         <div class="col-1">
@@ -173,8 +179,9 @@ table tr {
                         <div class="col-9">
                             <div class="form-material">
                                 <input autocomplete="off" type="number" step="any" 
-                                 class="form-control" id="tinggi" name="tinggi" required>
-                                <label for="tinggi">Tinggi Gudang</label>
+                                 class="form-control" id="tinggi" name="tinggi" required
+                                 value="{{$barang->tinggi_barang}}">
+                                <label for="tinggi">Tinggi Barang</label>
                             </div>
                         </div>
                         <div class="col-1">
@@ -184,12 +191,17 @@ table tr {
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-11">
-                            <div class="form-material">
-                                <input autocomplete="off" type="text" 
-                                class="form-control" id="lokasi" name="lokasi" required>
-                                <label for="lokasi">Lokasi Gudang</label>
-                            </div>
+                        <label class="col-12" for="gudang_id">Lokasi Barang</label>
+                        <div class="col-lg-11">
+                            <select class="js-select2 form-control" id="gudang_id" name="gudang_id" style="width: 100%;">
+                                @foreach($gudangs as $gudang)
+                                @if($gudang->id_gudang == $barang->id_gudang)
+                                    <option value="{{$gudang->id_gudang}}" selected='selected'>{{ $gudang->nama_gudang }}</option>
+                                @else
+                                    <option value="{{$gudang->id_gudang}}">{{ $gudang->nama_gudang }}</option>
+                                @endif
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -198,7 +210,7 @@ table tr {
                             Tutup
                         </button>
                     <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
-                        <i class="fa fa-check"></i> Buat
+                        <i class="fa fa-check"></i> Perbarui
                     </button>
                 </div>
                 </form>
@@ -206,6 +218,7 @@ table tr {
         </div>
     </div>
 </div>
+@endforeach
 <!-- END Edit Modal -->
 
 

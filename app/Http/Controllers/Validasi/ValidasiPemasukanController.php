@@ -63,7 +63,7 @@ class ValidasiPemasukanController extends Controller
             $message = ["fail" => $th->getMessage()];
         }
 
-        return redirect()-route('dashboard.validasi.pemasukan.index')->with($message);
+        return redirect()->route('dashboard.validasi.pemasukan.index')->with($message);
         
     }
 
