@@ -15,10 +15,7 @@ class CreateUnitTable extends Migration
     {
         Schema::create('unit', function (Blueprint $table) {
             $table->increments('id_unit');
-            $table->string('code_unit');
             $table->string('nama_unit');
-            $table->integer('draft_id');
-            $table->integer('gudang_id');
             // $table->foreign('gudang_id')->references('id_gudang')->on('gudang');
             $table->timestamps();
         });
