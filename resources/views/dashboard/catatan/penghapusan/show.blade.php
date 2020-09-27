@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Catatan Pemasukan
+Catatan Penghapusan
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -9,8 +9,8 @@ Catatan Pemasukan
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.catatan.pemasukan.index')}}" class="breadcrumb-item">Catatan Pemasukan</a>
-        <a href="#" class="breadcrumb-item active">Detail Catatan Pemasukan</a>
+        <a href="{{route('dashboard.catatan.penghapusan.index')}}" class="breadcrumb-item">Catatan Penghapusan</a>
+        <a href="#" class="breadcrumb-item active">Detail Catatan Penghapusan</a>
     </nav>
 </div>
 @endsection

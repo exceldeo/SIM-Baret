@@ -67,12 +67,15 @@ Usulan Penghapusan Barang
                 </thead>
                 <tbody>
                     @if(!is_null($carts))
+                    @php
+                     $no = 1;
+                    @endphp
                         @foreach($carts as $key=>$c)
                         @if($c['attributes']['role'] != 2)
                             @continue
                         @endif
                             <tr>
-                                <th class="text-center" scope="row">{!! $loop->iteration !!}</th>
+                                <th class="text-center" scope="row">{!! $no++ !!}</th>
                                 <td>{{ $c['name'] }}</td>
                                 <td class="text-center">{{ $c['attributes']['panjang'] }} m</td>
                                 <td class="text-center">{{ $c['attributes']['lebar'] }} m</td>
@@ -81,7 +84,7 @@ Usulan Penghapusan Barang
                                 <td class="text-center">{{ $c['attributes']['lokasi'] }}</td>
                                 <td class="text-center">
                                     <form onclick="return confirm('Are you sure?')"
-                                        action="{{route('dashboard.usulan_pemasukan.delete')}}"
+                                        action="{{route('dashboard.usulan_penghapusan.delete')}}"
                                         method="post">
                                         @method('delete')
                                         @csrf
@@ -101,7 +104,7 @@ Usulan Penghapusan Barang
                 <div class="col-md-12">
                     <div class="form-group">
                         <form class="pull-right" onclick="return confirm('Are you sure?')"
-                            action="{{route('dashboard.usulan_pemasukan.save')}}"
+                            action="{{route('dashboard.usulan_penghapusan.save')}}"
                             method="post">
                             @csrf
                             <button class="btn btn-its-primary">Simpan</button>

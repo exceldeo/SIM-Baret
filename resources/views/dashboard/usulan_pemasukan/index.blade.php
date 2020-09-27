@@ -66,12 +66,15 @@ Usulan Pemasukan Barang
                 </thead>
                 <tbody>
                     @if(!is_null($carts))
+                    @php
+                     $no = 1;
+                    @endphp
                         @foreach($carts as $key=>$c)
                         @if($c['attributes']['role'] != 1)
                             @continue
                         @endif
                             <tr>
-                                <th class="text-center" scope="row">{!! $loop->iteration !!}</th>
+                                <th class="text-center" scope="row">{!! $no++ !!}</th>
                                 <td>{{ $c['name'] }}</td>
                                 <td class="text-center">{{ $c['attributes']['panjang'] }} m</td>
                                 <td class="text-center">{{ $c['attributes']['lebar'] }} m</td>

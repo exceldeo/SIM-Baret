@@ -79,12 +79,21 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('{id_catatan}/show', 'Validasi\ValidasiPemasukanController@show')->name('show');
             Route::post('save', 'Validasi\ValidasiPemasukanController@save')->name('save');
         });
+        Route::prefix('penghapusan')->name('penghapusan.')->group(function () {
+            Route::get('', 'Validasi\ValidasiPenghapusanController@index')->name('index');
+            Route::get('{id_catatan}/show', 'Validasi\ValidasiPenghapusanController@show')->name('show');
+            Route::post('save', 'Validasi\ValidasiPenghapusanController@save')->name('save');
+        });
     });
 
     Route::prefix('catatan')->name('catatan.')->group(function () {
         Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
             Route::get('', 'Catatan\CatatanPemasukanController@index')->name('index');
             Route::get('{id_catatan}/show', 'Catatan\CatatanPemasukanController@show')->name('show');
+        });
+        Route::prefix('penghapusan')->name('penghapusan.')->group(function () {
+            Route::get('', 'Catatan\CatatanPenghapusanController@index')->name('index');
+            Route::get('{id_catatan}/show', 'Catatan\CatatanPenghapusanController@show')->name('show');
         });
     });
 
