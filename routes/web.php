@@ -66,6 +66,13 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::delete('delete', 'UsulanPemasukan\UsulanPemasukanController@destroy')->name('delete');
     });
 
+    Route::prefix('usulan_penghapusan')->name('usulan_penghapusan.')->group(function () {
+        Route::get('', 'UsulanPenghapusan\UsulanPenghapusanController@index')->name('index');
+        Route::post('store', 'UsulanPenghapusan\UsulanPenghapusanController@store')->name('store');
+        Route::post('save', 'UsulanPenghapusan\UsulanPenghapusanController@save')->name('save');
+        Route::delete('delete', 'UsulanPenghapusan\UsulanPenghapusanController@destroy')->name('delete');
+    });
+
     Route::prefix('validasi')->name('validasi.')->group(function () {
         Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
             Route::get('', 'Validasi\ValidasiPemasukanController@index')->name('index');
