@@ -1,9 +1,20 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Asset
+Barang
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
+<style>
+table {
+  counter-reset: rowNumber;
+}
+table tr {
+  counter-increment: row-num;
+}
+.row-detail td:first-child::before {
+    content: counter(row-num);
+}
+</style>
 @endsection
 @section('breadcrumb')
 <div class="content">
@@ -40,58 +51,174 @@ Asset
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Daftar Asset</div>
-            </div>
-            <div class="block-options">
+                <div class="font-size-lg font-w600">List Barang</div>
             </div>
         </div>
         <div class="block-content">
-            <div class="row py-5">
-                <div class="col-12" style="padding-left: 20px;padding-right: 20px;">
-                    <table id="list_table" class="table table-striped table-bordered">
+            <div class="row">
+                <div class="col-12" >
+                    <table id="barang_table" class="table table-striped text-dark w-100">
                         <thead>
                             <tr>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
-                                <th class="d-none d-sm-table-cell text-center">Nama Asset</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 5%;">Volume</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Gudang</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Unit</th>
-                                <th class="text-center" style="width: 27%;">Action</th>
+                                <th style="width: 10%">No</th>
+                                <th style="width: 15%">Nama Asset</th>
+                                <th style="width: 10%">Panjang</th>
+                                <th style="width: 10%">Lebar</th>
+                                <th style="width: 10%">Tinggi</th>
+                                <th style="width: 15%">Lokasi</th>
+                                <th style="width: 40%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!is_null($assets))
-                                @foreach ($assets as $as)
-                                        <tr>
-                                            <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! $as->nama_barang !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! $as->panjang_barang * $as->lebar_barang * $as->tinggi_barang !!} m<sup>3</sup></td>
-                                            <td class="d-none d-sm-table-cell">{!! $as->nama_gudang !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! $as->unit !!}</td>
-                                            <td>
-                                                <a href="{{route('dashboard.barang.show', ['id_barang' => $as->id_master_barang])}}">
-                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                            class="si si-eye mr-1"></i> Detail Asset </button>
+                                @foreach ($results as $barang)
+                                        <tr class="row-detail">
+                                            <td></td>
+                                            <td>{{ $barang->nama_barang }}</td>
+                                            <td>{{ $barang->panjang_barang }}m</td>
+                                            <td>{{ $barang->lebar_barang }}m</td>
+                                            <td>{{ $barang->tinggi_barang }}m</td>
+                                            <td>{{ $barang->nama_gudang }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('dashboard.gudang.show', $barang->gudang_id) }}" class="btn btn-sm btn-its-primary">
+                                                    <i class="fa fa-archive d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Ke Gudang</span>
+                                                    </span>
                                                 </a>
-                                                <a
-                                                    href="{{route('dashboard.gudang.show', ['id_gudang' => $as->id_gudang])}}">
-                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                            class="si si-eye mr-1"></i> Detail Gudang</button>
+                                                <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
+                                                data-target="#modalEdit{{ $barang->id_master_barang }}">
+                                                    <i class="fa fa-pencil d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Edit</span>
+                                                    </span>
+                                                </button>
+                                                <a href="{{ route('dashboard.barang.show', $barang->id_master_barang) }}" class="btn btn-sm btn-its-primary">
+                                                    <i class="fa fa-info d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Detail</span>
+                                                    </span>
                                                 </a>
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-trash d-sm-none"></i>
+                                                    <span class="d-none d-sm-inline-block">
+                                                        <span>Usulan Hapus</span>
+                                                    </span>
+                                                </button>
                                             </td>
                                         </tr>
                                 @endforeach
-                            @endif
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="block-content block-content-full bg-body-light font-size-xs font-italic">
-        </div>
     </div>
 </div>
 <!-- END Page Content -->
+
+<!-- Edit Modal -->
+@foreach ($results as $barang)
+<div class="modal" id="modalEdit{{ $barang->id_master_barang }}" tabindex="-1" role="dialog" aria-labelledby="modalEdit{{ $barang->id_master_barang }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Edit Barang</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <form action="{{route('dashboard.barang.update', ['id_barang' => $barang->id_master_barang])}}" method="post">
+                @method('patch')
+                @csrf
+                <div class="block-content">
+                    <div class="form-group row">
+                        <div class="col-md-11">
+                            <div class="form-material">
+                                <input autocomplete="off" type="text" 
+                                class="form-control" id="nama" name="nama" required
+                                value="{{$barang->nama_barang}}">
+                                <label for="nama">Nama Barang</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                class="form-control" id="panjang" name="panjang" required
+                                value="{{$barang->panjang_barang}}">
+                                <label for="panjang">Panjang Barang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="lebar" name="lebar" required
+                                 value="{{$barang->lebar_barang}}">
+                                <label for="lebar">Lebar Barang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="tinggi" name="tinggi" required
+                                 value="{{$barang->tinggi_barang}}">
+                                <label for="tinggi">Tinggi Barang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12" for="gudang_id">Lokasi Barang</label>
+                        <div class="col-lg-11">
+                            <select class="js-select2 form-control" id="gudang_id" name="gudang_id" style="width: 100%;">
+                                @foreach($gudangs as $gudang)
+                                @if($gudang->id_gudang == $barang->id_gudang)
+                                    <option value="{{$gudang->id_gudang}}" selected='selected'>{{ $gudang->nama_gudang }}</option>
+                                @else
+                                    <option value="{{$gudang->id_gudang}}">{{ $gudang->nama_gudang }}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                            Tutup
+                        </button>
+                    <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
+                        <i class="fa fa-check"></i> Perbarui
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+<!-- END Edit Modal -->
 
 
 @endsection
@@ -100,8 +227,10 @@ Asset
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready(function() {
-        var table = $('#list_table').DataTable( {
+        var table = $('#barang_table').DataTable( {
+            "scrollX": true
         } );
     } );
+    
 </script>
 @endsection

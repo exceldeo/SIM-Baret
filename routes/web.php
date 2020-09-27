@@ -17,15 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     // return view('dashboard.index');
     return redirect()->route('dashboard.index');
-});
+})->name('index');
 
 Route::get('scan', function () {
-    return view('dashboard.scan');
+    return view('dashboard.barcode.index');
 })->name('scan');
 
-Route::get('detail_item/{id}', function ($id) {
-    return view('dashboard.detail_item', ['id' => $id]);
-})->name('detail_item');
 
 /* END Temporary route */
 
@@ -33,20 +30,22 @@ Route::get('login', 'User\UserController@login')->name('login');
 Route::post('authenticate', 'User\UserController@authenticate')->name('authenticate');
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
-
+    
     Route::get('/', function () {
         return view('dashboard.index');
     })->name('index');
 
     Route::get('logout', 'User\UserController@logout')->name('logout');
-
+    
     Route::get('scan', function () {
-        return view('dashboard.scan');
+        return view('dashboard.barcode.index');
     })->name('scan');
-
+    
     Route::prefix('barang')->name('barang.')->group(function () {
         Route::get('', 'Barang\BarangController@index')->name('index');
-        Route::get('{id_barang}/show', 'Barang\BarangController@show')->name('show');
+        Route::get('{id_barang}/detail', 'Barang\BarangController@show')->name('show');
+        Route::patch('{id_barang}/edit', 'Barang\BarangController@update')->name('update');
+
     });
     
     Route::prefix('gudang')->name('gudang.')->group(function () {
