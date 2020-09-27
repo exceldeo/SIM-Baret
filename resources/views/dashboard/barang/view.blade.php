@@ -18,7 +18,24 @@
 </div>
 @endsection
 @section('main')
+<!-- Page Content -->
 <div class="content">
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ session('success') }}
+    </div>
+    @endif
+    @if (session('fail'))
+    <div class="alert alert-danger alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ session('fail') }}
+    </div>
+    @endif
     <div class="block block-transparent">
         <div class="block-content">
             <div class="row push">
@@ -34,11 +51,47 @@
                             <div class="d-inline font-size-lg font-w600">
                                     Detail Barang
                             </div>
+                            @isset($result)
                             <div class="float-right">
-                                <button class="btn btn-sm btn-danger d-sm-none">+</button>
-                                <button class="btn btn-sm btn-danger d-none d-sm-inline-block">+ Draft Penghapusan</button>
-                                <button class="btn btn-sm btn-its-primary">Edit</button>
+                                @if($isin_draft)
+                                <form onclick="return confirm('Anda yakin menghapus barang dari usulan penghapusan?')"
+                                    action="{{route('dashboard.usulan_penghapusan.delete')}}"
+                                    method="post" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $result->barcode }}">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="fa fa-minus d-sm-none"></i>
+                                        <span class="d-none d-sm-inline-block">
+                                            <i class="fa fa-minus"></i>
+                                            <span> Usulan Hapus</span>
+                                        </span>
+                                    </button>
+                                </form>
+                                @else
+                                <form onclick="return confirm('Anda yakin menambah barang ke usulan penghapusan?')"
+                                    action="{{route('dashboard.usulan_penghapusan.store')}}"
+                                    method="post" class="d-inline">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $result->id_master_barang }}">
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fa fa-plus d-sm-none"></i>
+                                        <span class="d-none d-sm-inline-block">
+                                            <i class="fa fa-plus"></i>
+                                            <span> Usulan Hapus</span>
+                                        </span>
+                                    </button>
+                                </form>
+                                @endif
+                                <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
+                                data-target="#modalEdit">
+                                    <i class="fa fa-pencil d-sm-none"></i>
+                                    <span class="d-none d-sm-inline-block">
+                                        <span>Edit</span>
+                                    </span>
+                                </button>
                             </div>
+                            @endisset
                         </div>
                     </div>
                     <div class="card-body bg-white pt-5">
@@ -73,6 +126,109 @@
         </div>
     </div>
 </div>
+<!-- END Page Content -->
+
+<!-- Edit Modal -->
+<div class="modal" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Edit Barang</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <form action="{{route('dashboard.barang.update', ['id_barang' => $result->id_master_barang])}}" method="post">
+                @method('patch')
+                @csrf
+                <div class="block-content">
+                    <div class="form-group row">
+                        <div class="col-md-11">
+                            <div class="form-material">
+                                <input autocomplete="off" type="text" 
+                                class="form-control" id="nama" name="nama" required
+                                value="{{$result->nama_barang}}">
+                                <label for="nama">Nama Barang</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                class="form-control" id="panjang" name="panjang" required
+                                value="{{$result->panjang_barang}}">
+                                <label for="panjang">Panjang Barang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="lebar" name="lebar" required
+                                 value="{{$result->lebar_barang}}">
+                                <label for="lebar">Lebar Barang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input autocomplete="off" type="number" step="any" 
+                                 class="form-control" id="tinggi" name="tinggi" required
+                                 value="{{$result->tinggi_barang}}">
+                                <label for="tinggi">Tinggi Barang</label>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-material">
+                               <span> m </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12" for="gudang_id">Lokasi Barang</label>
+                        <div class="col-lg-11">
+                            <select class="js-select2 form-control" id="gudang_id" name="gudang_id" style="width: 100%;">
+                                @foreach($gudangs as $gudang)
+                                @if($gudang->id_gudang == $result->id_gudang)
+                                    <option value="{{$gudang->id_gudang}}" selected='selected'>{{ $gudang->nama_gudang }}</option>
+                                @else
+                                    <option value="{{$gudang->id_gudang}}">{{ $gudang->nama_gudang }}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                            Tutup
+                        </button>
+                    <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
+                        <i class="fa fa-check"></i> Perbarui
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Edit Modal -->
 
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
 <script type="text/javascript">

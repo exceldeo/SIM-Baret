@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Barang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
+
 
 class BarangController extends Controller
 {
@@ -12,7 +14,16 @@ class BarangController extends Controller
     {
         $results = DB::select('SELECT * from master_barang LEFT JOIN gudang ON master_barang.gudang_id = gudang.id_gudang');
         $gudangs = DB::select('SELECT * from gudang');
-        return view('dashboard.barang.index', ['results' => $results, 'gudangs' => $gudangs]);
+        $cart_items = Cart::getContent();
+        $del_carts = array();
+        foreach($cart_items as $key => $item)
+        {
+            if($item['attributes']['role'] != 2) continue;
+            array_push($del_carts, $key);
+        }
+
+        // return var_dump($del_carts);
+        return view('dashboard.barang.index', ['results' => $results, 'gudangs' => $gudangs, 'del_carts' => $del_carts]);
     }
 
     public function show($id)
@@ -23,12 +34,33 @@ class BarangController extends Controller
         WHERE id_master_barang = ?",
         array($id)
         );
+        $gudangs = DB::select('SELECT * from gudang');
 
         if(count($result) > 0)
-            return view('dashboard.barang.view', ['result' => $result[0]]);
+        {
+            $isin_draft = FALSE;
+            if(Cart::get($result[0]->barcode)){
+                $isin_draft = TRUE;
+            }
+            return view('dashboard.barang.view', ['result' => $result[0], 'isin_draft' => $isin_draft, 'gudangs' => $gudangs]);
+        }
         else
             return view('dashboard.barang.view');
     }
+
+    // check if record with following id exists
+    public function check($id)
+    {
+        $result['data'] = DB::select(
+        "SELECT * from master_barang 
+        WHERE id_master_barang = ?",
+        array($id)
+        );
+
+        echo json_encode($result);
+        exit;
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -72,7 +104,7 @@ class BarangController extends Controller
             $message = ["fail" => $th->getMessage()];
         }
 
-        return redirect()->route('dashboard.barang.index')->with($message);
+        return redirect()->back()->with($message);
     }
 
     /**

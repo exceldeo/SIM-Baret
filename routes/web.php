@@ -45,7 +45,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('', 'Barang\BarangController@index')->name('index');
         Route::get('{id_barang}/detail', 'Barang\BarangController@show')->name('show');
         Route::patch('{id_barang}/edit', 'Barang\BarangController@update')->name('update');
-
+        Route::get('{id_barang}/check','Barang\BarangController@update')->name('check');
     });
     
     Route::prefix('gudang')->name('gudang.')->group(function () {

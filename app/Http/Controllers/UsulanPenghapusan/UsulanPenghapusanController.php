@@ -42,7 +42,7 @@ class UsulanPenghapusanController extends Controller
                     'role'      => 2
                 ),
             ]);
-            $message = ["success" => "Barang berhasil di tambahkan!"];
+            $message = ["success" => "Barang berhasil ditambahkan ke Usulan Penghapusan!"];
 
         } catch (\Throwable $th) {
             $message = ["fail" => $th->getMessage()];
@@ -57,7 +57,7 @@ class UsulanPenghapusanController extends Controller
         try {
             Cart::remove($request->id);
 
-            $message = ["success" => "Barang berhasil di hapus!"];
+            $message = ["success" => "Barang berhasil dihapus dari Usulan Penghapusan!"];
 
         } catch (\Throwable $th) {
             $message = ["fail" => $th->getMessage()];

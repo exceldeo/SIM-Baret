@@ -82,7 +82,7 @@ table tr {
                                                 <a href="{{ route('dashboard.gudang.show', $barang->gudang_id) }}" class="btn btn-sm btn-its-primary">
                                                     <i class="fa fa-archive d-sm-none"></i>
                                                     <span class="d-none d-sm-inline-block">
-                                                        <span>Ke Gudang</span>
+                                                        <span>Gudang</span>
                                                     </span>
                                                 </a>
                                                 <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
@@ -98,12 +98,36 @@ table tr {
                                                         <span>Detail</span>
                                                     </span>
                                                 </a>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash d-sm-none"></i>
-                                                    <span class="d-none d-sm-inline-block">
-                                                        <span>Usulan Hapus</span>
-                                                    </span>
-                                                </button>
+                                                @if(in_array($barang->barcode, $del_carts))
+                                                <form onclick="return confirm('Anda yakin menghapus barang dari usulan penghapusan?')"
+                                                    action="{{route('dashboard.usulan_penghapusan.delete')}}"
+                                                    method="post" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $barang->barcode }}">
+                                                    <button class="btn btn-sm btn-warning">
+                                                        <i class="fa fa-minus d-sm-none"></i>
+                                                        <span class="d-none d-sm-inline-block">
+                                                            <i class="fa fa-minus"></i>
+                                                            <span> Usulan Hapus</span>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                                @else
+                                                <form onclick="return confirm('Anda yakin menambah barang ke usulan penghapusan?')"
+                                                    action="{{route('dashboard.usulan_penghapusan.store')}}"
+                                                    method="post" class="d-inline">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $barang->id_master_barang }}">
+                                                    <button class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash d-sm-none"></i>
+                                                        <span class="d-none d-sm-inline-block">
+                                                            <i class="fa fa-plus"></i>
+                                                            <span> Usulan Hapus</span>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                                @endif
                                             </td>
                                         </tr>
                                 @endforeach
