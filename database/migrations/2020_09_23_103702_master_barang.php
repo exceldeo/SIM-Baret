@@ -23,6 +23,7 @@ class MasterBarang extends Migration
             $table->integer('gudang_id');
             $table->dateTime('tanggal', 0);
             $table->integer('tervalidasi');
+            $table->string('unit');
             $table->integer('validasi_oleh')->nullable();
             $table->dateTime('tanggal_validasi', 0)->nullable();
             $table->timestamps();

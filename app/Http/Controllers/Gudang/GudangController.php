@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gudang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gudang\gudang;
+use App\Models\Barang\MasterBarang;
 
 class GudangController extends Controller
 {
@@ -47,7 +48,11 @@ class GudangController extends Controller
 
     public function show($id)
     {
-        
+        $d_gudang = gudang::where('id_gudang',$id)->first();
+        $as_gudang = MasterBarang::where('gudang_id',$id)->get();
+        // dd($as_gudang);
+
+        return view('dashboard.gudang.show',compact('d_gudang','as_gudang'));
     }
 
     public function update(Request $request, $id)

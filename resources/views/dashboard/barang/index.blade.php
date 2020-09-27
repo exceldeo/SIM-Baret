@@ -20,12 +20,11 @@ table tr {
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="#" class="breadcrumb-item active">Barang</a>
+        <a href="{{route('dashboard.barang.index')}}" class="breadcrumb-item active">Asset</a>
     </nav>
 </div>
 @endsection
 @section('main')
-
 <!-- Page Content -->
 <div class="content">
     @if (session('success'))
@@ -62,7 +61,7 @@ table tr {
                         <thead>
                             <tr>
                                 <th style="width: 10%">No</th>
-                                <th style="width: 15%">Nama Barang</th>
+                                <th style="width: 15%">Nama Asset</th>
                                 <th style="width: 10%">Panjang</th>
                                 <th style="width: 10%">Lebar</th>
                                 <th style="width: 10%">Tinggi</th>
@@ -232,9 +231,6 @@ table tr {
             "scrollX": true
         } );
     } );
-    // $('#myModal').on('show.bs.modal', function(e) {
-    //     var userid = $(e.relatedTarget).data('userid');
-    //     $(e.currentTarget).find('input[name="user_id"]').val(userid);
-    // });
+    
 </script>
 @endsection

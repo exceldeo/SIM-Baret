@@ -90,6 +90,7 @@ class UsulanPemasukanController extends Controller
                 $barang->tinggi_barang      = $c['attributes']['tinggi'];       
                 $barang->catatan_id         = $catatan->id_catatan;  
                 $barang->status             = -1;  
+                $barang->unit               = "informatika";  
                 $barang->nama_gudang        = $c['attributes']['id_gudang']; 
                 $barang->save();
             }

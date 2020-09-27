@@ -59,6 +59,7 @@ Validasi Pemasukan
                             </tr>
                         </thead>
                         <tbody>
+                            @if(!is_null($list))
                                 @foreach ($list as $l)
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
@@ -74,6 +75,7 @@ Validasi Pemasukan
                                             </td>
                                         </tr>
                                 @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
