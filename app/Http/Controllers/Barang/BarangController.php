@@ -26,13 +26,13 @@ class BarangController extends Controller
         return view('dashboard.barang.index', ['results' => $results, 'gudangs' => $gudangs, 'del_carts' => $del_carts]);
     }
 
-    public function show($id)
+    public function show($barcode)
     {
         $result = DB::select(
         "SELECT * from master_barang 
         LEFT JOIN gudang ON master_barang.gudang_id = gudang.id_gudang
-        WHERE id_master_barang = ?",
-        array($id)
+        WHERE barcode = ?",
+        array($barcode)
         );
         $gudangs = DB::select('SELECT * from gudang');
 
@@ -48,13 +48,13 @@ class BarangController extends Controller
             return view('dashboard.barang.view');
     }
 
-    // check if record with following id exists
-    public function check($id)
+    // check if record with following barcode exists
+    public function check($barcode)
     {
         $result['data'] = DB::select(
         "SELECT * from master_barang 
-        WHERE id_master_barang = ?",
-        array($id)
+        WHERE barcode = ?",
+        array($barcode)
         );
 
         echo json_encode($result);

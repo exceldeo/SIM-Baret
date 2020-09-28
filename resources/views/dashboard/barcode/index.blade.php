@@ -58,9 +58,12 @@ Scan Barcode
                     </div>
                 </div>
                 <div class="block-content text-center">
-                <h5 class="p-5">ID Barang:</h5>
-                <h3 id="scanned-id" class="p-5"></h3>
-                <a id="view-detail-btn" class="btn btn-info mb-5">Lihat detail</a>
+                    <h5 class="p-5">ID Barang:</h5>
+                    <h3 id="scanned-id" class="p-5"></h3>
+                    <div class="d-block text-center">
+                        <a id="valid-btn" class="btn btn-success mb-5 text-light" style="display:none;">Validasi</a>
+                    <div>
+                    <a id="view-detail-btn" class="btn btn-info mb-5" style="display:none;">Lihat detail</a>
                 </div>
             </div>
         </div>
@@ -71,6 +74,7 @@ Scan Barcode
 @endsection
 @section('js')
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script type="text/javascript">
     window.addEventListener('load', function () {
 
@@ -87,6 +91,7 @@ Scan Barcode
                     url = url.replace(':id', result.text);
                     console.log(url)
                     $('#view-detail-btn').attr("href", url);
+                    fetchRecords(result.text);
                     $('#modal-normal3').modal('show'); 
                 }
                 if (err && !(err instanceof ZXing.NotFoundException)) {
@@ -141,6 +146,31 @@ Scan Barcode
             .catch((err) => {
                 console.error(err)
             })
+
+        function fetchRecords(barcode){
+            console.log('fetch');
+            var uri = '{{ route("dashboard.barang.check", ":barcode") }}';
+            uri = uri.replace(':barcode', barcode);
+            console.log('uri', uri);
+            $.ajax({
+                url: uri,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if(response['data'].length != 0)
+                    {
+                        console.log('show');
+                        $('#view-detail-btn').show();
+                        $('#valid-btn').show();
+                    }
+                },
+                error: function(jqXHR, exception) {
+                    console.log(jqXHR.status);
+                    console.log(exception);
+                }
+            })
+
+        }
     })
 </script>
 @endsection
