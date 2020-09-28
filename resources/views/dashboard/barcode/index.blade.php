@@ -60,6 +60,13 @@ Scan Barcode
                 <div class="block-content text-center">
                     <h5 class="p-5">ID Barang:</h5>
                     <h3 id="scanned-id" class="p-5"></h3>
+                    <div id="detail-barang" class="text-center" style="display:none">
+                        <h5 class="p-0">Nama Barang:</h5>
+                        <h5 class="p-0" id="nama-barang"></h5>
+                        <h5 class="p-0">Lokasi:</h5>
+                        <h5 class="p-0" id="lokasi-barang"></h5>
+                    </div>
+
                     <div class="d-block text-center">
                         <a id="valid-btn" class="btn btn-success mb-5 text-light" style="display:none;">Validasi</a>
                     <div>
@@ -85,12 +92,7 @@ Scan Barcode
             console.log('start')
             codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
                 if (result) {
-                    console.log(result.text)
                     document.getElementById('scanned-id').innerHTML = result.text
-                    var url = '{{ route("dashboard.barang.show", ":id") }}';
-                    url = url.replace(':id', result.text);
-                    console.log(url)
-                    $('#view-detail-btn').attr("href", url);
                     fetchRecords(result.text);
                     $('#modal-normal3').modal('show'); 
                 }
@@ -159,9 +161,22 @@ Scan Barcode
                 success: function(response){
                     if(response['data'].length != 0)
                     {
-                        console.log('show');
+                        var url = '{{ route("dashboard.barang.show", ":id") }}';
+                        url = url.replace(':id', response['data'][0]['id_master_barang']);
+                        $('#view-detail-btn').attr("href", url);
+
+                        $('#nama-barang').html(response['data'][0]['nama_barang']);
+                        $('#lokasi-barang').html(response['data'][0]['nama_gudang']);
+
+                        $('#detail-barang').show();
                         $('#view-detail-btn').show();
                         $('#valid-btn').show();
+                    }
+                    else
+                    {
+                        $('#detail-barang').hide();
+                        $('#view-detail-btn').hide();
+                        $('#valid-btn').hide();
                     }
                 },
                 error: function(jqXHR, exception) {

@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Gudang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Gudang\gudang;
-use App\Models\Barang\MasterBarang;
+use Illuminate\Support\Facades\DB;
 
 class GudangController extends Controller
 {
     public function index()
     {
-        $gudang = gudang::all();
-        // dd($gudang);
+        $gudang = DB::select("SELECT * from gudang");
         return view('dashboard.gudang.index',compact('gudang'));
     }
 
@@ -29,14 +27,13 @@ class GudangController extends Controller
         $message = "";
         try {
             $sisa = $request->panjang * $request->lebar * $request->tinggi;
-            gudang::create([
-                'nama_gudang' => $request->nama,
-                'panjang_gudang' => $request->panjang,
-                'lebar_gudang' => $request->lebar,
-                'tinggi_gudang' => $request->tinggi,
-                'lokasi_gudang' => $request->lokasi,
-                'ruang_sisa'    => $sisa
-            ]);
+            
+            DB::insert(
+                "
+                INSERT INTO gudang
+                (nama_gudang, panjang_gudang, lebar_gudang, tinggi_gudang, lokasi_gudang, ruang_sisa)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ", array($request->nama, $request->panjang, $request->lebar, $request->tinggi, $request->lokasi, $sisa));
 
             $message = ["success" => "Gudang berhasil di buat!"];
         } catch (\Throwable $th) {
@@ -48,16 +45,23 @@ class GudangController extends Controller
 
     public function show($id)
     {
-        $d_gudang = gudang::where('id_gudang',$id)->first();
-        $as_gudang = MasterBarang::where('gudang_id',$id)->get();
-        // dd($as_gudang);
+        $d_gudang = DB::select(
+            "
+            SELECT * from gudang
+            WHERE id_gudang = ?
+            ", array($id))[0];
+
+        $as_gudang = DB::select(
+            "
+            SELECT * from master_barang
+            WHERE gudang_id = ?
+            ", array($id));
 
         return view('dashboard.gudang.show',compact('d_gudang','as_gudang'));
     }
 
     public function update(Request $request, $id)
     {
-        // dd($request);
         $request->validate([
             'nama' => 'required',
             'panjang' => 'required',
@@ -68,20 +72,20 @@ class GudangController extends Controller
 
         $message = "";
         try {
-            $gudang = gudang::where('id_gudang',$id)->first();
-            // dd($request->panjang * $request->lebar * $request->tinggi,$gudang->panjang_gudang * $gudang->lebar_gudang * $gudang->tinggi_gudang,$gudang->ruang_sisa);
+            $gudang = DB::select("SELECT * from gudang WHERE id_gudang = ?", [$id])[0];
             $sisa = ($request->panjang * $request->lebar * $request->tinggi) - ($gudang->panjang_gudang * $gudang->lebar_gudang * $gudang->tinggi_gudang) + $gudang->ruang_sisa;
 
-            gudang::where('id_gudang',$id)
-            ->update([
-                'nama_gudang' => $request->nama,
-                'panjang_gudang' => $request->panjang,
-                'lebar_gudang' => $request->lebar,
-                'tinggi_gudang' => $request->tinggi,
-                'lokasi_gudang' => $request->lokasi,
-                'ruang_sisa'    => $sisa
-            ]);
-
+            DB::update(
+                "
+                UPDATE gudang SET
+                nama_gudang = ?,
+                panjang_gudang = ?,
+                lebar_gudang = ?,
+                tinggi_gudang = ?,
+                lokasi_gudang = ?,
+                ruang_sisa = ?
+                WHERE id_gudang = ?
+                ", array($request->nama, $request->panjang, $request->lebar, $request->tinggi, $request->lokasi, $sisa, $id));
             $message = ["success" => "Gudang berhasil di edit!"];
         } catch (\Throwable $th) {
             $message = ["fail" => $th->getMessage()];
@@ -94,7 +98,7 @@ class GudangController extends Controller
     {
         $message = "";
         try {
-            gudang::where('id_gudang',$id)->first()->delete();
+            DB::delete("DELETE from gudang WHERE id_gudang = ?", [$id]);
 
             $message = ["success" => "Gudang berhasil di hapus!"];
         } catch (\Throwable $th) {

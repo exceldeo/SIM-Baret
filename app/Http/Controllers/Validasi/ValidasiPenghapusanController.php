@@ -4,49 +4,51 @@ namespace App\Http\Controllers\Validasi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Catatan\Catatan;
-use App\Models\Barang\Barang;
-use App\Models\Barang\MasterBarang;
-use App\Models\Gudang\gudang;
+use Illuminate\Support\Facades\DB;
 
 class ValidasiPenghapusanController extends Controller
 {
     public function index()
     {
-        $list = Catatan::where('status',3)->join('users','users.id','=','catatan.user_id_unit')->get();
-        // dd($list);
+        $list = DB::select(
+            "
+            SELECT * from catatan
+            JOIN users ON users.id = catatan.user_id_unit
+            WHERE status = 3
+            ");
+
         return view('dashboard.validasi.penghapusan.index',compact('list'));
     }
 
     public function show($id_catatan)
     {
-        $catatan = Catatan::where('id_catatan',$id_catatan)->join('users','users.id','=','catatan.user_id_unit')->first();
-        $barang = Barang::where('catatan_id',$id_catatan)->join('gudang','gudang.id_gudang','=','barang.nama_gudang')->get();
-        // dd($barang);
+        $catatan = DB::select(
+            "
+            SELECT * from catatan
+            JOIN users ON users.id = catatan.user_id_unit
+            WHERE id_catatan = ?
+            ", [$id_catatan])[0];
 
+        $barang = DB::select(
+            "
+            SELECT * from barang
+            JOIN gudang ON gudang.id_gudang = barang.nama_gudang
+            WHERE catatan_id = ?
+            ", [$id_catatan]);
+    
         return view('dashboard.validasi.penghapusan.show',compact('catatan','barang'));
     }
 
     public function save(Request $request)
     {
-        // dd($request);
         $message = "";
         try {
-
-            Catatan::where('id_catatan',$request->id_catatan)
-                    ->update([
-                        'status' => 4,
-                    ]);
+            DB::update("UPDATE catatan set status = 4 WHERE id_catatan = ?", [$request->id_catatan]);
             foreach($request->row as $key => $row){
-                Barang::where('id_barang',$key)
-                        ->update([
-                            'status' => 1,
-                        ]);
+                DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
 
-                $barang = Barang::where('id_barang',$key)->first();
-                // dd($barang);
-                MasterBarang::where('barcode',$barang->barcode)->first()->delete();
-
+                $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];
+                DB::delete("DELETE from master_barang WHERE barcode = ?", [$barang->barcode]);
                 // MasterBarang::create([
                 //     'nama_barang'       => $barang->nama_barang,
                 //     'barcode'           => $barang->barcode,

@@ -4,20 +4,20 @@ namespace App\Http\Controllers\UsulanPenghapusan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Gudang\gudang;
-use App\Models\Catatan\Catatan;
-use App\Models\Barang\Barang;
-use App\Models\Barang\MasterBarang;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
+use Illuminate\Support\Facades\DB;
 
 class UsulanPenghapusanController extends Controller
 {
     public function index()
     {
-        $gudang = gudang::all();
-        $assets = MasterBarang::join('gudang','gudang.id_gudang','=','master_barang.gudang_id')->get();
+        $gudang = DB::select("SELECT * from gudang");
+        $assets = DB::select(
+            "
+            SELECT * from master_barang
+            JOIN gudang ON gudang.id_gudang = master_barang.gudang_id
+            ");
         $carts = Cart::getContent();
-        // dd($assets);
 
         return view('dashboard.usulan_penghapusan.index',compact('carts','assets'));
     }
@@ -26,7 +26,13 @@ class UsulanPenghapusanController extends Controller
     {
         $message = "";
         try {
-            $asset = MasterBarang::where('id_master_barang',$request->id)->join('gudang','gudang.id_gudang','=','master_barang.gudang_id')->first();
+            $asset = DB::select(
+                "
+                SELECT * from master_barang
+                JOIN gudang ON gudang.id_gudang = master_barang.gudang_id
+                WHERE id_master_barang = ?
+                ", [$request->id])[0];
+
             Cart::add([
                 'id'        => $asset->barcode,
                 'name'      => $asset->nama_barang,
@@ -68,11 +74,12 @@ class UsulanPenghapusanController extends Controller
     {
         $message = "";
         try {
-            $catatan                    = new Catatan;
-            $catatan->tanggal_catatan   = date("Y-m-d h:i:s");
-            $catatan->user_id_unit      = 1;
-            $catatan->status            = 3;
-            $catatan->save();
+            
+            $id = DB::table('catatan')->insertGetId([
+                'tanggal_catatan' => date("Y-m-d h:i:s"),
+                'user_id_unit' => 1,
+                'status' => 3
+            ]);
 
             $carts = Cart::getContent();
 
@@ -80,17 +87,14 @@ class UsulanPenghapusanController extends Controller
                 if($c['attributes']['role'] == 1){
                     continue;
                 }
-                $barang                     = new Barang;
-                $barang->barcode            = $c['id'];
-                $barang->nama_barang        = $c['name'];
-                $barang->panjang_barang     = $c['attributes']['panjang'];  
-                $barang->lebar_barang       = $c['attributes']['lebar'];
-                $barang->tinggi_barang      = $c['attributes']['tinggi'];       
-                $barang->catatan_id         = $catatan->id_catatan;  
-                $barang->status             = -1;  
-                $barang->unit               = $c['attributes']['unit'];  
-                $barang->nama_gudang        = $c['attributes']['id_gudang']; 
-                $barang->save();
+                
+                DB::insert(
+                    "
+                    INSERT INTO barang
+                    (barcode, nama_barang, panjang_barang, lebar_barang, tinggi_barang, catatan_id, status, unit, nama_gudang)
+                    VALUES (?, ?, ?, ?, ?, ?, -1, ?, ?)
+                    ", array($c['id'], $c['name'], $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
+                $id, $c['attributes']['unit'], $c['attributes']['id_gudang']));
             }
 
             Cart::clear();

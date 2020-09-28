@@ -4,23 +4,37 @@ namespace App\Http\Controllers\Catatan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Catatan\Catatan;
-use App\Models\Barang\Barang;
+use Illuminate\Support\Facades\DB;
 
 class CatatanPenghapusanController extends Controller
 {
     public function index()
     {
-        $list = Catatan::where('status',4)->join('users','users.id','=','catatan.user_id_unit')->get();
-        // dd($list);
+        $list = DB::select(
+        "
+        SELECT * from catatan
+        JOIN users ON users.id = catatan.user_id_unit
+        WHERE status = 4
+        ");
+
         return view('dashboard.catatan.penghapusan.index',compact('list'));
     }
 
     public function show($id_catatan)
     {
-        $catatan = Catatan::where('id_catatan',$id_catatan)->join('users','users.id','=','catatan.user_id_unit')->first();
-        $barang = Barang::where('catatan_id',$id_catatan)->join('gudang','gudang.id_gudang','=','barang.nama_gudang')->get();
-        // dd($barang);
+        $catatan = DB::select(
+        "
+        SELECT * from catatan
+        JOIN users ON users.id = catatan.user_id_unit
+        WHERE id_catatan = ?
+        ", array($id_catatan))[0];
+    
+        $barang = DB::select(
+        "
+        SELECT * from barang
+        JOIN gudang ON gudang.id_gudang = barang.nama_gudang
+        WHERE catatan_id = ?
+        ", array($id_catatan));
 
         return view('dashboard.catatan.penghapusan.show',compact('catatan','barang'));
     }

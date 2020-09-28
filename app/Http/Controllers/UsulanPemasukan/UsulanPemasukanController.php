@@ -4,19 +4,16 @@ namespace App\Http\Controllers\UsulanPemasukan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Gudang\gudang;
-use App\Models\Catatan\Catatan;
-use App\Models\Barang\Barang;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
+use Illuminate\Support\Facades\DB;
 
 class UsulanPemasukanController extends Controller
 {
 
     public function index()
     {
-        $gudang = gudang::all();
+        $gudang = DB::select("SELECT * from gudang");
         $carts = Cart::getContent();
-        // dd($carts);
 
         return view('dashboard.usulan_pemasukan.index',compact('carts','gudang'));
     }
@@ -24,7 +21,7 @@ class UsulanPemasukanController extends Controller
     public function store(Request $request)
     {
         $message = "";
-        $gudang = gudang::find($request->gudang_id);
+        $gudang = DB::select("SELECT * from gudang WHERE id_gudang = ?", [$request->gudang_id])[0];
         
         if($gudang->ruang_sisa <  ($request->panjang * $request->lebar * $request->tinggi)){
             $message = ["fail" => "Gudang melebihi kapasitas"];
@@ -73,29 +70,37 @@ class UsulanPemasukanController extends Controller
     {
         $message = "";
         try {
-            $catatan                    = new Catatan;
-            $catatan->tanggal_catatan   = date("Y-m-d h:i:s");
-            $catatan->user_id_unit      = 1;
-            $catatan->status            = 1;
-            $catatan->save();
 
+            $id = DB::table('catatan')->insertGetId([
+                'tanggal_catatan' => date("Y-m-d h:i:s"),
+                'user_id_unit' => 1,
+                'status' => 1
+            ]);
             $carts = Cart::getContent();
 
             foreach($carts as $c){
                 if($c['attributes']['role'] == 2){
                     continue;
                 }
-                $barang                     = new Barang;
-                $barang->barcode            = $c['id'];
-                $barang->nama_barang        = $c['name'];
-                $barang->panjang_barang     = $c['attributes']['panjang'];  
-                $barang->lebar_barang       = $c['attributes']['lebar'];
-                $barang->tinggi_barang      = $c['attributes']['tinggi'];       
-                $barang->catatan_id         = $catatan->id_catatan;  
-                $barang->status             = -1;  
-                $barang->unit               = "informatika";  
-                $barang->nama_gudang        = $c['attributes']['id_gudang']; 
-                $barang->save();
+                // $barang                     = new Barang;
+                // $barang->barcode            = $c['id'];
+                // $barang->nama_barang        = $c['name'];
+                // $barang->panjang_barang     = $c['attributes']['panjang'];  
+                // $barang->lebar_barang       = $c['attributes']['lebar'];
+                // $barang->tinggi_barang      = $c['attributes']['tinggi'];       
+                // $barang->catatan_id         = $catatan->id_catatan;  
+                // $barang->status             = -1;  
+                // $barang->unit               = "informatika";  
+                // $barang->nama_gudang        = $c['attributes']['id_gudang']; 
+                // $barang->save();
+
+                DB::insert(
+                    "
+                    INSERT INTO barang
+                    (barcode, nama_barang, panjang_barang, lebar_barang, tinggi_barang, catatan_id, status, unit, nama_gudang)
+                    VALUES (?, ?, ?, ?, ?, ?, -1, 'informatika', ?)
+                    ", array($c['id'], $c['name'], $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
+                $id, $c['attributes']['id_gudang']));
             }
 
             Cart::clear();

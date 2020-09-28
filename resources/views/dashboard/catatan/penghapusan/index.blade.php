@@ -66,7 +66,7 @@ Catatan Penghapusan
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
                                             <td>
-                                                <a href="{{route('dashboard.catatan.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
+                                                <a href="{{route('dashboard.catatan.penghapusan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-eye mr-1"></i> Detail</button>
                                                 </a>
