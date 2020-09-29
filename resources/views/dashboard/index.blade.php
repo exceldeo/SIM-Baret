@@ -76,8 +76,16 @@ Dashboard
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.validasi.penghapusan.index')}}">
                         <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-folder" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Validasi Laporan Penghapusan</p>
+                        </div>
+                    </a>
+                </div> 
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.validasi.penghapusan.index')}}">
+                        <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-check-square" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Validasi Laporan penghapusan</p>
+                            <p class="" style="color: #013880">Validasi Laporan Penghapusan Unit</p>
                         </div>
                     </a>
                 </div> 

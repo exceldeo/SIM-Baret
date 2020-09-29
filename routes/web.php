@@ -82,6 +82,11 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('', 'Validasi\ValidasiPenghapusanController@index')->name('index');
             Route::get('{id_catatan}/show', 'Validasi\ValidasiPenghapusanController@show')->name('show');
             Route::post('save', 'Validasi\ValidasiPenghapusanController@save')->name('save');
+            Route::prefix('unit')->name('unit.')->group(function () {
+                Route::get('', 'Validasi\ValidasiPenghapusanController@indexunit')->name('index');
+                Route::get('{id_catatan}/show', 'Validasi\ValidasiPenghapusanController@showunit')->name('show');
+                Route::post('save', 'Validasi\ValidasiPenghapusanController@saveunit')->name('save');
+            });
         });
     });
 
