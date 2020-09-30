@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCatatanTable extends Migration
+class CreateFileCatatan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateCatatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('catatan', function (Blueprint $table) {
-            $table->increments('id_catatan');
-            $table->dateTime('tanggal_catatan', 0);
-            $table->string('unit');
-            $table->integer('user_id_unit');
-            $table->integer('validasi_oleh')->nullable();
+        Schema::create('file_catatan', function (Blueprint $table) {
+            $table->increments('id_file_catatan');
+            $table->integer('catatan_id');
+            $table->string('alamat');
             $table->integer('status');
             $table->dateTime('tanggal_validasi', 0)->nullable();
             $table->timestamps();
@@ -32,6 +30,6 @@ class CreateCatatanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catatan');
+        Schema::dropIfExists('file_catatan');
     }
 }
