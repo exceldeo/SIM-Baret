@@ -54,8 +54,9 @@ Validasi Pemasukan
                                 <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
                                 <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Tanggal</th>
-                                <th class="text-center" style="width: 10%;">Action</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Waktu</th>
+                                <th class="text-center" style="width: 22%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +67,12 @@ Validasi Pemasukan
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
                                             <td>
+                                                <a href="{{route('dashboard.validasi.pemasukan.print', ['id_catatan' => $l->id_catatan])}}" target="_blank">
+                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                            class="si si-printer mr-1"></i>Print Detail</button>
+                                                </a>
                                                 <a href="{{route('dashboard.validasi.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-eye mr-1"></i> Detail</button>

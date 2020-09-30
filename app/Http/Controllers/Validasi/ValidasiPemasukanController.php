@@ -16,10 +16,10 @@ class ValidasiPemasukanController extends Controller
             JOIN users ON users.id = catatan.user_id_unit
             WHERE status = 1
             ");
-
+            
         return view('dashboard.validasi.pemasukan.index',compact('list'));
     }
-
+    
     public function show($id_catatan)
     {
         $catatan = DB::select(
@@ -28,14 +28,13 @@ class ValidasiPemasukanController extends Controller
             JOIN users ON users.id = catatan.user_id_unit
             WHERE id_catatan = ?
             ", [$id_catatan])[0];
-
         $barang = DB::select(
             "
             SELECT * from barang
             JOIN gudang ON gudang.id_gudang = barang.nama_gudang
             WHERE catatan_id = ?
             ", [$id_catatan]);
-
+            // dd($barang);
         return view('dashboard.validasi.pemasukan.show',compact('catatan','barang'));
     }
 
@@ -48,14 +47,24 @@ class ValidasiPemasukanController extends Controller
                 DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
 
                 $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];
-                
+                // dd($barang);
                 DB::insert(
                     "
                     INSERT INTO master_barang
-                    (nama_barang, barcode, panjang_barang, lebar_barang, tinggi_barang, gudang_id, unit, tanggal, tervalidasi)
-                    VALUES (?, ?, ?, ?, ?, ?, 'informatika', ?, 0)
+                    (nama_barang, barcode, panjang_barang, lebar_barang, tinggi_barang, gudang_id, unit, tanggal, tervalidasi, 
+                    nup, tanggal_peroleh, merk_type, nilai_barang, jumlah, kondisi)
+                    VALUES (?, ?, ?, ?, ?, ?, 'informatika', ?, 0, ?, ?, ?, ?, ?, ?)
                     ", array($barang->nama_barang, $barang->barcode, $barang->panjang_barang, $barang->lebar_barang, $barang->tinggi_barang,
-                    $barang->nama_gudang, date("Y-m-d h:i:s")));
+                    $barang->nama_gudang, date("Y-m-d h:i:s"),  
+                    $barang->nup, $barang->tanggal_peroleh, $barang->merk_type, $barang->nilai_barang, $barang->jumlah, $barang->kondisi));
+                $ruang_sisa = DB::select(
+                    "
+                    SELECT ruang_sisa from gudang
+                    WHERE id_gudang = ?
+                    ", [$barang->nama_gudang])[0];
+                $ruang = $barang->panjang_barang * $barang->lebar_barang * $barang->tinggi_barang;
+                
+                DB::update("UPDATE gudang set ruang_sisa = ?  WHERE id_gudang = ?", [$ruang_sisa->ruang_sisa - $ruang, $barang->nama_gudang]);
             }
 
             $message = ["success" => "Usulan berhasil tervalidasi"];
@@ -65,6 +74,17 @@ class ValidasiPemasukanController extends Controller
 
         return redirect()->route('dashboard.validasi.pemasukan.index')->with($message);
         
+    }
+    public function print($id_catatan)
+    {
+        $barang = DB::select(
+            "
+            SELECT * from barang
+            WHERE catatan_id = ?
+            ", [$id_catatan]);
+            // dd($barang);
+            
+        return view('dashboard.validasi.pemasukan.print',compact('barang'));
     }
 
 }

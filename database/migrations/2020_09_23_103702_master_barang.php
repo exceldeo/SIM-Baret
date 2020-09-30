@@ -19,15 +19,17 @@ class MasterBarang extends Migration
             $table->string('nup');
             $table->string('nama_barang');
             $table->string('tanggal_peroleh');
-            $table->string('merk_type');
+            $table->string('merk_type')->nullable();
             $table->string('nilai_barang')->nullable();
             $table->float('panjang_barang');
             $table->float('lebar_barang');
             $table->float('tinggi_barang');
+            $table->integer('jumlah');
             $table->integer('gudang_id');
             $table->dateTime('tanggal', 0);
             $table->integer('tervalidasi');
             $table->string('unit');
+            $table->string('kondisi')->nullable();
             $table->integer('validasi_oleh')->nullable();
             $table->dateTime('tanggal_validasi', 0)->nullable();
             $table->timestamps();

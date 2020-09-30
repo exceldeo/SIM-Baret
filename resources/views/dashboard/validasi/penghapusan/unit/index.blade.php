@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Catatan Pemasukan
+Validasi Penghapusan
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -9,7 +9,7 @@ Catatan Pemasukan
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.catatan.pemasukan.index')}}" class="breadcrumb-item active">Catatan Pemasukan</a>
+        <a href="{{route('dashboard.validasi.penghapusan.unit.index')}}" class="breadcrumb-item active">Validasi Penghapusan</a>
     </nav>
 </div>
 @endsection
@@ -40,7 +40,7 @@ Catatan Pemasukan
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Daftar Catatan Pemasukan</div>
+                <div class="font-size-lg font-w600">Daftar Usulan Penghapusan</div>
             </div>
             <div class="block-options">
             </div>
@@ -51,28 +51,23 @@ Catatan Pemasukan
                     <table id="list_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                            <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
                                 <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Waktu</th>
-                                <th class="text-center" style="width: 22%;">Action</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Tanggal</th>
+                                <th class="text-center" style="width: 10%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(!is_null($list))
                                 @foreach ($list as $l)
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
                                             <td>
-                                                <a href="{{route('dashboard.catatan.pemasukan.print_barcode', ['id_catatan' => $l->id_catatan])}}" target="_blank">
-                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                            class="si si-printer mr-1"></i>Print Barcode</button>
-                                                </a>
-                                                <a href="{{route('dashboard.catatan.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
+                                                <a href="{{route('dashboard.validasi.penghapusan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-eye mr-1"></i> Detail</button>
                                                 </a>
@@ -80,6 +75,7 @@ Catatan Pemasukan
                                             </td>
                                         </tr>
                                 @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

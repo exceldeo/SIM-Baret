@@ -76,11 +76,13 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::prefix('validasi')->name('validasi.')->group(function () {
         Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
             Route::get('', 'Validasi\ValidasiPemasukanController@index')->name('index');
+            Route::get('{id_catatan}/print', 'Validasi\ValidasiPemasukanController@print')->name('print');
             Route::get('{id_catatan}/show', 'Validasi\ValidasiPemasukanController@show')->name('show');
             Route::post('save', 'Validasi\ValidasiPemasukanController@save')->name('save');
         });
         Route::prefix('penghapusan')->name('penghapusan.')->group(function () {
             Route::get('', 'Validasi\ValidasiPenghapusanController@index')->name('index');
+            Route::get('{id_catatan}/print', 'Validasi\ValidasiPenghapusanController@print')->name('print');
             Route::get('{id_catatan}/show', 'Validasi\ValidasiPenghapusanController@show')->name('show');
             Route::post('save', 'Validasi\ValidasiPenghapusanController@save')->name('save');
             Route::prefix('unit')->name('unit.')->group(function () {
@@ -95,6 +97,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
             Route::get('', 'Catatan\CatatanPemasukanController@index')->name('index');
             Route::get('{id_catatan}/show', 'Catatan\CatatanPemasukanController@show')->name('show');
+            Route::get('{id_catatan}/print_barcode', 'Catatan\CatatanPemasukanController@print_barcode')->name('print_barcode');
         });
         Route::prefix('penghapusan')->name('penghapusan.')->group(function () {
             Route::get('', 'Catatan\CatatanPenghapusanController@index')->name('index');

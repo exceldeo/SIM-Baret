@@ -18,7 +18,7 @@ class UsulanPenghapusanController extends Controller
             JOIN gudang ON gudang.id_gudang = master_barang.gudang_id
             ");
         $carts = Cart::getContent();
-
+            // dd($carts);
         return view('dashboard.usulan_penghapusan.index',compact('carts','assets'));
     }
 
@@ -33,21 +33,58 @@ class UsulanPenghapusanController extends Controller
                 WHERE id_master_barang = ?
                 ", [$request->id])[0];
 
-            Cart::add([
-                'id'        => $asset->barcode,
-                'name'      => $asset->nama_barang,
-                'price'     => 1,
-                'quantity'  => 1,
-                'attributes' => array(
-                    'panjang'   => $asset->panjang_barang,
-                    'lebar'     => $asset->lebar_barang,
-                    'tinggi'    => $asset->tinggi_barang,
-                    'lokasi'    => $asset->nama_gudang,
-                    'id_gudang' => $asset->id_gudang,
-                    'unit'      => $asset->unit,
-                    'role'      => 2
-                ),
-            ]);
+                $jml = Cart::get($asset->barcode);
+                
+                if( $jml != NULL){
+                    // dd($asset->jumlah < $jml['attributes']['jml'] + 1);
+                    if($asset->jumlah < $jml['attributes']['jml'] + 1){
+                        $message = ["fail" => "Barang yang diusulkan melebihi batas!"];
+                        return redirect()->back()->with($message);
+                    }
+                    Cart::update($asset->barcode,[
+                        'attributes' => [
+                            "kode"      => $jml['attributes']['kode'],
+                            "tanggal"   => $jml['attributes']['tanggal'],
+                            "nup"       => $jml['attributes']['nup'],
+                            "merk"      => $jml['attributes']['merk'],
+                            "jml"       => $jml['attributes']['jml'] + 1,
+                            "nilai"     => $jml['attributes']['nilai'],
+                            "kondisi"   => $jml['attributes']['kondisi'],
+                            "panjang"   => $jml['attributes']['panjang'],
+                            "lebar"     => $jml['attributes']['lebar'],
+                            "tinggi"    => $jml['attributes']['tinggi'],
+                            "lokasi"    => $jml['attributes']['lokasi'],
+                            "id_gudang" => $jml['attributes']['id_gudang'],
+                            "unit"      => $jml['attributes']['unit'],
+                            "role"      => $jml['attributes']['role']
+                        ]
+                    ]);
+                }
+                else{
+                    Cart::add([
+                        'id'        => $asset->barcode,
+                        'name'      => $asset->nama_barang,
+                        'price'     => 1,
+                        'quantity'  => 1,
+                        'attributes' => array(
+                            'kode'      => "0",
+                            'tanggal'   => $asset->tanggal_peroleh,
+                            'nup'       => $asset->nup,
+                            'merk'      => $asset->merk_type,
+                            'jml'       => 1,
+                            'nilai'     => $asset->nilai_barang,
+                            'kondisi'   => $asset->kondisi,
+                            'panjang'   => $asset->panjang_barang,
+                            'lebar'     => $asset->lebar_barang,
+                            'tinggi'    => $asset->tinggi_barang,
+                            'lokasi'    => $asset->nama_gudang,
+                            'id_gudang' => $asset->id_gudang,
+                            'unit'      => $asset->unit,
+                            'role'      => 2
+                        ),
+                    ]);
+                }
+
             $message = ["success" => "Barang berhasil ditambahkan ke Usulan Penghapusan!"];
 
         } catch (\Throwable $th) {
@@ -76,9 +113,10 @@ class UsulanPenghapusanController extends Controller
         try {
             
             $id = DB::table('catatan')->insertGetId([
-                'tanggal_catatan' => date("Y-m-d h:i:s"),
+                'tanggal_catatan' => date("Y-m-d H:i:s"),
                 'user_id_unit' => 1,
-                'status' => 3
+                'status' => 3,
+                'unit'  => 'informatika'
             ]);
 
             $carts = Cart::getContent();
@@ -87,14 +125,17 @@ class UsulanPenghapusanController extends Controller
                 if($c['attributes']['role'] == 1){
                     continue;
                 }
-                
                 DB::insert(
                     "
                     INSERT INTO barang
-                    (barcode, nama_barang, panjang_barang, lebar_barang, tinggi_barang, catatan_id, status, unit, nama_gudang)
-                    VALUES (?, ?, ?, ?, ?, ?, -1, ?, ?)
-                    ", array($c['id'], $c['name'], $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
-                $id, $c['attributes']['unit'], $c['attributes']['id_gudang']));
+                    (kode_barang, barcode, nup, nama_barang, tanggal_peroleh, merk_type, 
+                    nilai_barang, panjang_barang, lebar_barang, tinggi_barang, jumlah,
+                    catatan_id, nama_gudang, status, unit, kondisi)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, -1, 'informatika', ?)
+                    ", array($c['attributes']['kode'], $c['id'],$c['attributes']['nup'], $c['name'], 
+                    $c['attributes']['tanggal'], $c['attributes']['merk'], $c['attributes']['nilai'],
+                    $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
+                    $c['attributes']['jml'],$id, $c['attributes']['id_gudang'], $c['attributes']['kondisi']));
             }
 
             Cart::clear();

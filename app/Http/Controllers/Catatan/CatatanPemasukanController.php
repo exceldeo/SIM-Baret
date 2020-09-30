@@ -38,4 +38,15 @@ class CatatanPemasukanController extends Controller
 
         return view('dashboard.catatan.pemasukan.show',compact('catatan','barang'));
     }
+    
+    public function print_barcode($id_catatan){
+        $barang = DB::select(
+            "
+            SELECT * from barang
+            JOIN gudang ON gudang.id_gudang = barang.nama_gudang
+            WHERE catatan_id = ?
+            ", array($id_catatan));
+    
+            return view('dashboard.catatan.pemasukan.print_barcode',compact('barang'));
+    }
 }

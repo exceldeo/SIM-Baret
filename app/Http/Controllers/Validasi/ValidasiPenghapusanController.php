@@ -132,4 +132,16 @@ class ValidasiPenghapusanController extends Controller
         return redirect()->route('dashboard.validasi.penghapusan.unit.index')->with($message);
         
     }
+
+    public function print($id_catatan)
+    {
+        $barang = DB::select(
+            "
+            SELECT * from barang
+            WHERE catatan_id = ?
+            ", [$id_catatan]);
+            // dd($barang);
+            
+        return view('dashboard.validasi.penghapusan.print',compact('barang'));
+    }
 }

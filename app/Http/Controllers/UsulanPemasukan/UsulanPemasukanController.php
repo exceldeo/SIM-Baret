@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class UsulanPemasukanController extends Controller
 {
-
+    
     public function index()
     {
         $gudang = DB::select("SELECT * from gudang");
@@ -22,18 +22,28 @@ class UsulanPemasukanController extends Controller
     {
         $message = "";
         $gudang = DB::select("SELECT * from gudang WHERE id_gudang = ?", [$request->gudang_id])[0];
-        
+        $carts = json_decode($request->cookie('masuk-carts'), true); 
+        date_default_timezone_set('Asia/Jakarta');
         if($gudang->ruang_sisa <  ($request->panjang * $request->lebar * $request->tinggi)){
             $message = ["fail" => "Gudang melebihi kapasitas"];
         }
         else{
             try {
+                $request->nilai = str_replace(",","",$request->nilai);
+                // dd(intval($request->nilai)/$request->jml);
                 Cart::add([
-                    'id'        => date("ymdhis"),
+                    'id'        => date("ymdHis"),
                     'name'      => $request->nama,
                     'price'     => 1,
                     'quantity'  => 1,
                     'attributes' => array(
+                        'kode'      => $request->kode,
+                        'tanggal'   => $request->tanggal_peroleh,
+                        'nup'       => $request->nup,
+                        'merk'      => $request->merk,
+                        'jml'       => $request->jml,
+                        'nilai'     => intval($request->nilai)/$request->jml,
+                        'kondisi'   => $request->kondisi,
                         'panjang'   => $request->panjang,
                         'lebar'     => $request->lebar,
                         'tinggi'    => $request->tinggi,
@@ -42,6 +52,7 @@ class UsulanPemasukanController extends Controller
                         'role'      => 1
                     ),
                 ]);
+
                 $message = ["success" => "Barang berhasil di tambahkan!"];
     
             } catch (\Throwable $th) {
@@ -66,15 +77,19 @@ class UsulanPemasukanController extends Controller
         }
         return redirect()->back()->with($message);
     }
-    public function save()
+    
+    public function save(Request $request)
     {
         $message = "";
         try {
 
+            unset($carts);
+            date_default_timezone_set('Asia/Jakarta');
             $id = DB::table('catatan')->insertGetId([
-                'tanggal_catatan' => date("Y-m-d h:i:s"),
+                'tanggal_catatan' => date("Y-m-d H:i:s"),
                 'user_id_unit' => 1,
-                'status' => 1
+                'status' => 1,
+                'unit'  => 'informatika'
             ]);
             $carts = Cart::getContent();
 
@@ -97,12 +112,16 @@ class UsulanPemasukanController extends Controller
                 DB::insert(
                     "
                     INSERT INTO barang
-                    (barcode, nama_barang, panjang_barang, lebar_barang, tinggi_barang, catatan_id, status, unit, nama_gudang)
-                    VALUES (?, ?, ?, ?, ?, ?, -1, 'informatika', ?)
-                    ", array($c['id'], $c['name'], $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
-                $id, $c['attributes']['id_gudang']));
+                    (kode_barang, barcode, nup, nama_barang, tanggal_peroleh, merk_type, 
+                    nilai_barang, panjang_barang, lebar_barang, tinggi_barang, jumlah,
+                    catatan_id, nama_gudang, status, unit, kondisi)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, -1, 'informatika', ?)
+                    ", array($c['attributes']['kode'], $c['id'],$c['attributes']['nup'], $c['name'], 
+                    $c['attributes']['tanggal'], $c['attributes']['merk'], $c['attributes']['nilai'],
+                    $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
+                    $c['attributes']['jml'],$id, $c['attributes']['id_gudang'], $c['attributes']['kondisi']));
             }
-
+            
             Cart::clear();
             $message = ["success" => "Usulan berhasil di simpan!"];
         } catch (\Throwable $th) {

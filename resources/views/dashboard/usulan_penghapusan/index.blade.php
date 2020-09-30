@@ -57,11 +57,14 @@ Usulan Penghapusan Barang
                     <tr>
                         <th class="text-center" style="width: 50px;">#</th>
                         <th>Name</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Panjang</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Lebar</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tinggi</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Unit</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 20%;">Lokasi</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tanggal Perolehan</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Merk/Type</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Barang</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Kondisi</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Volume</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Lokasi</th>
                         <th class="text-center" style="width: 5%;">Actions</th>
                     </tr>
                 </thead>
@@ -77,10 +80,13 @@ Usulan Penghapusan Barang
                             <tr>
                                 <th class="text-center" scope="row">{!! $no++ !!}</th>
                                 <td>{{ $c['name'] }}</td>
-                                <td class="text-center">{{ $c['attributes']['panjang'] }} m</td>
-                                <td class="text-center">{{ $c['attributes']['lebar'] }} m</td>
-                                <td class="text-center">{{ $c['attributes']['tinggi'] }} m</td>
-                                <td class="text-center">{{ $c['attributes']['unit'] }}</td>
+                                <td class="text-center">{{ $c['attributes']['tanggal'] }} </td>
+                                <td class="text-center">{{ $c['attributes']['nup'] }} </td>
+                                <td class="text-center">{{ $c['attributes']['merk'] }} </td>
+                                <td class="text-center">{{ $c['attributes']['jml'] }} </td>
+                                <td class="text-center">Rp. {{number_format($c['attributes']['nilai']*$c['attributes']['jml']) }} </td>
+                                <td class="text-center">{{ $c['attributes']['kondisi'] }} </td>
+                                <td class="text-center">{{ $c['attributes']['lebar'] * $c['attributes']['panjang'] * $c['attributes']['tinggi'] }} m<sup>3</sup></td>
                                 <td class="text-center">{{ $c['attributes']['lokasi'] }}</td>
                                 <td class="text-center">
                                     <form onclick="return confirm('Are you sure?')"
