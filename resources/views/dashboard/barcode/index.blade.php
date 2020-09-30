@@ -13,6 +13,22 @@ Scan Barcode
 @section('main')
 <!-- Page Content -->
 <div class="content">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('fail'))
+        <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('fail') }}
+        </div>
+    @endif
     <div class="block block-transparent">
         <div class="block-content">
             <div class="row push">
@@ -68,7 +84,12 @@ Scan Barcode
                     </div>
 
                     <div class="d-block text-center">
-                        <a id="valid-btn" class="btn btn-success mb-5 text-light" style="display:none;">Validasi</a>
+                    <form action="{{route('dashboard.barang.validate')}}"
+                        method="post">
+                        @csrf
+                        <input type="hidden" name="id" id="id-field"></input>
+                        <button id="valid-btn" class="btn btn-success mb-5 text-light" style="display:none;">Validasi</button>
+                    </form>
                     <div>
                     <a id="view-detail-btn" class="btn btn-info mb-5" style="display:none;">Lihat detail</a>
                 </div>
@@ -81,7 +102,6 @@ Scan Barcode
 @endsection
 @section('js')
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script type="text/javascript">
     window.addEventListener('load', function () {
 
@@ -165,12 +185,19 @@ Scan Barcode
                         url = url.replace(':id', response['data'][0]['id_master_barang']);
                         $('#view-detail-btn').attr("href", url);
 
+                        $('#id-field').val(response['data'][0]['id_master_barang']);
+
                         $('#nama-barang').html(response['data'][0]['nama_barang']);
                         $('#lokasi-barang').html(response['data'][0]['nama_gudang']);
 
                         $('#detail-barang').show();
                         $('#view-detail-btn').show();
-                        $('#valid-btn').show();
+                        if(response['data'][0]['tervalidasi'] < 1) $('#valid-btn').show();
+                        else
+                        {
+                            var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
+                            $("#scanned-id").append(html);
+                        }
                     }
                     else
                     {

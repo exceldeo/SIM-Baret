@@ -22,7 +22,6 @@ class BarangController extends Controller
             array_push($del_carts, $key);
         }
 
-        // return var_dump($del_carts);
         return view('dashboard.barang.index', ['results' => $results, 'gudangs' => $gudangs, 'del_carts' => $del_carts]);
     }
 
@@ -106,6 +105,20 @@ class BarangController extends Controller
         }
 
         return redirect()->back()->with($message);
+    }
+
+    public function validateScan(Request $request)
+    {
+        $message = "";
+        try {
+            DB::update("UPDATE master_barang set tervalidasi = 1 where id_master_barang = ?", [$request->id]);
+
+            $message = ["success" => "Barang berhasil divalidasi!"];
+        } catch (\Throwable $th) {
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->route('dashboard.scan')->with($message);
     }
 
     /**
