@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangTable extends Migration
+class MasterBarang extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateBarangTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang', function (Blueprint $table) {
-<<<<<<< Updated upstream
-            $table->id();
-=======
-            $table->increments('id_barang');
-            $table->string('kode_barang');
-            $table->string('barcode');
+        Schema::create('master_barang', function (Blueprint $table) {
+            $table->increments('id_master_barang');
+            $table->string('barcode')->unique();
             $table->string('nup');
             $table->string('nama_barang');
             $table->string('tanggal_peroleh');
@@ -29,13 +25,13 @@ class CreateBarangTable extends Migration
             $table->float('lebar_barang');
             $table->float('tinggi_barang');
             $table->integer('jumlah');
-            $table->integer('catatan_id');
-            $table->integer('status');
+            $table->integer('gudang_id');
+            $table->dateTime('tanggal', 0);
+            $table->integer('tervalidasi');
             $table->string('unit');
             $table->string('kondisi')->nullable();
-            $table->string('nama_gudang')->nullable();
-            $table->text('keterangan')->nullable();
->>>>>>> Stashed changes
+            $table->integer('validasi_oleh')->nullable();
+            $table->dateTime('tanggal_validasi', 0)->nullable();
             $table->timestamps();
         });
     }
@@ -47,6 +43,6 @@ class CreateBarangTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang');
+        Schema::dropIfExists('master_barang');
     }
 }
