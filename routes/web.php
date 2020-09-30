@@ -65,8 +65,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::delete('delete', 'UsulanPemasukan\UsulanPemasukanController@destroy')->name('delete');
     });
 
-<<<<<<< Updated upstream
-=======
     Route::prefix('usulan_penghapusan')->name('usulan_penghapusan.')->group(function () {
         Route::get('', 'UsulanPenghapusan\UsulanPenghapusanController@index')->name('index');
         Route::post('store', 'UsulanPenghapusan\UsulanPenghapusanController@store')->name('store');
@@ -105,6 +103,5 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('{id_catatan}/show', 'Catatan\CatatanPenghapusanController@show')->name('show');
         });
     });
->>>>>>> Stashed changes
 
 });
