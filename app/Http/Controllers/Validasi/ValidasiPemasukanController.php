@@ -42,9 +42,9 @@ class ValidasiPemasukanController extends Controller
     {
         $message = "";
         try {
-            DB::update("UPDATE catatan set status = 2 WHERE id_catatan = ?", [$request->id_catatan]);
+            DB::update("UPDATE catatan set status = 2,tanggal_validasi = ? WHERE id_catatan = ?", [date("Y-m-d H:i:s"),$request->id_catatan]);;
             foreach($request->row as $key => $row){
-                DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
+                DB::update("UPDATE barang set status = 1WHERE id_barang = ?", [$key]);
 
                 $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];
                 // dd($barang);
@@ -55,14 +55,14 @@ class ValidasiPemasukanController extends Controller
                     nup, tanggal_peroleh, merk_type, nilai_barang, jumlah, kondisi)
                     VALUES (?, ?, ?, ?, ?, ?, 'informatika', ?, 0, ?, ?, ?, ?, ?, ?)
                     ", array($barang->nama_barang, $barang->barcode, $barang->panjang_barang, $barang->lebar_barang, $barang->tinggi_barang,
-                    $barang->nama_gudang, date("Y-m-d h:i:s"),  
+                    $barang->nama_gudang, date("Y-m-d H:i:s"),  
                     $barang->nup, $barang->tanggal_peroleh, $barang->merk_type, $barang->nilai_barang, $barang->jumlah, $barang->kondisi));
                 $ruang_sisa = DB::select(
                     "
                     SELECT ruang_sisa from gudang
                     WHERE id_gudang = ?
                     ", [$barang->nama_gudang])[0];
-                $ruang = $barang->panjang_barang * $barang->lebar_barang * $barang->tinggi_barang;
+                $ruang = $barang->panjang_barang * $barang->lebar_barang * $barang->tinggi_barang * $barang->jumlah;
                 
                 DB::update("UPDATE gudang set ruang_sisa = ?  WHERE id_gudang = ?", [$ruang_sisa->ruang_sisa - $ruang, $barang->nama_gudang]);
             }

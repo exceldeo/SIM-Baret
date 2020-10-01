@@ -60,23 +60,29 @@ table tr {
                     <table id="barang_table" class="table table-striped text-dark w-100">
                         <thead>
                             <tr>
-                                <th style="width: 10%">No</th>
-                                <th style="width: 15%">Nama Asset</th>
-                                <th style="width: 10%">Panjang</th>
-                                <th style="width: 10%">Lebar</th>
-                                <th style="width: 10%">Tinggi</th>
-                                <th style="width: 15%">Lokasi</th>
-                                <th style="width: 40%" class="text-center">Aksi</th>
+                                <th class="text-center" style="width: 50px;">No</th>
+                                <th>Name</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Tahun Perolehan</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Nup</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Merk/Type</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
+                                <!-- <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Barang</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Kondisi</th> -->
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Volume</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Lokasi</th>
+                                <th class="text-center" style="width: 24%" >Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach ($results as $barang)
                                         <tr class="row-detail">
-                                            <td></td>
+                                            <td class="text-center"></td>
                                             <td>{{ $barang->nama_barang }}</td>
-                                            <td>{{ $barang->panjang_barang }}m</td>
-                                            <td>{{ $barang->lebar_barang }}m</td>
-                                            <td>{{ $barang->tinggi_barang }}m</td>
+                                            <td>{{ substr($barang->tanggal_peroleh,-4) }}</td>
+                                            <td>{{ $barang->nup }}</td>
+                                            <td>{{ $barang->merk_type }}</td>
+                                            <td>{{ $barang->jumlah }}</td>
+                                            <td>{{ $barang->panjang_barang * $barang->lebar_barang * $barang->tinggi_barang }}m<sup>3</sup> </td>
                                             <td>{{ $barang->nama_gudang }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('dashboard.gudang.show', $barang->gudang_id) }}" class="btn btn-sm btn-its-primary">
@@ -85,13 +91,6 @@ table tr {
                                                         <span>Gudang</span>
                                                     </span>
                                                 </a>
-                                                <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
-                                                data-target="#modalEdit{{ $barang->id_master_barang }}">
-                                                    <i class="fa fa-pencil d-sm-none"></i>
-                                                    <span class="d-none d-sm-inline-block">
-                                                        <span>Edit</span>
-                                                    </span>
-                                                </button>
                                                 <a href="{{ route('dashboard.barang.show', $barang->id_master_barang) }}" class="btn btn-sm btn-its-primary">
                                                     <i class="fa fa-info d-sm-none"></i>
                                                     <span class="d-none d-sm-inline-block">

@@ -14,7 +14,7 @@ class CatatanPenghapusanController extends Controller
         "
         SELECT * from catatan
         JOIN users ON users.id = catatan.user_id_unit
-        WHERE status = 4
+        WHERE status = 4 OR status = 5
         ");
 
         return view('dashboard.catatan.penghapusan.index',compact('list'));

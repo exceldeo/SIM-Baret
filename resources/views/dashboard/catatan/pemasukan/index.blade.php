@@ -54,8 +54,8 @@ Catatan Pemasukan
                             <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
                                 <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Waktu</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal Usulan</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal Validasi</th>
                                 <th class="text-center" style="width: 22%;">Action</th>
                             </tr>
                         </thead>
@@ -65,8 +65,8 @@ Catatan Pemasukan
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_catatan !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_validasi !!}</td>
                                             <td>
                                                 <a href="{{route('dashboard.catatan.pemasukan.print_barcode', ['id_catatan' => $l->id_catatan])}}" target="_blank">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i

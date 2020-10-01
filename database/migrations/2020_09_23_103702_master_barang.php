@@ -17,6 +17,7 @@ class MasterBarang extends Migration
             $table->increments('id_master_barang');
             $table->string('barcode')->unique();
             $table->string('nup');
+            $table->string('kode_barang')->nullable();
             $table->string('nama_barang');
             $table->string('tanggal_peroleh');
             $table->string('merk_type')->nullable();

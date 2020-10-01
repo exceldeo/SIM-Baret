@@ -43,23 +43,22 @@ class ValidasiPenghapusanController extends Controller
     {
         $message = "";
         try {
-            DB::update("UPDATE catatan set status = 4 WHERE id_catatan = ?", [$request->id_catatan]);
+            DB::update("UPDATE catatan set status = 4,tanggal_validasi = ? WHERE id_catatan = ?", [date("Y-m-d H:i:s"),$request->id_catatan]);
             foreach($request->row as $key => $row){
                 DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
 
                 $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];
                 DB::delete("DELETE from master_barang WHERE barcode = ?", [$barang->barcode]);
-                // MasterBarang::create([
-                //     'nama_barang'       => $barang->nama_barang,
-                //     'barcode'           => $barang->barcode,
-                //     'panjang_barang'    => $barang->panjang_barang,
-                //     'lebar_barang'      => $barang->lebar_barang,
-                //     'tinggi_barang'     => $barang->tinggi_barang,
-                //     'gudang_id'         => $barang->nama_gudang,
-                //     'unit'              => "informatika",
-                //     'tanggal'           => date("Y-m-d h:i:s"),
-                //     'tervalidasi'       => 0
-                // ]);
+
+                $ruang_sisa = DB::select(
+                    "
+                    SELECT ruang_sisa from gudang
+                    WHERE id_gudang = ?
+                    ", [$barang->nama_gudang])[0];
+                $ruang = $barang->panjang_barang * $barang->lebar_barang * $barang->tinggi_barang * $barang->jumlah;
+                
+                DB::update("UPDATE gudang set ruang_sisa = ?  WHERE id_gudang = ?", [$ruang_sisa->ruang_sisa + $ruang, $barang->nama_gudang]);
+
             }
 
             $message = ["success" => "Usulan berhasil tervalidasi"];

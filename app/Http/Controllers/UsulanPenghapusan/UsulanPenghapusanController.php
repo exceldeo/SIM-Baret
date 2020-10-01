@@ -67,7 +67,7 @@ class UsulanPenghapusanController extends Controller
                         'price'     => 1,
                         'quantity'  => 1,
                         'attributes' => array(
-                            'kode'      => "0",
+                            'kode'      => $asset->kode_barang,
                             'tanggal'   => $asset->tanggal_peroleh,
                             'nup'       => $asset->nup,
                             'merk'      => $asset->merk_type,

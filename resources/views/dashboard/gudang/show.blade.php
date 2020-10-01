@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Validasi Pemasukan
+Detail Gudang
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -82,9 +82,13 @@ Validasi Pemasukan
                                 <tr>
                                     <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
                                     <th class="d-none d-sm-table-cell">Nama Asset</th>
+                                    <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Nup</th>
+                                    <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Merk/Type</th>
+                                    <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
+                                    <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Tahun Perolehan</th>
                                     <th class="d-none d-sm-table-cell" style="width: 10%;">Volume</th>
                                     <th class="d-none d-sm-table-cell" style="width: 10%;">Unit</th>
-                                    <th class="text-center" style="width: 20%;">Action</th>
+                                    <th class="text-center" style="width: 15%;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,10 +97,14 @@ Validasi Pemasukan
                                             <tr>
                                                 <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                                 <td class="d-none d-sm-table-cell">{!! $as->nama_barang !!}</td>
+                                                <td class="d-none d-sm-table-cell">{!! $as->nup !!}</td>
+                                                <td class="d-none d-sm-table-cell">{!! $as->merk_type !!}</td>
+                                                <td class="d-none d-sm-table-cell">{!! $as->jumlah !!}</td>
+                                                <td class="d-none d-sm-table-cell">{!! substr($as->tanggal_peroleh,-4) !!}</td>
                                                 <td class="d-none d-sm-table-cell">{!! $as->panjang_barang * $as->lebar_barang * $as->tinggi_barang !!} m<sup>3</sup></td>
                                                 <td class="d-none d-sm-table-cell">{!! $as->unit !!}</td>
-                                                <td>
-                                                    <a href="{{route('dashboard.barang.show', ['id_barang' => $as->id_master_barang])}}">
+                                                <td >
+                                                    <a class="text-center" href="{{route('dashboard.barang.show', ['id_barang' => $as->id_master_barang])}}">
                                                         <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                                 class="si si-eye mr-1"></i> Detail Asset </button>
                                                     </a>
