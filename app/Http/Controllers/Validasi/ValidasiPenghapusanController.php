@@ -46,11 +46,19 @@ class ValidasiPenghapusanController extends Controller
             date_default_timezone_set('Asia/Jakarta');
             DB::update("UPDATE catatan set status = 4,tanggal_validasi = ? WHERE id_catatan = ?", [date("Y-m-d H:i:s"),$request->id_catatan]);
             foreach($request->row as $key => $row){
-                dd($row);
+                // dd($row);
                 DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
 
                 $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];
-                DB::delete("DELETE from master_barang WHERE barcode = ?", [$barang->barcode]);
+                $master_barang = DB::select("SELECT * from master_barang WHERE barcode = ?", [$barang->barcode])[0];
+                // dd($master_barang);
+                if($master_barang->jumlah <= $barang->jumlah){
+                    DB::delete("DELETE from master_barang WHERE barcode = ?", [$barang->barcode]);
+                }
+                else{
+                    DB::update("UPDATE master_barang set jumlah = ?  WHERE barcode = ?", [$master_barang->jumlah - $barang->jumlah, $barang->barcode]);
+                }
+
 
                 $ruang_sisa = DB::select(
                     "

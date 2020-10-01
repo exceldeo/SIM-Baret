@@ -41,10 +41,10 @@
 <body onload="window.print()">
     <div class="container-fluid">
         <div class="row mb-3">
-            <div class="col-2">
-            <img src="{{ asset('storage/logo-its/logo-its.png') }}" style="width: 300px;">
+            <div class="col-1 mr-2">
+            <img src="{{ asset('storage/logo-its/logo-its.png') }}" style="width: 80px;">
             </div>
-            <div class="col-10">
+            <div class="col-10 font-weight-bold">
                 <h6> <b>
                     KEMENTERIAN RISET, TEKNOLOGI, DAN PENDIDIKAN TINGGI <br>
                     INSTITUT TEKNOLOGI SEPULUH NOPEMBER   <br>
