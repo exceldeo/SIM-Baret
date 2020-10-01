@@ -43,8 +43,10 @@ class ValidasiPenghapusanController extends Controller
     {
         $message = "";
         try {
+            date_default_timezone_set('Asia/Jakarta');
             DB::update("UPDATE catatan set status = 4,tanggal_validasi = ? WHERE id_catatan = ?", [date("Y-m-d H:i:s"),$request->id_catatan]);
             foreach($request->row as $key => $row){
+                dd($row);
                 DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
 
                 $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];

@@ -42,9 +42,10 @@ class ValidasiPemasukanController extends Controller
     {
         $message = "";
         try {
+            date_default_timezone_set('Asia/Jakarta');
             DB::update("UPDATE catatan set status = 2,tanggal_validasi = ? WHERE id_catatan = ?", [date("Y-m-d H:i:s"),$request->id_catatan]);;
             foreach($request->row as $key => $row){
-                DB::update("UPDATE barang set status = 1WHERE id_barang = ?", [$key]);
+                DB::update("UPDATE barang set status = 1 WHERE id_barang = ?", [$key]);
 
                 $barang = DB::select("SELECT * from barang WHERE id_barang = ?", [$key])[0];
                 // dd($barang);
@@ -52,11 +53,11 @@ class ValidasiPemasukanController extends Controller
                     "
                     INSERT INTO master_barang
                     (nama_barang, barcode, panjang_barang, lebar_barang, tinggi_barang, gudang_id, unit, tanggal, tervalidasi, 
-                    nup, tanggal_peroleh, merk_type, nilai_barang, jumlah, kondisi)
+                    nup, tanggal_peroleh, merk_type, nilai_barang, jumlah, kondisi, kode_barang)
                     VALUES (?, ?, ?, ?, ?, ?, 'informatika', ?, 0, ?, ?, ?, ?, ?, ?)
                     ", array($barang->nama_barang, $barang->barcode, $barang->panjang_barang, $barang->lebar_barang, $barang->tinggi_barang,
                     $barang->nama_gudang, date("Y-m-d H:i:s"),  
-                    $barang->nup, $barang->tanggal_peroleh, $barang->merk_type, $barang->nilai_barang, $barang->jumlah, $barang->kondisi));
+                    $barang->nup, $barang->tanggal_peroleh, $barang->merk_type, $barang->nilai_barang, $barang->jumlah, $barang->kondisi, $barang->kode_barang));
                 $ruang_sisa = DB::select(
                     "
                     SELECT ruang_sisa from gudang

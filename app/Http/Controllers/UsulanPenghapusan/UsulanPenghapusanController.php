@@ -61,6 +61,9 @@ class UsulanPenghapusanController extends Controller
                     ]);
                 }
                 else{
+                    if($asset->kode_barang == NULL){
+                        $asset->kode_barang = 0;
+                    }
                     Cart::add([
                         'id'        => $asset->barcode,
                         'name'      => $asset->nama_barang,
@@ -111,7 +114,7 @@ class UsulanPenghapusanController extends Controller
     {
         $message = "";
         try {
-            
+            date_default_timezone_set('Asia/Jakarta');
             $id = DB::table('catatan')->insertGetId([
                 'tanggal_catatan' => date("Y-m-d H:i:s"),
                 'user_id_unit' => 1,
@@ -125,6 +128,7 @@ class UsulanPenghapusanController extends Controller
                 if($c['attributes']['role'] == 1){
                     continue;
                 }
+
                 DB::insert(
                     "
                     INSERT INTO barang

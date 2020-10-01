@@ -80,7 +80,7 @@
                                 <td class="d-none d-sm-table-cell text-right">{!! $b->nup !!}</td>
                                 <td class="d-none d-sm-table-cell text-left">{!! $b->merk_type !!}</td>
                                 <td class="d-none d-sm-table-cell text-center">{!! $b->jumlah !!}</td>
-                                <td class="d-none d-sm-table-cell text-right">Rp. {{number_format($b->nilai_barang,0,",",".") }} </td>
+                                <td class="d-none d-sm-table-cell text-right">Rp. {{number_format($b->nilai_barang*$b->jumlah,0,",",".") }} </td>
                                 <td class="d-none d-sm-table-cell text-left">{!! $b->kondisi !!}</td>
                                 <td class="d-none d-sm-table-cell text-right">{!! $b->keterangan !!}</td>
                             </tr>
