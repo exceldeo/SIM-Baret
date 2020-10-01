@@ -16,10 +16,10 @@ class MasterBarang extends Migration
         Schema::create('master_barang', function (Blueprint $table) {
             $table->increments('id_master_barang');
             $table->string('barcode')->unique();
-            $table->string('nup');
+            $table->string('nup')->nullable();
             $table->string('nama_barang');
-            $table->string('tanggal_peroleh');
-            $table->string('merk_type');
+            $table->string('tanggal_peroleh')->nullable();
+            $table->string('merk_type')->nullable();
             $table->string('nilai_barang')->nullable();
             $table->float('panjang_barang');
             $table->float('lebar_barang');
@@ -27,7 +27,7 @@ class MasterBarang extends Migration
             $table->integer('gudang_id');
             $table->dateTime('tanggal', 0);
             $table->integer('tervalidasi');
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->integer('validasi_oleh')->nullable();
             $table->dateTime('tanggal_validasi', 0)->nullable();
             $table->timestamps();

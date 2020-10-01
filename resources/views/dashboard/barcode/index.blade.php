@@ -76,6 +76,8 @@ Scan Barcode
                 <div class="block-content text-center">
                     <h5 class="p-5">ID Barang:</h5>
                     <h3 id="scanned-id" class="p-5"></h3>
+                    <div class="spinner-border text-primary" role="status" id="spinner">
+                    </div>
                     <div id="detail-barang" class="text-center" style="display:none">
                         <h5 class="p-0">Nama Barang:</h5>
                         <h5 class="p-0" id="nama-barang"></h5>
@@ -138,6 +140,10 @@ Scan Barcode
 
         //on hidden
         $(".modal").on("hidden.bs.modal", function(){
+            $('#detail-barang').hide();
+            $('#view-detail-btn').hide();
+            $('#valid-btn').hide();
+            $("#spinner").show();
             start();
             console.log('hidden')
         });
@@ -198,12 +204,15 @@ Scan Barcode
                             var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
                             $("#scanned-id").append(html);
                         }
+
+                        $("#spinner").hide();
                     }
                     else
                     {
                         $('#detail-barang').hide();
                         $('#view-detail-btn').hide();
                         $('#valid-btn').hide();
+                        $("#spinner").hide();
                     }
                 },
                 error: function(jqXHR, exception) {

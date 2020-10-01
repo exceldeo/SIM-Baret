@@ -99,6 +99,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::prefix('penghapusan')->name('penghapusan.')->group(function () {
             Route::get('', 'Catatan\CatatanPenghapusanController@index')->name('index');
             Route::get('{id_catatan}/show', 'Catatan\CatatanPenghapusanController@show')->name('show');
+            Route::get('{id_catatan}/surat', 'Catatan\CatatanPenghapusanController@surat')->name('surat');
+            Route::get('{id_catatan}/{jenis_surat}/show', 'Catatan\CatatanPenghapusanController@showSurat')->name('showSurat');
+            Route::post('upload', 'Catatan\CatatanPenghapusanController@uploadSurat')->name('uploadSurat');
         });
     });
 

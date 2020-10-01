@@ -66,11 +66,14 @@ Catatan Penghapusan
     </div>
     <div class="block">
         <div class="block-header block-header-default">
-            <div class="row">
-                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Barang yang di Usulan</div>
-            </div>
-            <div class="block-options">
-            </div>
+            <!-- <div class="row"> -->
+                <div class="font-size-lg font-w600">
+                Daftar Barang yang di Usulkan
+                </div>
+                <div class="pull-right">
+                <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.catatan.penghapusan.surat', ['id_catatan' => $catatan->id_catatan]) }}">Surat</a>
+                </div>
+            <!-- </div> -->
         </div>
         <div class="block-content">
             <div class="row py-5">
