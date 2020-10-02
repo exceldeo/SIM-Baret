@@ -20,7 +20,7 @@ class CreateFileCatatan extends Migration
             $table->binary('image_file')->nullable();
             $table->string('image_url')->nullable();
             $table->dateTime('waktu_upload', 0)->nullable();
-            $table->integer('validasi_oleh')->nullable();
+            $table->string('validasi_oleh')->nullable();
             $table->timestamps();
         });
     }
