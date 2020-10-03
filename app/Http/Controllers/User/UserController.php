@@ -16,7 +16,7 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         // dd($request);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email_user' => $request->email, 'password' => $request->password])) {
             return redirect()->route('dashboard.index');
         }
         else

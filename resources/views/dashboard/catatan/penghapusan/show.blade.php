@@ -71,7 +71,7 @@ Catatan Penghapusan
                 Daftar Barang yang di Usulkan
                 </div>
                 <div class="pull-right">
-                <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.catatan.penghapusan.surat', ['id_catatan' => $catatan->id_catatan]) }}">Surat</a>
+                <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.surat.indexLog', ['id_catatan' => $catatan->id_catatan]) }}">Surat</a>
                 </div>
             <!-- </div> -->
         </div>

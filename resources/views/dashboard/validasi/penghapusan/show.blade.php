@@ -43,8 +43,6 @@ Validasi Penghapusan
                 </a>
                 <div class="font-size-lg font-w600">Detail Usulan</div>
             </div>
-            <div class="block-options">
-            </div>
         </div>
         <div class="block-content">
             <div class="row py-5">
@@ -66,11 +64,12 @@ Validasi Penghapusan
     </div>
     <div class="block">
         <div class="block-header block-header-default">
-            <div class="row">
+            <!-- <div class="row"> -->
                 <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Barang yang di Usulan</div>
-            </div>
-            <div class="block-options">
-            </div>
+                <div class="pull-right">
+                <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.surat.index', ['id_catatan' => $catatan->id_catatan]) }}">Surat</a>
+                </div>
+            <!-- </div> -->
         </div>
         <form action="{{route('dashboard.validasi.penghapusan.save')}}" method="post">
         @csrf

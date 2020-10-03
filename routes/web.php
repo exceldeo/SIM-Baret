@@ -90,6 +90,13 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             });
         });
     });
+    
+    Route::prefix('surat')->name('surat.')->group(function () {
+        Route::get('{id_catatan}', 'Surat\SuratController@index')->name('index');
+        Route::get('{id_catatan}/log', 'Surat\SuratController@indexLog')->name('indexLog');
+        Route::post('upload', 'Surat\SuratController@upload')->name('upload');
+        Route::post('update', 'Surat\SuratController@update')->name('update');
+    });
 
     Route::prefix('catatan')->name('catatan.')->group(function () {
         Route::prefix('pemasukan')->name('pemasukan.')->group(function () {
@@ -100,8 +107,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('', 'Catatan\CatatanPenghapusanController@index')->name('index');
             Route::get('{id_catatan}/show', 'Catatan\CatatanPenghapusanController@show')->name('show');
             Route::get('{id_catatan}/surat', 'Catatan\CatatanPenghapusanController@surat')->name('surat');
-            Route::get('{id_catatan}/{jenis_surat}/show', 'Catatan\CatatanPenghapusanController@showSurat')->name('showSurat');
-            Route::post('upload', 'Catatan\CatatanPenghapusanController@uploadSurat')->name('uploadSurat');
         });
     });
 

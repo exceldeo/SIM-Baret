@@ -8,7 +8,7 @@ Surat
 <div class="content">
     <nav class="breadcrumb bg-white push mb-0" >
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.catatan.penghapusan.index')}}" class="breadcrumb-item">Catatan Penghapusan</a>
+        <a href="{{route('dashboard.validasi.penghapusan.index')}}" class="breadcrumb-item">Validasi Penghapusan</a>
         <a href="#" class="breadcrumb-item active">Surat</a>
     </nav>
 </div>
@@ -71,7 +71,7 @@ Surat
                                         <i class="fa fa-exclamation-circle text-danger"></i>
                                         @endif
                                         </a></td>
-                                        <td>{{ $surat->waktu_upload }}</td>
+                                        <td>{{ $surat->waktu_upload ? date( 'Y-m-d H:i:s', strtotime($surat->waktu_upload)) : '' }}</td>
                                         <td>{{ $surat->validasi_oleh }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-its-primary" data-toggle="modal"
@@ -134,7 +134,11 @@ Surat
                         </button>
                     </div>
                 </div>
-                <form action="{{route('dashboard.catatan.penghapusan.uploadSurat')}}" method="post" enctype="multipart/form-data">
+                @if(is_null($surat->image_url))
+                <form action="{{route('dashboard.surat.upload')}}" method="post" enctype="multipart/form-data">
+                @else
+                <form action="{{route('dashboard.surat.update')}}" method="post" enctype="multipart/form-data">
+                @endif
                 @csrf
                 <div class="block-content">
                     <input type="hidden" class="form-control" name="catatan_id" value="{{ $id_catatan }}">
