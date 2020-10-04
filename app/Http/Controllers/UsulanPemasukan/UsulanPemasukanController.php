@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UsulanPemasukanController extends Controller
 {
@@ -87,9 +88,9 @@ class UsulanPemasukanController extends Controller
             date_default_timezone_set('Asia/Jakarta');
             $id = DB::table('catatan')->insertGetId([
                 'tanggal_catatan' => date("Y-m-d H:i:s"),
-                'user_id_unit' => 1,
+                'user_id_unit' => Auth::user()->id,
                 'status' => 1,
-                'unit'  => 'informatika'
+                'unit'  => Auth::user()->unit
             ]);
             $carts = Cart::getContent();
 

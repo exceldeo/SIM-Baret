@@ -54,7 +54,7 @@ Validasi Pemasukan
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
                                 Nama Pengusul : {!! $catatan->nama_user !!} <br>
-                                Unit : {!! $catatan->unit_user !!} <br>
+                                Unit : {!! $catatan->unit !!} <br>
                                 Tanggal Pengusulan : {!! substr($catatan->tanggal_catatan,0,10) !!}
                                 </h5>
                             </div>

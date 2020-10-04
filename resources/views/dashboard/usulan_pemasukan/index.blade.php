@@ -164,7 +164,7 @@ Usulan Pemasukan Barang
                                 id="example-datepicker1"  data-week-start="1" 
                                 data-autoclose="true" data-today-highlight="true" data-date-format="mm/dd/yyyy" 
                                 placeholder="mm/dd/yyyy" name="tanggal_peroleh" required>
-                                <label for="example-datepicker1">Tamggal Peroleh</label>
+                                <label for="example-datepicker1">Tanggal Peroleh</label>
                             </div>
                         </div>
                     </div>

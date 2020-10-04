@@ -14,14 +14,22 @@ Dashboard
     <div class="row push" style="margin-bottom: 0px">
         <div class="col-md d-md-flex align-items-md-center text-center">
             <h2 class="text-white mb-0">
-                <span class="font-w300 text-primary d-md-inline-block">Selamat datang, <strong>Admin</strong></span>
+                <span class="font-w300 text-primary d-md-inline-block">Selamat datang, <strong>{{ Auth::user()->nama_user }}</strong></span>
             </h2>
         </div>
     </div>
     <h2 class="text-white mb-0">
         <span class="font-w300 text-primary d-md-inline-block" style="font-size: 70%">Masuk Sebagai
             <strong>
-					<span>Administrator</span>
+					<span>
+                    @if(Auth::user()->level == 0)
+                    Super User
+                    @elseif(Auth::user()->level == 0)
+                    Administrator E-Asset
+                    @else
+                    Unit
+                    @endif
+                    </span>
             </strong>
         </span>
     </h2>

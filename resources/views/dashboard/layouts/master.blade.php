@@ -79,7 +79,7 @@
 						<i class="fa fa-user d-sm-none"></i>
 							<span class="d-none d-sm-inline-block"><i class="fa fa-user">
 								</i> 
-									<span>Administrator</span>
+									<span>{{ Auth::user()->nama_user }}</span>
 							</span>
 						<i class="fa fa-angle-down ml-5"></i>
 					</button>

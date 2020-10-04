@@ -64,7 +64,7 @@ Catatan Penghapusan
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! $l->unit !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_catatan!!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_validasi !!}</td>
                                             <td>

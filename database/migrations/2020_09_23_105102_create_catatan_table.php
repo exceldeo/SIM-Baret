@@ -16,7 +16,7 @@ class CreateCatatanTable extends Migration
         Schema::create('catatan', function (Blueprint $table) {
             $table->increments('id_catatan');
             $table->dateTime('tanggal_catatan', 0);
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->integer('user_id_unit');
             $table->integer('validasi_oleh')->nullable();
             $table->integer('status');

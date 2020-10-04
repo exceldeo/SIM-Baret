@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign in &bullet; myITS Online Test</title>
+    <title>Sign in &bullet; SIM BARET</title>
     <link rel="icon" type="image/png" sizes="16x16" href="https://my.its.ac.id/assets/media/favicons/favicon-web.png">
     <link rel="stylesheet" type="text/css" href="https://my.its.ac.id/assets/css/its-login.css">
     <link rel="stylesheet" type="text/css" href="https://my.its.ac.id/assets/plugins/nprogress/nprogress.css">

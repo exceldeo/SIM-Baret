@@ -65,7 +65,7 @@ Validasi Pemasukan
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! $l->unit_user !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! $l->unit !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
                                             <td>

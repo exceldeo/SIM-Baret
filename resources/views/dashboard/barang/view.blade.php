@@ -103,7 +103,7 @@
                                         <dd class="col-sm-9">
                                             <p id="barcode-value">{{ $result->barcode }}</p>
                                             <svg id="barcode"></svg>
-                                            <button class="btn btn-sm btn-info">Print barcode</button>
+                                            <!-- <button class="btn btn-sm btn-info">Print barcode</button> -->
                                         </dd>
                                         <dt class="col-sm-3">Nama barang</dt>
                                         <dd class="col-sm-9">{{ $result->nama_barang }}</dd>
@@ -111,6 +111,12 @@
                                         <dd class="col-sm-9">{{ $result->panjang_barang }}m x {{ $result->lebar_barang }}m x {{ $result->tinggi_barang }}m</dd>
                                         <dt class="col-sm-3">Lokasi penyimpanan</dt>
                                         <dd class="col-sm-9">{{ $result->nama_gudang }}</dd>
+                                        @if($result->tervalidasi > 0)
+                                        <dt class="col-sm-3">Validasi oleh</dt>
+                                        <dd class="col-sm-9">{{ $result->nama_user }}</dd>
+                                        <dt class="col-sm-3">Validasi pada</dt>
+                                        <dd class="col-sm-9">{{ date( 'Y-m-d H:i:s', strtotime($result->tanggal_validasi)) }}</dd>
+                                        @endif
                                     </dl>
                                 @else
                                 <div class="text-center">
