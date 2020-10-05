@@ -55,7 +55,7 @@ Usulan Penghapusan Barang
             <table class="table table-vcenter">
                 <thead class="thead-light">
                     <tr>
-                        <th class="text-center" style="width: 50px;">#</th>
+                        <th class="text-center" style="width: 50px;">No</th>
                         <th>Name</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tanggal Perolehan</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup</th>

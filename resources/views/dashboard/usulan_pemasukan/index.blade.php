@@ -56,7 +56,7 @@ Usulan Pemasukan Barang
             <table class="table table-vcenter">
                 <thead class="thead-light">
                     <tr>
-                        <th class="text-center" style="width: 50px;">#</th>
+                        <th class="text-center" style="width: 50px;">No</th>
                         <th>Name</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tanggal Perolehan</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup</th>
@@ -87,7 +87,7 @@ Usulan Pemasukan Barang
                                 <td class="text-center">{{ $c['attributes']['jml'] }} </td>
                                 <td class="text-center">Rp. {{number_format($c['attributes']['nilai']*$c['attributes']['jml'],0,",",".") }} </td>
                                 <td class="text-center">{{ $c['attributes']['kondisi'] }} </td>
-                                <td class="text-center">{{ $c['attributes']['lebar'] * $c['attributes']['panjang'] * $c['attributes']['tinggi'] }} m<sup>3</sup></td>
+                                <td class="text-center">{{ $c['attributes']['lebar'] * $c['attributes']['panjang'] * $c['attributes']['tinggi'] *  $c['attributes']['jml'] }} m<sup>3</sup></td>
                                 <td class="text-center">{{ $c['attributes']['lokasi'] }}</td>
                                 <td class="text-center">
                                     <form onclick="return confirm('Are you sure?')"
@@ -188,8 +188,8 @@ Usulan Pemasukan Barang
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <div class="form-material">
-                                <input autocomplete="off" type="number" 
+                            <div class="form-material"> 
+                                <input autocomplete="off" type="number" min="1"
                                 class="form-control" id="jml" name="jml" required>
                                 <label for="jml">Jumlah</label>
                             </div>
@@ -214,7 +214,7 @@ Usulan Pemasukan Barang
                     <div class="form-group row">
                         <div class="col-3">
                             <div class="form-material">
-                                <input autocomplete="off" type="number" step="any" 
+                                <input autocomplete="off" type="number" min="0" step="any" 
                                 class="form-control" id="panjang" name="panjang" required>
                                 <label for="panjang">Panjang</label>
                             </div>
@@ -226,7 +226,7 @@ Usulan Pemasukan Barang
                         </div>
                         <div class="col-3">
                             <div class="form-material">
-                                <input autocomplete="off" type="number" step="any" 
+                                <input autocomplete="off" type="number" min="0" step="any" 
                                  class="form-control" id="lebar" name="lebar" required>
                                 <label for="lebar">Lebar</label>
                             </div>
@@ -238,7 +238,7 @@ Usulan Pemasukan Barang
                         </div>
                         <div class="col-3">
                             <div class="form-material">
-                                <input autocomplete="off" type="number" step="any" 
+                                <input autocomplete="off" type="number" min="0" step="any" 
                                  class="form-control" id="tinggi" name="tinggi" required>
                                 <label for="tinggi">Tinggi</label>
                             </div>

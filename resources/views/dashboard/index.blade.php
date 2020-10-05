@@ -58,18 +58,10 @@ Dashboard
                     </a>
                 </div>  
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.gudang.index')}}">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.pemasukan.index')}}">
                         <div class="my-5 block-content">
-                            <p><i class="fa fa-3x fa-archive" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Gudang</p>
-                        </div>
-                    </a>
-                </div>  
-                <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.barang.index')}}">
-                        <div class="my-5 block-content">
-                            <p><i class="fa fa-3x fa-briefcase" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Barang</p>
+                            <p><i class="fa fa-3x fa-list" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Catatan Pemasukan</p>
                         </div>
                     </a>
                 </div>  
@@ -90,22 +82,6 @@ Dashboard
                     </a>
                 </div> 
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.validasi.penghapusan.unit.index')}}">
-                        <div class="my-5 block-content">
-                            <p><i class="fa fa-3x fa-check-square" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Validasi Laporan Penghapusan Unit</p>
-                        </div>
-                    </a>
-                </div> 
-                <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.pemasukan.index')}}">
-                        <div class="my-5 block-content">
-                            <p><i class="fa fa-3x fa-list" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Catatan Pemasukan</p>
-                        </div>
-                    </a>
-                </div>  
-                <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.penghapusan.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-reorder" style="color: #013880"></i></p>
@@ -113,9 +89,25 @@ Dashboard
                         </div>
                     </a>
                 </div>  
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.gudang.index')}}">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-archive" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Gudang</p>
+                        </div>
+                    </a>
+                </div>  
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.barang.index')}}">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-briefcase" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Barang</p>
+                        </div>
+                    </a>
+                </div>  
                 <!-- END Log card -->
                                 <!-- User Management card -->
-                                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-users" style="color: #013880"></i></p>
