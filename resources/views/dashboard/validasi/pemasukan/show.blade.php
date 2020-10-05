@@ -82,7 +82,8 @@ Validasi Pemasukan
                             <table class="js-table-checkable table table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="d-none d-sm-table-cell" >Nama Asset</th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">NO</th>
+                                        <th class="d-none d-sm-table-cell">Nama Asset</th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Nup</th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Merk/Type</th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
@@ -105,6 +106,7 @@ Validasi Pemasukan
                                 <tbody>
                                     @foreach($barang as $b)
                                         <tr>
+                                            <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td> {{ $b->nama_barang }} </td>
                                             <td class="d-none d-sm-table-cell">{!! $b->nup !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $b->merk_type !!}</td>
