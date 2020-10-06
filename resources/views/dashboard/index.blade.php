@@ -25,7 +25,6 @@ Dashboard
             </strong>
         </span>
     </h2>
-    <p></p>
 </div>
 <div class="content">
     {{-- <h2 class="content-heading">Selamat Datang</h2> --}}
@@ -37,7 +36,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.usulan_pemasukan.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-file-text-o" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Usulan Pemasukan Barang</p>
+                            <p class="" style="color: #013880">Aset Unit</p>
                         </div>
                     </a>
                 </div>  
@@ -69,7 +68,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.usulan_penghapusan.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-book" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Usulan Penghapusan Barang</p>
+                            <p class="" style="color: #013880">Usulan Penghapusan Aset</p>
                         </div>
                     </a>
                 </div> 

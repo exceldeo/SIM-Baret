@@ -41,13 +41,13 @@ Usulan Pemasukan Barang
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Daftar Usulan Barang</div>
+                <div class="font-size-lg font-w600">Daftar Aset Unit</div>
             </div>
             <div class="block-options">
                 <!-- <form action="{{route('dashboard.gudang.create')}}" method="GET"> -->
                     <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
                     data-target="#modal-normal">
-                        <i class="fa fa-plus"></i> Tambah Barang
+                        <i class="fa fa-plus"></i> Pilih Aset
                     </button>
                 <!-- </form> -->
             </div>
@@ -129,7 +129,7 @@ Usulan Pemasukan Barang
         <div class="modal-content">
             <div class="block block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Tambah Barang</h3>
+                    <h3 class="block-title">Pilih Aset</h3>
                     <div class="block-options">
                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                             <i class="si si-close"></i>
