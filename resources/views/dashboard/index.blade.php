@@ -52,7 +52,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.validasi.pemasukan.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-check-circle" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Validasi Laporan Pemasukan</p>
+                            <p class="" style="color: #013880">Verifikasi Pengajuan Aset</p>
                         </div>
                     </a>
                 </div>  

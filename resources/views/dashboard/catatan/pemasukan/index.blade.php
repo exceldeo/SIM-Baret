@@ -52,11 +52,11 @@ Catatan Pemasukan
                         <thead>
                             <tr>
                             <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
-                                <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal Usulan</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal Validasi</th>
-                                <th class="text-center" style="width: 22%;">Action</th>
+                                <th class="d-none d-sm-table-cell text-center top">Nama Pengaju</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 15%;">Asal Unit </th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal Pengajuan</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal Verifikasi</th>
+                                <th class="text-center" style="width: 23%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,7 +70,7 @@ Catatan Pemasukan
                                             <td>
                                                 <a href="{{route('dashboard.catatan.pemasukan.print_barcode', ['id_catatan' => $l->id_catatan])}}" target="_blank">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                            class="si si-printer mr-1"></i>Print Barcode</button>
+                                                            class="si si-printer mr-1"></i>Cetak Barcode</button>
                                                 </a>
                                                 <a href="{{route('dashboard.catatan.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i

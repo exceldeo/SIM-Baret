@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Usulan Pemasukan Barang
+Aset Unit
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -10,7 +10,7 @@ Usulan Pemasukan Barang
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.usulan_pemasukan.index')}}" class="breadcrumb-item active">Usulan Pemasukan Barang</a>
+        <a href="{{route('dashboard.usulan_pemasukan.index')}}" class="breadcrumb-item active">Aset Unit</a>
     </nav>
 </div>
 @endsection

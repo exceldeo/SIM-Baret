@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Validasi Pemasukan
+Verifikasi Pengajuan
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -9,7 +9,7 @@ Validasi Pemasukan
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.validasi.pemasukan.index')}}" class="breadcrumb-item active">Validasi Pemasukan</a>
+        <a href="{{route('dashboard.validasi.pemasukan.index')}}" class="breadcrumb-item active">Verifikasi Pengajuan Aset</a>
     </nav>
 </div>
 @endsection
@@ -40,7 +40,7 @@ Validasi Pemasukan
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Daftar Usulan Pemasukan</div>
+                <div class="font-size-lg font-w600">Daftar Pengajuan Aset</div>
             </div>
             <div class="block-options">
             </div>
@@ -52,8 +52,8 @@ Validasi Pemasukan
                         <thead>
                             <tr>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
-                                <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
+                                <th class="d-none d-sm-table-cell text-center">Nama Pengaju</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Asal Unit </th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Waktu</th>
                                 <th class="text-center" style="width: 22%;">Action</th>
