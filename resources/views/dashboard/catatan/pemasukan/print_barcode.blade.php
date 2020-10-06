@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-	<title>Print Usulan Pemasukan</title>
+	<title>Print Barcode</title>
 
 	<meta name="description" content="SI Presensi">
 	<meta name="author" content="DPTSI ITS">
@@ -42,9 +42,9 @@
     <div class="container-fluid">
         <div class="row">
             @foreach($barang as $b)
-            <dd class="col-sm-3 text-center">
-                <svg id="barcode"></svg>
-                <div id="barcode-value">{{ $b->barcode }}</div>
+            <dd class="col-sm-6 text-center barcode">
+                <svg id="image-{{ $b->barcode }}"></svg>
+                <div class="value">{{ $b->barcode }}</div>
                 {{ $b->nama_barang }}
             </dd>
             @endforeach
@@ -53,11 +53,16 @@
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
 <script type="text/javascript">
 function generateBarcode(){
-    let barcodeValue = document.getElementById('barcode-value').innerHTML
-    JsBarcode('#barcode', barcodeValue, {
-        background: '#ffffff',
-        lineColor: '#000000'
-    })
+    barcodes = document.getElementsByClassName('barcode');
+    Array.prototype.forEach.call(barcodes, function(bar) {
+        let barcodeValue = bar.getElementsByClassName('value')[0].innerHTML
+        let id = '#image-' + barcodeValue
+        JsBarcode(id, barcodeValue, {
+            background: '#ffffff',
+            lineColor: '#000000',
+            width: 4
+        })
+    });
 }
 generateBarcode()
 </script>

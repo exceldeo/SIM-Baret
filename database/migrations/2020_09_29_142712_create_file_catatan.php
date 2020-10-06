@@ -16,10 +16,10 @@ class CreateFileCatatan extends Migration
         Schema::create('file_catatan', function (Blueprint $table) {
             $table->increments('id_file_catatan');
             $table->integer('catatan_id');
-            $table->string('alamat');
-            $table->integer('status');
-            $table->dateTime('tanggal_validasi', 0)->nullable();
-            $table->timestamps();
+            $table->integer('jenis_surat');
+            $table->string('image_url')->nullable();
+            $table->dateTime('waktu_upload', 0)->nullable();
+            $table->string('upload_oleh')->nullable();
         });
     }
 

@@ -76,11 +76,13 @@ Scan Barcode
                 <div class="block-content text-center">
                     <h5 class="p-5">ID Barang:</h5>
                     <h3 id="scanned-id" class="p-5"></h3>
-                    <div id="detail-barang" class="text-center" style="display:none">
-                        <h5 class="p-0">Nama Barang:</h5>
-                        <h5 class="p-0" id="nama-barang"></h5>
-                        <h5 class="p-0">Lokasi:</h5>
-                        <h5 class="p-0" id="lokasi-barang"></h5>
+                    <div class="spinner-border text-primary" role="status" id="spinner">
+                    </div>
+                    <div id="detail-barang" class="text-center mb-5" style="display:none">
+                        <h5 class="p-0 m-0">Nama Barang:</h5>
+                        <h5 class="p-0 m-0" id="nama-barang"></h5>
+                        <h5 class="p-0 m-0">Lokasi:</h5>
+                        <h5 class="p-0 mb-5" id="lokasi-barang"></h5>
                     </div>
 
                     <div class="d-block text-center">
@@ -90,7 +92,32 @@ Scan Barcode
                         <input type="hidden" name="id" id="id-field"></input>
                         <button id="valid-btn" class="btn btn-success mb-5 text-light" style="display:none;">Validasi</button>
                     </form>
-                    <div>
+                    </div>
+                    <div class="d-block text-center">
+                    <form onclick="return confirm('Anda yakin menghapus barang dari usulan penghapusan?')"
+                        action="{{route('dashboard.usulan_penghapusan.delete')}}"
+                        method="post" class="d-inline">
+                        @method('delete')
+                        @csrf
+                        <input type="hidden" name="id" id="id-del">
+                        <button class="btn btn-sm btn-warning mb-5" id="min-up-btn" style="display:none;">
+                            <i class="fa fa-minus"></i>
+                            <span> Usulan Hapus</span>
+                        </button>
+                    </form>
+                    </div>
+                    <div class="d-block text-center">
+                    <form onclick="return confirm('Anda yakin menambah barang ke usulan penghapusan?')"
+                        action="{{route('dashboard.usulan_penghapusan.store')}}"
+                        method="post" class="d-inline">
+                        @csrf
+                        <input type="hidden" name="id" id="id-store">
+                        <button class="btn btn-sm btn-danger mb-5" id="plus-up-btn" style="display:none;">
+                            <i class="fa fa-plus"></i>
+                            <span> Usulan Hapus</span>
+                        </button>
+                    </form>
+                    </div>
                     <a id="view-detail-btn" class="btn btn-info mb-5" style="display:none;">Lihat detail</a>
                 </div>
             </div>
@@ -138,6 +165,12 @@ Scan Barcode
 
         //on hidden
         $(".modal").on("hidden.bs.modal", function(){
+            $('#detail-barang').hide();
+            $('#view-detail-btn').hide();
+            $('#valid-btn').hide();
+            $('#min-up-btn').hide();
+            $('#plus-up-btn').hide();
+            $("#spinner").show();
             start();
             console.log('hidden')
         });
@@ -182,28 +215,38 @@ Scan Barcode
                     if(response['data'].length != 0)
                     {
                         var url = '{{ route("dashboard.barang.show", ":id") }}';
-                        url = url.replace(':id', response['data'][0]['id_master_barang']);
+                        url = url.replace(':id', response['data']['id_master_barang']);
                         $('#view-detail-btn').attr("href", url);
 
-                        $('#id-field').val(response['data'][0]['id_master_barang']);
+                        $('#id-field').val(response['data']['id_master_barang']);
+                        $('#id-del').val(response['data']['barcode']);
+                        $('#id-store').val(response['data']['id_master_barang']);
 
-                        $('#nama-barang').html(response['data'][0]['nama_barang']);
-                        $('#lokasi-barang').html(response['data'][0]['nama_gudang']);
+                        $('#nama-barang').html(response['data']['nama_barang']);
+                        $('#lokasi-barang').html(response['data']['nama_gudang']);
 
                         $('#detail-barang').show();
                         $('#view-detail-btn').show();
-                        if(response['data'][0]['tervalidasi'] < 1) $('#valid-btn').show();
+                        if(response['data']['tervalidasi'] < 1) $('#valid-btn').show();
                         else
                         {
                             var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
                             $("#scanned-id").append(html);
                         }
+
+                        if(response['usulan_penghapusan'] > 0) $('#min-up-btn').show();
+                        else $('#plus-up-btn').show();
+
+                        $("#spinner").hide();
                     }
                     else
                     {
                         $('#detail-barang').hide();
                         $('#view-detail-btn').hide();
                         $('#valid-btn').hide();
+                        $('#min-up-btn').hide();
+                        $('#plus-up-btn').hide();
+                        $("#spinner").hide();
                     }
                 },
                 error: function(jqXHR, exception) {

@@ -20,8 +20,8 @@ class CreateBarangTable extends Migration
             $table->string('nup');
             $table->string('nama_barang');
             $table->string('tanggal_peroleh');
-            $table->string('merk_type')->nullable();
-            $table->string('nilai_barang')->nullable();
+            $table->string('merk_type');
+            $table->string('nilai_barang');
             $table->float('panjang_barang');
             $table->float('lebar_barang');
             $table->float('tinggi_barang');
@@ -29,8 +29,8 @@ class CreateBarangTable extends Migration
             $table->integer('catatan_id');
             $table->integer('status');
             $table->string('unit');
-            $table->string('kondisi')->nullable();
-            $table->string('nama_gudang')->nullable();
+            $table->string('kondisi');
+            $table->string('nama_gudang');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

@@ -54,7 +54,7 @@ Validasi Pemasukan
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
                                 Nama Pengusul : {!! $catatan->nama_user !!} <br>
-                                Unit : {!! $catatan->unit_user !!} <br>
+                                Unit : {!! $catatan->unit !!} <br>
                                 Tanggal Pengusulan : {!! substr($catatan->tanggal_catatan,0,10) !!}
                                 </h5>
                             </div>
@@ -82,12 +82,7 @@ Validasi Pemasukan
                             <table class="js-table-checkable table table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 70px;">
-                                            <label class="css-control css-control-primary css-checkbox py-0">
-                                                <input type="checkbox" class="css-control-input" id="check-all" name="check-all">
-                                                <span class="css-control-indicator"></span>
-                                            </label>
-                                        </th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">NO</th>
                                         <th class="d-none d-sm-table-cell">Nama Asset</th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Nup</th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Merk/Type</th>
@@ -95,7 +90,13 @@ Validasi Pemasukan
                                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Tahun Perolehan</th>
                                         <th class="d-none d-sm-table-cell" style="width: 10%;">Volume</th>
                                         <th class="d-none d-sm-table-cell" style="width: 10%;">lokasi</th>
-                                        <th class="text-center" style="width: 10%;">Keterangan</th>
+                                        <th class="text-center" style="width: 70px;"> 
+                                            <label class="css-control css-control-primary css-checkbox py-0">
+                                                <input type="checkbox" class="css-control-input" id="check-all" name="check-all">
+                                                <span class="css-control-indicator"></span>
+                                            </label>
+                                        </th>
+                                        <!-- <th class="text-center" style="width: 10%;">Keterangan</th> -->
                                         <!-- <th class="d-none d-sm-table-cell">Nama Barang</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Volume Barang</th>
                                         <th class="d-none d-sm-table-cell" style="width: 20%;">Lokasi</th>
@@ -105,23 +106,25 @@ Validasi Pemasukan
                                 <tbody>
                                     @foreach($barang as $b)
                                         <tr>
-                                            <td class="text-center">
-                                                <label class="css-control css-control-primary css-checkbox">
-                                                    <input type="checkbox" class="css-control-input" id="row[{{$b->id_barang}}]" name="row[{{$b->id_barang}}]">
-                                                    <span class="css-control-indicator"></span>
-                                                </label>
-                                            </td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td> {{ $b->nama_barang }} </td>
                                             <td class="d-none d-sm-table-cell">{!! $b->nup !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $b->merk_type !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $b->jumlah !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! substr($b->tanggal_peroleh,-4) !!}</td>
                                             @php
-                                                $total = $b->panjang_barang * $b->lebar_barang * $b->tinggi_barang
+                                                $total = $b->panjang_barang * $b->lebar_barang * $b->tinggi_barang * $b->jumlah
                                             @endphp
                                             <td> {{ $total }} m<sup>3</sup> </td>
                                             <td> {{ $b->nama_gudang }} </td>
-                                            @if($b->ruang_sisa < $total )
+                                            <td class="text-center">
+                                                <label class="css-control css-control-primary css-checkbox">
+                                                    <input type="checkbox" class="css-control-input" id="row[{{$b->id_barang}}]" name="row[{{$b->id_barang}}]">
+                                                    <span class="css-control-indicator"></span>
+                                                </label>
+                                            </td>
+
+                                            <!-- @if($b->ruang_sisa < $total )
                                                 <td class="d-none d-sm-table-cell text-center">
                                                     <span class="badge badge-danger">Melebihi Kapasitas</span>
                                                 </td>
@@ -129,7 +132,7 @@ Validasi Pemasukan
                                                 <td class="d-none d-sm-table-cell text-center">
                                                     <span class="badge badge-success">Tersedia</span>
                                                 </td>
-                                            @endif
+                                            @endif -->
                                         </tr>
                                     @endforeach
                                 </tbody>

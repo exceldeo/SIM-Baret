@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
-
+use Illuminate\Support\Facades\Auth;
 
 class BarangController extends Controller
 {
@@ -30,6 +30,7 @@ class BarangController extends Controller
         $result = DB::select(
         "SELECT * from master_barang 
         LEFT JOIN gudang ON master_barang.gudang_id = gudang.id_gudang
+        LEFT JOIN users ON master_barang.validasi_oleh = users.id
         WHERE id_master_barang = ?",
         array($id)
         );
@@ -55,7 +56,14 @@ class BarangController extends Controller
         LEFT JOIN gudang ON master_barang.gudang_id = gudang.id_gudang 
         WHERE barcode = ?",
         array($barcode)
-        );
+        )[0];
+
+        $cart_items = Cart::getContent();
+        $result['usulan_penghapusan'] = 0;
+        foreach($cart_items as $key => $item)
+        {
+            if($item['attributes']['role'] == 2 && $key == $result['data']->barcode) $result['usulan_penghapusan'] = 1;
+        }
 
         echo json_encode($result);
         exit;
@@ -111,7 +119,8 @@ class BarangController extends Controller
     {
         $message = "";
         try {
-            DB::update("UPDATE master_barang set tervalidasi = 1 where id_master_barang = ?", [$request->id]);
+            DB::update("UPDATE master_barang set tervalidasi = 1, validasi_oleh = ?, tanggal_validasi = ?
+            where id_master_barang = ?", [Auth::user()->id, date("Y-m-d H:i:s"), $request->id]);
 
             $message = ["success" => "Barang berhasil divalidasi!"];
         } catch (\Throwable $th) {
