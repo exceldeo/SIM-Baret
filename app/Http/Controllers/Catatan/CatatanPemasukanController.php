@@ -33,8 +33,10 @@ class CatatanPemasukanController extends Controller
         "
         SELECT * from barang
         JOIN gudang ON gudang.id_gudang = barang.nama_gudang
+        JOIN master_barang ON master_barang.barcode = barang.barcode
         WHERE catatan_id = ?
         ", array($id_catatan));
+
 
         return view('dashboard.catatan.pemasukan.show',compact('catatan','barang'));
     }

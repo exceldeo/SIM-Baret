@@ -41,7 +41,7 @@ Catatan Pemasukan
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Detail Usulan</div>
+                <div class="font-size-lg font-w600">Detail Catatan Pemasukan</div>
             </div>
             <div class="block-options">
             </div>
@@ -53,9 +53,9 @@ Catatan Pemasukan
                         <li>
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
-                                Nama Pengusul : {!! $catatan->nama_user !!} <br>
-                                Unit : {!! $catatan->unit !!} <br>
-                                Tanggal Pengusulan : {!! substr($catatan->tanggal_catatan,0,10) !!}
+                                Nama Pengaju <span style="padding: 15px;"> </span> : {!! $catatan->nama_user !!} <br>
+                                Asal Unit  <span style="padding: 34px;"> </span>: {!! $catatan->unit !!} <br>
+                                Tanggal Pengajuan : {!! substr($catatan->tanggal_catatan,0,10) !!}
                                 </h5>
                             </div>
                         </li>
@@ -67,7 +67,7 @@ Catatan Pemasukan
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Barang yang di Usulan</div>
+                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Aset yang diajukan </div>
             </div>
             <div class="block-options">
             </div>
@@ -88,6 +88,7 @@ Catatan Pemasukan
                                     <th class="d-none d-sm-table-cell" style="width: 10%;">Volume</th>
                                     <th class="d-none d-sm-table-cell" style="width: 10%;">Lokasi</th>
                                     <th class="text-center" style="width: 10%;">Keterangan</th>
+                                    <th class="text-center" style="width: 10%;">Validasi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -113,8 +114,19 @@ Catatan Pemasukan
                                                 <span class="badge badge-success">Diterima</span>
                                             </td>
                                         @endif
-                                    </tr>
+
+                                        @if($b->tervalidasi == 0 )
+                                            <td class="d-none d-sm-table-cell text-center">
+                                                <span class="badge badge-danger">Belum masukkan</span>
+                                            </td>
+                                        @else
+                                            <td class="d-none d-sm-table-cell text-center">
+                                                <span class="badge badge-success">Dimasukan ke gudang</span>
+                                            </td>
+                                        @endif
                                 @endforeach
+
+                                    </tr>
                             </tbody>
                         </table>
                     </div>
