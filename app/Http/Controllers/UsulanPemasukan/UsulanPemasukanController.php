@@ -23,9 +23,18 @@ class UsulanPemasukanController extends Controller
     {
         $message = "";
         $gudang = DB::select("SELECT * from gudang WHERE id_gudang = ?", [$request->gudang_id])[0];
-        $carts = json_decode($request->cookie('masuk-carts'), true); 
-        date_default_timezone_set('Asia/Jakarta');
-        if($gudang->ruang_sisa <  ($request->panjang * $request->lebar * $request->tinggi)){
+        // $carts = json_decode($request->cookie('masuk-carts'), true); 
+        // date_default_timezone_set('Asia/Jakarta');
+        $carts = Cart::getContent();
+        $gudang_sisa = $gudang->ruang_sisa;
+
+        foreach($carts as $c){
+            if($c['attributes']['id_gudang'] == $request->gudang_id){
+                $gudang_sisa -= ($c['attributes']['jml'] * $c['attributes']['panjang'] * $c['attributes']['lebar']  * $c['attributes']['tinggi'] );
+            }
+        }
+
+        if($gudang_sisa <  ($request->panjang * $request->lebar * $request->tinggi * $request->jml)){
             $message = ["fail" => "Gudang melebihi kapasitas"];
         }
         else{
@@ -53,7 +62,6 @@ class UsulanPemasukanController extends Controller
                         'role'      => 1
                     ),
                 ]);
-
                 $message = ["success" => "Barang berhasil di tambahkan!"];
     
             } catch (\Throwable $th) {
