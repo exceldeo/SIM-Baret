@@ -111,7 +111,7 @@
                                         <dd class="col-sm-9">{{ $result->panjang_barang }}m x {{ $result->lebar_barang }}m x {{ $result->tinggi_barang }}m</dd>
                                         <dt class="col-sm-3">Lokasi penyimpanan</dt>
                                         <dd class="col-sm-9">{{ $result->nama_gudang }}</dd>
-                                        @if($result->tervalidasi > 0)
+                                        @if(!(is_null($result->tanggal_validasi)))
                                         <dt class="col-sm-3">Validasi oleh</dt>
                                         <dd class="col-sm-9">{{ $result->nama_user }}</dd>
                                         <dt class="col-sm-3">Validasi pada</dt>

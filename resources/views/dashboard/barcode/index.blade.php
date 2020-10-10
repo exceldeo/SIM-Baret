@@ -83,14 +83,32 @@ Scan Barcode
                         <h5 class="p-0 m-0" id="nama-barang"></h5>
                         <h5 class="p-0 m-0">Lokasi:</h5>
                         <h5 class="p-0 mb-5" id="lokasi-barang"></h5>
+                        <h5 class="p-0 m-0">Jumlah:</h5>
+                        <h5 class="p-0 mb-5" id="jumlah-barang"></h5>
                     </div>
 
-                    <div class="d-block text-center">
+                    <div class="d-block text-center" id="form-validasi">
                     <form action="{{route('dashboard.barang.validate')}}"
                         method="post">
                         @csrf
                         <input type="hidden" name="id" id="id-field"></input>
-                        <button id="valid-btn" class="btn btn-success mb-5 text-light" style="display:none;">Validasi</button>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="form-material"> 
+                                    <input autocomplete="off" type="number" min="0"
+                                    class="form-control" id="oke" name="oke" required>
+                                    <label for="oke">OK</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-material"> 
+                                    <input autocomplete="off" type="number" min="0"
+                                    class="form-control" id="titip" name="titip" required>
+                                    <label for="titip">Titip</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success mb-5 text-light">Validasi</button>
                     </form>
                     </div>
                     <div class="d-block text-center">
@@ -158,8 +176,8 @@ Scan Barcode
         //on shown
         function alignModal(){
             reset();
-            var modalDialog = $(this).find(".modal-dialog");
-            modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+            // var modalDialog = $(this).find(".modal-dialog");
+            // modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
         }
         $(".modal").on("shown.bs.modal", alignModal);
 
@@ -221,14 +239,17 @@ Scan Barcode
                         $('#id-field').val(response['data']['id_master_barang']);
                         $('#id-del').val(response['data']['barcode']);
                         $('#id-store').val(response['data']['id_master_barang']);
+                        $('#oke').val(response['data']['oke']);
+                        $('#titip').val(response['data']['titip']);
 
                         $('#nama-barang').html(response['data']['nama_barang']);
                         $('#lokasi-barang').html(response['data']['nama_gudang']);
+                        $('#jumlah-barang').html(response['data']['jumlah']);
 
                         $('#detail-barang').show();
                         $('#view-detail-btn').show();
-                        if(response['data']['tervalidasi'] < 1) $('#valid-btn').show();
-                        else
+                        $('#form-validasi').show();
+                        if(response['data']['tanggal_validasi'])
                         {
                             var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
                             $("#scanned-id").append(html);
@@ -243,7 +264,7 @@ Scan Barcode
                     {
                         $('#detail-barang').hide();
                         $('#view-detail-btn').hide();
-                        $('#valid-btn').hide();
+                        $('#form-validasi').hide();
                         $('#min-up-btn').hide();
                         $('#plus-up-btn').hide();
                         $("#spinner").hide();
