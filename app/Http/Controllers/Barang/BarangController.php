@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class BarangController extends Controller
 {
@@ -118,9 +120,26 @@ class BarangController extends Controller
     public function validateScan(Request $request)
     {
         $message = "";
+        $result = DB::select('SELECT * from master_barang WHERE id_master_barang = ?', [$request->id])[0];
+        $request['sum_of_barang'] = $request->oke + $request->titip;
+        $validate = Validator::make($request->all(), [
+                'sum_of_barang' => 'in:'.$result->jumlah
+            ],
+            [
+                'in' => 'Jumlah oke dan titip harus sama dengan jumlah barang.'
+            ]
+        );
+
+        if($validate->fails())
+        {
+            $message = ["fail" => $validate->errors()->first()];
+            return redirect()->route('dashboard.scan')->with($message);
+        }
+
         try {
-            DB::update("UPDATE master_barang set tervalidasi = 1, validasi_oleh = ?, tanggal_validasi = ?
-            where id_master_barang = ?", [Auth::user()->id, date("Y-m-d H:i:s"), $request->id]);
+            
+            DB::update("UPDATE master_barang set oke = ?, titip = ?, validasi_oleh = ?, tanggal_validasi = ?
+            where id_master_barang = ?", [$request->oke, $request->titip, Auth::user()->id, date("Y-m-d H:i:s"), $request->id]);
 
             $message = ["success" => "Barang berhasil divalidasi!"];
         } catch (\Throwable $th) {
