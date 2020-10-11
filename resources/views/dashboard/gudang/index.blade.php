@@ -82,7 +82,7 @@ Gudang
                                                         Lokasi : {!! $g->lokasi_gudang !!}
                                                     </span>
                                                     <span class="mr-10">
-                                                        Barang : 
+                                                       Jumlah aset : {!! $g->count_barang !!} 
                                                     </span>
                                                     <form class="pull-right" onclick="return confirm('Are you sure?')"
                                                         action="{{route('dashboard.gudang.delete', ['id_gudang' => $g->id_gudang])}}"

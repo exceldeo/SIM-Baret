@@ -11,6 +11,12 @@ class GudangController extends Controller
     public function index()
     {
         $gudang = DB::select("SELECT * from gudang");
+
+        foreach ($gudang as $key => $value) {
+            $value->count_barang = count(DB::select("SELECT * from master_barang where gudang_id = '$value->id_gudang'"));
+        }
+
+        // dd($gudang);
         return view('dashboard.gudang.index',compact('gudang'));
     }
 
