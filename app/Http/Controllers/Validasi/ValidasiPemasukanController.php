@@ -14,7 +14,7 @@ class ValidasiPemasukanController extends Controller
             "
             SELECT * from catatan
             JOIN users ON users.id = catatan.user_id_unit
-            WHERE status = 1
+            WHERE status = 1 ORDER BY catatan.tanggal_catatan DESC
             ");
             
         return view('dashboard.validasi.pemasukan.index',compact('list'));

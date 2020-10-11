@@ -14,7 +14,7 @@ class CatatanPemasukanController extends Controller
         "
         SELECT * from catatan
         JOIN users ON users.id = catatan.user_id_unit
-        WHERE status = 2
+        WHERE status = 2 ORDER BY catatan.tanggal_catatan DESC
         ");
 
         return view('dashboard.catatan.pemasukan.index',compact('list'));

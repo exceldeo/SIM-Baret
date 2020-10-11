@@ -115,14 +115,19 @@ Catatan Pemasukan
                                             </td>
                                         @endif
 
-                                        @if($b->tervalidasi == 0 )
+                                        @if($b->oke == 0 || $b->titip == 0  )
                                             <td class="d-none d-sm-table-cell text-center">
-                                                <span class="badge badge-danger">Belum masukkan</span>
+                                                <span class="badge badge-danger">Belum divalidasi</span>
                                             </td>
-                                        @else
+                                        <!--  ntar dibuat bisa di klik terus pop up muncul catatan -->
+                                        @elseif($b->oke == 1 )  
                                             <td class="d-none d-sm-table-cell text-center">
-                                                <span class="badge badge-success">Dimasukan ke gudang</span>
+                                                <span class="badge badge-success">Titip divalidasi</span>
                                             </td>
+                                        @elseif($b->titip == 1 )
+                                        <td class="d-none d-sm-table-cell text-center">
+                                            <span class="badge badge-success">oke Tervalidasi</span>
+                                        </td>    
                                         @endif
                                 @endforeach
 

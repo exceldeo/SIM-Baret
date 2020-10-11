@@ -57,12 +57,12 @@ Aset Unit
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center" style="width: 50px;">No</th>
-                        <th>Name</th>
+                        <th>Nama</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tanggal Perolehan</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Merk/Type</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Barang</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Aset</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Kondisi</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Volume</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Lokasi</th>

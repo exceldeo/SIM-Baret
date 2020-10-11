@@ -51,9 +51,9 @@ Validasi Penghapusan
                         <li>
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
-                                Nama Pengusul : {!! $catatan->nama_user !!} <br>
-                                Unit : {!! $catatan->unit !!} <br>
-                                Tanggal Pengusulan : {!! substr($catatan->tanggal_catatan,0,10) !!}
+                                Nama Pengaju <span style="padding: 15px;"> </span> : {!! $catatan->nama_user !!} <br>
+                                Asal Unit  <span style="padding: 34px;"> </span>: {!! $catatan->unit !!} <br>
+                                Tanggal Pengajuan : {!! substr($catatan->tanggal_catatan,0,10) !!}
                                 </h5>
                             </div>
                         </li>
@@ -65,9 +65,9 @@ Validasi Penghapusan
     <div class="block">
         <div class="block-header block-header-default">
             <!-- <div class="row"> -->
-                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Barang yang di Usulan</div>
+                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Usulan Aset</div>
                 <div class="pull-right">
-                <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.surat.index', ['id_catatan' => $catatan->id_catatan]) }}">Surat</a>
+                <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.surat.index', ['id_catatan' => $catatan->id_catatan]) }}">Upload Berkas</a>
                 </div>
             <!-- </div> -->
         </div>
@@ -81,19 +81,18 @@ Validasi Penghapusan
                             <table class="js-table-checkable table table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">No</th>
-                                        <th class="d-none d-sm-table-cell">Nama Asset</th>
-                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Nup</th>
-                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Merk/Type</th>
-                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
-                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Tahun Perolehan</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 10%;">Volume</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 10%;">lokasi</th>
-                                        <!-- <th class="text-center" style="width: 10%;">Keterangan</th> -->
-                                        <th class="text-center" style="width: 70px;">
-                                            <label class="css-control css-control-primary css-checkbox py-0">
-                                                <input type="checkbox" class="css-control-input" id="check-all" name="check-all">
-                                                <span class="css-control-indicator"></span>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">No<br></br></th>
+                                        <th class="text-center d-none d-sm-table-cell">Nama Aset<br></br></th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup<br></br></th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Merk/Type<br></br></th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Jumlah<br></br></th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tahun Perolehan</th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Volume<br></br></th>
+                                        <th class="text-center d-none d-sm-table-cell" style="width: 15%;">lokasi<br></br></th>
+                                        <th class="text-center" style="width: 70px;"> Verifikasi
+                                            <label class="css-control css-control-primary css-checkbox py-0 " style="border:10px" >
+                                                <input type="checkbox" class="css-control-input" id="check-all" name="check-all" checked  >
+                                                <span class="css-control-indicator" ></span>
                                             </label>
                                         </th>
                                     </tr>
@@ -103,18 +102,18 @@ Validasi Penghapusan
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td> {{ $b->nama_barang }} </td>
-                                            <td class="d-none d-sm-table-cell">{!! $b->nup !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! $b->merk_type !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! $b->jumlah !!}</td>
-                                            <td class="d-none d-sm-table-cell">{!! substr($b->tanggal_peroleh,-4) !!}</td>
+                                            <td class="text-center d-none d-sm-table-cell">{!! $b->nup !!}</td>
+                                            <td class="text-center d-none d-sm-table-cell">{!! $b->merk_type !!}</td>
+                                            <td class="text-center d-none d-sm-table-cell">{!! $b->jumlah !!}</td>
+                                            <td class="text-center d-none d-sm-table-cell">{!! substr($b->tanggal_peroleh,-4) !!}</td>
                                             @php
                                                 $total = $b->panjang_barang * $b->lebar_barang * $b->tinggi_barang
                                             @endphp
-                                            <td> {{ $total }} m<sup>3</sup> </td>
-                                            <td> {{ $b->nama_gudang }} </td>
+                                            <td  class="text-center"> {{ $total }} m<sup>3</sup> </td>
+                                            <td class="text-center"> {{ $b->nama_gudang }} </td>
                                             <td class="text-center">
                                                 <label class="css-control css-control-primary css-checkbox">
-                                                    <input type="checkbox" class="css-control-input" id="row[{{$b->id_barang}}]" name="row[{{$b->id_barang}}]">
+                                                    <input type="checkbox" class="css-control-input" id="row[{{$b->id_barang}}]" name="row[{{$b->id_barang}}]" checked>
                                                     <span class="css-control-indicator"></span>
                                                 </label>
                                             </td>
@@ -128,8 +127,8 @@ Validasi Penghapusan
             </div>
             <div class="block-content bg-body-light block-content-full">
                 <div class="row">
-                    <div class="col align-self-end">
-                        <button type="submit" class="btn btn-its-primary pull-right">Simpan</button>
+                    <div class="col align-self-end" >
+                        <button type="submit" class="btn btn-its-primary pull-right" onclick="return confirm('Are you sure?')" required >Simpan</button>
                     </div>
                 </div>
             </div>

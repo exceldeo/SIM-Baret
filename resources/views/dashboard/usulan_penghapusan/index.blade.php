@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Usulan Penghapusan Barang
+Usulan Penghapusan Aset
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/datatables/dataTables.bootstrap4.css">
@@ -9,7 +9,7 @@ Usulan Penghapusan Barang
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.usulan_penghapusan.index')}}" class="breadcrumb-item active">Usulan Penghapusan Barang</a>
+        <a href="{{route('dashboard.usulan_penghapusan.index')}}" class="breadcrumb-item active">Usulan Penghapusan Aset</a>
     </nav>
 </div>
 @endsection
@@ -40,13 +40,13 @@ Usulan Penghapusan Barang
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">Daftar Usulan Barang</div>
+                <div class="font-size-lg font-w600">Daftar Usulan Aset</div>
             </div>
             <div class="block-options">
                 <!-- <form action="{{route('dashboard.gudang.create')}}" method="GET"> -->
                     <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
                     data-target="#modal-large">
-                        <i class="fa fa-plus"></i> Tambah Barang
+                        <i class="fa fa-plus"></i> Pilih Aset
                     </button>
                 <!-- </form> -->
             </div>
@@ -56,12 +56,12 @@ Usulan Penghapusan Barang
                 <thead class="thead-light">
                     <tr>
                         <th class="text-center" style="width: 50px;">No</th>
-                        <th>Name</th>
+                        <th>Nama</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tanggal Perolehan</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Merk/Type</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Barang</th>
+                        <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Aset</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Kondisi</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Volume</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Lokasi</th>
@@ -146,6 +146,7 @@ Usulan Penghapusan Barang
                                         <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Volume</th>
                                         <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Gudang</th>
                                         <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Unit</th>
+                                        <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Jumlah</th>
                                         <th class="text-center" style="width: 5%;">Action</th>
                                     </tr>
                                 </thead>
@@ -158,6 +159,7 @@ Usulan Penghapusan Barang
                                                     <td class="d-none d-sm-table-cell">{!! $as->panjang_barang * $as->lebar_barang * $as->tinggi_barang !!} m<sup>3</sup></td>
                                                     <td class="d-none d-sm-table-cell">{!! $as->nama_gudang !!}</td>
                                                     <td class="d-none d-sm-table-cell">{!! $as->unit !!}</td>
+                                                    <td class="d-none d-sm-table-cell">{!! $as->jumlah !!}</td>
                                                     <td>
                                                         <form action="{{route('dashboard.usulan_penghapusan.store')}}"
                                                             method="post">

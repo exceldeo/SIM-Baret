@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.master')
 @section('title')
 @isset($result)
-Surat
+Upload Berkas
 @endisset
 @endsection
 @section('breadcrumb')
@@ -9,7 +9,8 @@ Surat
     <nav class="breadcrumb bg-white push mb-0" >
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
         <a href="{{route('dashboard.validasi.penghapusan.index')}}" class="breadcrumb-item">Validasi Penghapusan</a>
-        <a href="#" class="breadcrumb-item active">Surat</a>
+        <a href="{{route('dashboard.validasi.penghapusan.show', ['id_catatan' => $id_catatan])}}" class="breadcrumb-item ">Detail Usulan Penghapusan</a>
+        <a href="#" class="breadcrumb-item active">Upload Berkas</a>
     </nav>
 </div>
 @endsection
@@ -45,7 +46,7 @@ Surat
                                 </button>
                             </a>
                             <div class="d-inline font-size-lg font-w600">
-                                    Upload Surat
+                                    Upload Berkas
                             </div>
                         </div>
                     </div>
@@ -55,9 +56,9 @@ Surat
                                 <table id="barang_table" class="table table-striped text-dark w-100">
                                 <thead>
                                     <tr>
-                                        <th style="width: 40%">Jenis Surat</th>
-                                        <th style="width: 30%">Terakhir diunggah</th>
-                                        <th style="width: 30%">Diunggah Oleh</th>
+                                        <th style="width: 50%">Nama Berkas</th>
+                                        <th style="width: 25%">Terakhir diunggah</th>
+                                        <th style="width: 25%">Diunggah Oleh</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,8 +76,8 @@ Surat
                                         <td>{{ $surat->waktu_upload ? date( 'Y-m-d H:i:s', strtotime($surat->waktu_upload)) : '' }}</td>
                                         <td>{{ $surat->upload_oleh }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-its-primary" data-toggle="modal"
-                                            data-target="#modal-normal{{ $surat->id }}">Edit</button>
+                                            <button class="btn btn-sm btn-its-primary pull-right mr-3" data-toggle="modal" 
+                                            data-target="#modal-normal{{ $surat->id }}" style="width:100px">Upload File</button>
                                         </td>
                                     </tr>
                                     @endforeach
