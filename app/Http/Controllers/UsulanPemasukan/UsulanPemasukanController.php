@@ -124,11 +124,11 @@ class UsulanPemasukanController extends Controller
                     (kode_barang, barcode, nup, nama_barang, tanggal_peroleh, merk_type, 
                     nilai_barang, panjang_barang, lebar_barang, tinggi_barang, jumlah,
                     catatan_id, nama_gudang, status, unit, kondisi)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, -1, 'informatika', ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, -1, ?, ?)
                     ", array($c['attributes']['kode'], $c['id'],$c['attributes']['nup'], $c['name'], 
                     $c['attributes']['tanggal'], $c['attributes']['merk'], $c['attributes']['nilai'],
                     $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
-                    $c['attributes']['jml'],$id, $c['attributes']['id_gudang'], $c['attributes']['kondisi']));
+                    $c['attributes']['jml'],$id, $c['attributes']['id_gudang'],Auth::user()->unit, $c['attributes']['kondisi']));
             }
             
             Cart::clear();

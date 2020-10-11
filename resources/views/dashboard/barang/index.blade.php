@@ -75,6 +75,7 @@ table tr {
                         </thead>
                         <tbody>
                                 @foreach ($results as $barang)
+                                    @if( (Auth::user()->level == 2 && Auth::user()->unit == $barang->unit ) || Auth::user()->level != 2))
                                         <tr class="row-detail">
                                             <td class="text-center"></td>
                                             <td>{{ $barang->nama_barang }}</td>
@@ -129,6 +130,7 @@ table tr {
                                                 @endif
                                             </td>
                                         </tr>
+                                    @endif
                                 @endforeach
                         </tbody>
                     </table>

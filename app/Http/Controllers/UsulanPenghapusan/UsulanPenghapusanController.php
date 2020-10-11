@@ -117,9 +117,9 @@ class UsulanPenghapusanController extends Controller
             date_default_timezone_set('Asia/Jakarta');
             $id = DB::table('catatan')->insertGetId([
                 'tanggal_catatan' => date("Y-m-d H:i:s"),
-                'user_id_unit' => 1,
+                'user_id_unit' => Auth::user()->id,
                 'status' => 3,
-                'unit'  => 'informatika'
+                'unit'  => Auth::user()->unit,
             ]);
 
             $carts = Cart::getContent();
@@ -135,11 +135,11 @@ class UsulanPenghapusanController extends Controller
                     (kode_barang, barcode, nup, nama_barang, tanggal_peroleh, merk_type, 
                     nilai_barang, panjang_barang, lebar_barang, tinggi_barang, jumlah,
                     catatan_id, nama_gudang, status, unit, kondisi)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, -1, 'informatika', ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, -1, ?, ?)
                     ", array($c['attributes']['kode'], $c['id'],$c['attributes']['nup'], $c['name'], 
                     $c['attributes']['tanggal'], $c['attributes']['merk'], $c['attributes']['nilai'],
                     $c['attributes']['panjang'], $c['attributes']['lebar'], $c['attributes']['tinggi'],
-                    $c['attributes']['jml'],$id, $c['attributes']['id_gudang'], $c['attributes']['kondisi']));
+                    $c['attributes']['jml'],$id, $c['attributes']['id_gudang'],Auth::user()->unit, $c['attributes']['kondisi']));
             }
 
             Cart::clear();

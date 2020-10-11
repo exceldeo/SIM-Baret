@@ -94,6 +94,7 @@ Detail Gudang
                             <tbody>
                                 @if(!is_null($as_gudang))
                                     @foreach ($as_gudang as $as)
+                                        @if((Auth::user()->level == 2 && Auth::user()->unit == $as->unit) || Auth::user()->level != 2)
                                             <tr>
                                                 <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                                 <td class="d-none d-sm-table-cell">{!! $as->nama_barang !!}</td>
@@ -110,6 +111,7 @@ Detail Gudang
                                                     </a>
                                                 </td>
                                             </tr>
+                                        @endif
                                     @endforeach
                                 @endif
                             </tbody>

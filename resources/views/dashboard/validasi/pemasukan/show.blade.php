@@ -90,6 +90,7 @@ Verifikasi Pengajuan
                                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tahun Perolehan</th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Volume <br></br></th>
                                         <th class="text-center d-none d-sm-table-cell" style="width: 15%;">lokasi <br></br></th>
+                                        @if(Auth::user()->level != 2)
                                         <th class="text-center d-none d-sm-table-cell" style="width: 70px;"> 
                                             Verifikasi
                                             <label class="css-control css-control-primary css-checkbox py-0" > 
@@ -97,6 +98,7 @@ Verifikasi Pengajuan
                                                 <span class="css-control-indicator"></span>
                                             </label>
                                         </th>
+                                        @endif
                                         <!-- <th class="text-center" style="width: 10%;">Keterangan</th> -->
                                         <!-- <th class="d-none d-sm-table-cell">Nama Barang</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Volume Barang</th>
@@ -118,22 +120,14 @@ Verifikasi Pengajuan
                                             @endphp
                                             <td class="text-center"> {{ $total }} m<sup>3</sup> </td>
                                             <td class="text-center"> {{ $b->nama_gudang }} </td>
+                                            @if(Auth::user()->level != 2)
                                             <td class="text-center">
                                                 <label class="css-control css-control-primary css-checkbox">
                                                     <input type="checkbox" class="css-control-input" id="row[{{$b->id_barang}}]" name="row[{{$b->id_barang}}]">
                                                     <span class="css-control-indicator"></span>
                                                 </label>
                                             </td>
-
-                                            <!-- @if($b->ruang_sisa < $total )
-                                                <td class="d-none d-sm-table-cell text-center">
-                                                    <span class="badge badge-danger">Melebihi Kapasitas</span>
-                                                </td>
-                                            @else
-                                                <td class="d-none d-sm-table-cell text-center">
-                                                    <span class="badge badge-success">Tersedia</span>
-                                                </td>
-                                            @endif -->
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -143,11 +137,13 @@ Verifikasi Pengajuan
                 </div>
             </div>
             <div class="block-content bg-body-light block-content-full">
+            @if(Auth::user()->level != 2)
                 <div class="row">
                     <div class="col align-self-end">
                         <button type="submit" class="btn btn-its-primary pull-right">Simpan</button>
                     </div>
                 </div>
+            @endif
             </div>
         </form>
     </div>

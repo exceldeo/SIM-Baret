@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('', 'Validasi\ValidasiPemasukanController@index')->name('index');
                 Route::get('{id_catatan}/print', 'Validasi\ValidasiPemasukanController@print')->name('print');
                 Route::get('{id_catatan}/show', 'Validasi\ValidasiPemasukanController@show')->name('show');
+                Route::get('{id_catatan}/export', 'Validasi\ValidasiPemasukanController@export')->name('export');
                 Route::post('save', 'Validasi\ValidasiPemasukanController@save')->name('save');
             });
             Route::prefix('penghapusan')->name('penghapusan.')->group(function () {

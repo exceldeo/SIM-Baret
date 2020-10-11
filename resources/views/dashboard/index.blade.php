@@ -39,7 +39,7 @@ Dashboard
     <div class="block block-transparent">
         <div class="block-content">
             <div class="row gutters-tiny push">
-
+            @if(Auth::user()->level != 1)
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.usulan_pemasukan.index')}}">
                         <div class="my-5 block-content">
@@ -48,6 +48,7 @@ Dashboard
                         </div>
                     </a>
                 </div>  
+            @endif
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.validasi.pemasukan.index')}}">
                         <div class="my-5 block-content">
@@ -56,6 +57,7 @@ Dashboard
                         </div>
                     </a>
                 </div>  
+            @if(Auth::user()->level != 1)
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.pemasukan.index')}}">
                         <div class="my-5 block-content">
@@ -104,17 +106,20 @@ Dashboard
                         </div>
                     </a>
                 </div>  
+            
                 <!-- END Log card -->
-                                <!-- User Management card -->
-                <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
-                        <div class="my-5 block-content">
-                            <p><i class="fa fa-3x fa-users" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Pengguna</p>
-                        </div>
-                    </a>
-                </div>
+                @if(Auth::user()->level == 0)
+                    <div class="col-6 col-md-3 col-xl-2 mt-2">
+                        <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="#">
+                            <div class="my-5 block-content">
+                                <p><i class="fa fa-3x fa-users" style="color: #013880"></i></p>
+                                <p class="" style="color: #013880">Pengguna</p>
+                            </div>
+                        </a>
+                    </div>
+                @endif
                 <!-- END User Management card -->
+            @endif
             </div>
         </div>
     </div>

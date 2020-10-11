@@ -61,6 +61,7 @@ Catatan Penghapusan
                         </thead>
                         <tbody>
                                 @foreach ($list as $l)
+                                    @if((Auth::user()->level == 2 && Auth::user()->unit == $l->unit) || Auth::user()->level != 2)
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
@@ -75,6 +76,7 @@ Catatan Penghapusan
                                                 
                                             </td>
                                         </tr>
+                                    @endif
                                 @endforeach
                         </tbody>
                     </table>
