@@ -92,7 +92,21 @@ class ValidasiPemasukanController extends Controller
 
     public function export($id_catatan) 
     {
-        return Excel::download(new PemasukanExport, 'users.xlsx');
+        $catatan = DB::select(
+            "
+            SELECT * from catatan
+            JOIN users ON users.id = catatan.user_id_unit
+            WHERE id_catatan = ?
+            ", [$id_catatan])[0];
+        
+        $barang = DB::select(
+            "
+            SELECT * from barang
+            JOIN gudang ON gudang.id_gudang = barang.nama_gudang
+            WHERE catatan_id = ?
+            ", [$id_catatan]);
+
+        return Excel::download(new PemasukanExport($catatan,$barang), $catatan->unit.'_'.substr($catatan->tanggal_catatan,0,10).'.xlsx');
     }
 
 }

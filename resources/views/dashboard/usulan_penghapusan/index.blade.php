@@ -153,6 +153,7 @@ Usulan Penghapusan Aset
                                 <tbody>
                                     @if(!is_null($assets))
                                         @foreach ($assets as $as)
+                                            @if((Auth::user()->level == 2 && Auth::user()->unit == $as->unit) || Auth::user()->level != 2)
                                                 <tr>
                                                     <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                                     <td class="d-none d-sm-table-cell">{!! $as->nama_barang !!}</td>
@@ -169,6 +170,7 @@ Usulan Penghapusan Aset
                                                         </form>
                                                     </td>
                                                 </tr>
+                                            @endif
                                         @endforeach
                                     @endif
                                 </tbody>
