@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.27",
         "laravel/tinker": "^2.0",
-        "melihovv/laravel-shopping-cart": "^7.0"
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
