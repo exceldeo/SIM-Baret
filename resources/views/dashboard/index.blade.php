@@ -24,10 +24,10 @@ Dashboard
 					<span>
                     @if(Auth::user()->level == 0)
                     Super User
-                    @elseif(Auth::user()->level == 0)
-                    Administrator E-Asset
+                    @elseif(Auth::user()->level == 1)
+                    Administrator
                     @else
-                    Unit
+                    Unit {{ Auth::user()->unit }}
                     @endif
                     </span>
             </strong>
@@ -57,7 +57,6 @@ Dashboard
                         </div>
                     </a>
                 </div>  
-            @if(Auth::user()->level != 1)
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.catatan.pemasukan.index')}}">
                         <div class="my-5 block-content">
@@ -66,6 +65,7 @@ Dashboard
                         </div>
                     </a>
                 </div>  
+                @if(Auth::user()->level != 1)
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.usulan_penghapusan.index')}}">
                         <div class="my-5 block-content">
@@ -90,6 +90,7 @@ Dashboard
                         </div>
                     </a>
                 </div>  
+                @endif
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.gudang.index')}}">
                         <div class="my-5 block-content">
@@ -102,7 +103,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.barang.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-briefcase" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Barang</p>
+                            <p class="" style="color: #013880">Aset Gudang</p>
                         </div>
                     </a>
                 </div>  
@@ -119,7 +120,7 @@ Dashboard
                     </div>
                 @endif
                 <!-- END User Management card -->
-            @endif
+
             </div>
         </div>
     </div>

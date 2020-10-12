@@ -39,8 +39,10 @@ class JenisSuratSeeder extends Seeder {
             (9, 'Permohonan persetujuan penghapusan'),
             (10, 'Persetujuan penghapusan'),
             (11, 'Surat Tugas'),
-            (12, 'Permohonan penjualan aset tindak lanjut penghapusan')
-            ");
+            (12, 'Permohonan penjualan aset tindak lanjut penghapusan'),
+            (13, 'Surat Lainnya')
+            "
+        );
     }
 
 }
@@ -52,14 +54,37 @@ class UserSeeder extends Seeder {
     public function run()
     {
         DB::table('users')->delete();
-        $pass = Hash::make('bambangganteng');
+        $pass = Hash::make('1234');
         DB::insert(
             "
             INSERT INTO users
             (nama_user, email, password, unit, level)
             VALUES
             (?, ?, ?, ?, ?)
-            ", ['Bambang', 'bambang@bambangmail.com', $pass, 'Perbambangan', 0]);
+            ", ['Excel', 'excel@gmail.com', $pass, 'SuperAdmin', 0]);
+    
+        DB::insert(
+            "
+            INSERT INTO users
+            (nama_user, email, password, unit, level)
+            VALUES
+            (?, ?, ?, ?, ?)
+            ", ['Yulia', 'niza@gmail.com', $pass, 'Admin', 1]);
+
+        DB::insert(
+            "
+            INSERT INTO users
+            (nama_user, email, password, unit, level)
+            VALUES
+            (?, ?, ?, ?, ?)
+            ", ['Zakiya', 'zakiya@gmail.com', $pass, 'Informatika', 2]);
+        DB::insert(
+            "
+            INSERT INTO users
+            (nama_user, email, password, unit, level)
+            VALUES
+            (?, ?, ?, ?, ?)
+            ", ['Azizah', 'azizah@gmail.com', $pass, 'Kimia', 2]);
     }
 
 }

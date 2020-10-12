@@ -69,10 +69,12 @@ Catatan Pemasukan
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_catatan !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_validasi !!}</td>
                                             <td>
+                                            @if(Auth::user()->level != 1)
                                                 <a href="{{route('dashboard.catatan.pemasukan.print_barcode', ['id_catatan' => $l->id_catatan])}}" target="_blank">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-printer mr-1"></i>Cetak Barcode</button>
                                                 </a>
+                                            @endif
                                                 <a href="{{route('dashboard.catatan.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-eye mr-1"></i> Detail</button>

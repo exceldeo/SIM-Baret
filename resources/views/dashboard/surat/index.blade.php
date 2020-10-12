@@ -56,6 +56,7 @@ Upload Berkas
                                 <table id="barang_table" class="table table-striped text-dark w-100">
                                 <thead>
                                     <tr>
+                                        <th style="width: 5%">No</th>
                                         <th style="width: 50%">Nama Berkas</th>
                                         <th style="width: 25%">Terakhir diunggah</th>
                                         <th style="width: 25%">Diunggah Oleh</th>
@@ -65,6 +66,7 @@ Upload Berkas
                                     @isset($result)
                                     @foreach($result as $surat)
                                     <tr>
+                                        <td>{{ $surat->id }}</td>
                                         <td>
                                         <a href="{{ asset($surat->image_url) }}" target="__blank">
                                         {{ $surat->jenis_surat }}

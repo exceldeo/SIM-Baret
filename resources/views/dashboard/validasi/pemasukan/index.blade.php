@@ -76,10 +76,12 @@ Verifikasi Pengajuan
                                                             class="fa fa-download mr-1"></i>Download Detail</button>
                                                 </a>
                                                 @endif
+                                                @if(Auth::user()->level != 1)
                                                 <a href="{{route('dashboard.validasi.pemasukan.print', ['id_catatan' => $l->id_catatan])}}" target="_blank">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-printer mr-1"></i>Print Detail</button>
                                                 </a>
+                                                @endif
                                                 <a href="{{route('dashboard.validasi.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-eye mr-1"></i> Detail</button>

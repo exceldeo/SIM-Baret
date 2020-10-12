@@ -20,7 +20,7 @@ table tr {
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.barang.index')}}" class="breadcrumb-item active">Asset</a>
+        <a href="#" class="breadcrumb-item active">Aset Gudang</a>
     </nav>
 </div>
 @endsection
@@ -99,6 +99,7 @@ table tr {
                                                     </span>
                                                 </a>
                                                 @if(in_array($barang->barcode, $del_carts))
+                                                @if(Auth::user()->level != 1)
                                                 <form onclick="return confirm('Anda yakin menghapus barang dari usulan penghapusan?')"
                                                     action="{{route('dashboard.usulan_penghapusan.delete')}}"
                                                     method="post" class="d-inline">
@@ -127,6 +128,7 @@ table tr {
                                                         </span>
                                                     </button>
                                                 </form>
+                                                @endif
                                                 @endif
                                             </td>
                                         </tr>

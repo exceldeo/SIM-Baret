@@ -9,7 +9,7 @@ Detail Gudang
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.gudang.index')}}" class="breadcrumb-item active">Gudang</a>
+        <a href="{{route('dashboard.gudang.index')}}" class="breadcrumb-item ">Gudang</a>
         <a href="#" class="breadcrumb-item active">Detail Gudang</a>
     </nav>
 </div>
@@ -68,7 +68,7 @@ Detail Gudang
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Barang </div>
+                <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Aset </div>
             </div>
             <div class="block-options">
             </div>
@@ -107,7 +107,7 @@ Detail Gudang
                                                 <td >
                                                     <a class="text-center" href="{{route('dashboard.barang.show', ['id_barang' => $as->id_master_barang])}}">
                                                         <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="si si-eye mr-1"></i> Detail Asset </button>
+                                                                class="si si-eye mr-1"></i> Detail Aset </button>
                                                     </a>
                                                 </td>
                                             </tr>

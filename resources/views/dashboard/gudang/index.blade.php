@@ -9,7 +9,7 @@ Gudang
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.gudang.index')}}" class="breadcrumb-item active">Gudang</a>
+        <a href="{{route('dashboard.gudang.index')}}" class="breadcrumb-item ">Gudang</a>
     </nav>
 </div>
 @endsection
@@ -40,16 +40,18 @@ Gudang
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">List Gudang</div>
+                <div class="font-size-lg font-w600">Daftar Gudang</div>
             </div>
+            @if(Auth::user()->level == 0)
             <div class="block-options">
                 <!-- <form action="{{route('dashboard.gudang.create')}}" method="GET"> -->
                     <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
                     data-target="#modal-normal">
-                        <i class="fa fa-plus"></i> Buat Gudang
+                        <i class="fa fa-plus"></i> Tambah Gudang
                     </button>
                 <!-- </form> -->
             </div>
+            @endif
         </div>
         <div class="block-content">
             <div class="row py-5">
@@ -84,6 +86,7 @@ Gudang
                                                     <span class="mr-10">
                                                        Jumlah aset : {!! $g->count_barang !!} 
                                                     </span>
+                                                    @if(Auth::user()->level == 0)
                                                     <form class="pull-right" onclick="return confirm('Are you sure?')"
                                                         action="{{route('dashboard.gudang.delete', ['id_gudang' => $g->id_gudang])}}"
                                                         method="post">
@@ -99,10 +102,7 @@ Gudang
                                                     <button type="submit" class="btn btn-sm btn-its-primary pull-right mr-3" data-toggle="modal"
                                                         data-target="#modalEdit{{ $g->id_gudang }}">
                                                     <i class="fa fa-pencil mr-1"></i> Edit </button>
-                                                    <!-- <a
-                                                        href="#modalEdit">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3">
-                                                    </a> -->
+                                                    @endif
                                                     <a
                                                         href="{{route('dashboard.gudang.show', ['id_gudang' => $g->id_gudang])}}">
                                                         <button class="btn btn-sm btn-its-primary pull-right mr-3"><i

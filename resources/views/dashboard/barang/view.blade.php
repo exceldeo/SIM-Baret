@@ -8,7 +8,7 @@
 <div class="content">
     <nav class="breadcrumb bg-white push mb-0" >
         <a href="{{route('dashboard.index')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dashboard.barang.index')}}" class="breadcrumb-item">Barang</a>
+        <a href="{{route('dashboard.barang.index')}}" class="breadcrumb-item">Aset Gudang</a>
         @isset($result->barcode)
         <a href="#" class="breadcrumb-item active">{{ $result->barcode }}</a>
         @else
@@ -43,15 +43,16 @@
                 <div class="card w-100">
                     <div class="card-header bg-light" style="padding: 10px">
                         <div class="m-0">
-                            <a href="{{ URL::previous() }}" id="arrow-back" class="d-inline">
+                            <a href="{{route('dashboard.barang.index')}}" id="arrow-back" class="d-inline">
                                 <button type="button" class="btn btn-sm btn-circle btn-secondary mr-5 mb-5">
                                     <i class="fa fa-arrow-left"></i>
                                 </button>
                             </a>
                             <div class="d-inline font-size-lg font-w600">
-                                    Detail Barang
+                                    Detail Aset
                             </div>
                             @isset($result)
+                            @if(Auth::user()->level != 1)
                             <div class="float-right">
                                 @if($isin_draft)
                                 <form onclick="return confirm('Anda yakin menghapus barang dari usulan penghapusan?')"
@@ -91,6 +92,7 @@
                                     </span>
                                 </button>
                             </div>
+                            @endif
                             @endisset
                         </div>
                     </div>
