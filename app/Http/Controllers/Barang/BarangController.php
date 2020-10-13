@@ -60,6 +60,14 @@ class BarangController extends Controller
         array($barcode)
         )[0];
 
+        $result['komponen'] = DB::select(
+            "SELECT id, nama_komponen from komponen
+            LEFT JOIN master_barang
+            ON master_barang.kode_barang = komponen.kode_barang
+            WHERE master_barang.barcode = ?",
+            [$barcode]
+        );
+
         $cart_items = Cart::getContent();
         $result['usulan_penghapusan'] = 0;
         foreach($cart_items as $key => $item)
@@ -120,26 +128,34 @@ class BarangController extends Controller
     public function validateScan(Request $request)
     {
         $message = "";
-        $result = DB::select('SELECT * from master_barang WHERE id_master_barang = ?', [$request->id])[0];
-        $request['sum_of_barang'] = $request->oke + $request->titip;
-        $validate = Validator::make($request->all(), [
-                'sum_of_barang' => 'in:'.$result->jumlah
-            ],
-            [
-                'in' => 'Jumlah oke dan titip harus sama dengan jumlah barang.'
-            ]
-        );
+        // $result = DB::select('SELECT * from master_barang WHERE id_master_barang = ?', [$request->id])[0];
+        // $request['sum_of_barang'] = $request->oke + $request->titip;
+        // $validate = Validator::make($request->all(), [
+        //         'sum_of_barang' => 'in:'.$result->jumlah
+        //     ],
+        //     [
+        //         'in' => 'Jumlah oke dan titip harus sama dengan jumlah barang.'
+        //     ]
+        // );
 
-        if($validate->fails())
+        // if($validate->fails())
+        // {
+        //     $message = ["fail" => $validate->errors()->first()];
+        //     return redirect()->route('dashboard.scan')->with($message);
+        // }
+
+        $cek_komponen = array();
+        foreach($request->komp as $key => $komp)
         {
-            $message = ["fail" => $validate->errors()->first()];
-            return redirect()->route('dashboard.scan')->with($message);
+            array_push($cek_komponen, $key);
         }
+
+        $cek_komponen_json = json_encode($cek_komponen);
 
         try {
             
-            DB::update("UPDATE master_barang set oke = ?, titip = ?, validasi_oleh = ?, tanggal_validasi = ?
-            where id_master_barang = ?", [$request->oke, $request->titip, Auth::user()->id, date("Y-m-d H:i:s"), $request->id]);
+            DB::update("UPDATE master_barang set cek_komponen = ?, validasi_oleh = ?, tanggal_validasi = ?
+            where id_master_barang = ?", [$cek_komponen_json, Auth::user()->id, date("Y-m-d H:i:s"), $request->id]);
 
             $message = ["success" => "Barang berhasil divalidasi!"];
         } catch (\Throwable $th) {

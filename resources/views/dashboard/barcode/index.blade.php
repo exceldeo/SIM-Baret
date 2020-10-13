@@ -79,12 +79,20 @@ Scan Barcode
                     <div class="spinner-border text-primary" role="status" id="spinner">
                     </div>
                     <div id="detail-barang" class="text-center mb-5" style="display:none">
-                        <h5 class="p-0 m-0">Nama Barang:</h5>
-                        <h5 class="p-0 m-0" id="nama-barang"></h5>
-                        <h5 class="p-0 m-0">Lokasi:</h5>
-                        <h5 class="p-0 mb-5" id="lokasi-barang"></h5>
-                        <h5 class="p-0 m-0">Jumlah:</h5>
-                        <h5 class="p-0 mb-5" id="jumlah-barang"></h5>
+                        <table class="table table-responsive">
+                            <tr>
+                                <th style="width: 20%">Kode</th>
+                                <th style="width: 40%">Nama Barang</th>
+                                <th style="width: 10%">NUP</th>
+                                <th style="width: 30%">Lokasi</th>
+                            </tr>
+                            <tr>
+                                <td id="kode-barang"></td>
+                                <td id="nama-barang"></td>
+                                <td id="nup-barang"></td>
+                                <td id="lokasi-barang"></td>
+                            </tr>
+                        </table>
                     </div>
 
                     <div class="d-block text-center" id="form-validasi">
@@ -92,21 +100,17 @@ Scan Barcode
                         method="post">
                         @csrf
                         <input type="hidden" name="id" id="id-field"></input>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="form-material"> 
-                                    <input autocomplete="off" type="number" min="0"
-                                    class="form-control" id="oke" name="oke" required>
-                                    <label for="oke">OK</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-material"> 
-                                    <input autocomplete="off" type="number" min="0"
-                                    class="form-control" id="titip" name="titip" required>
-                                    <label for="titip">Titip</label>
-                                </div>
-                            </div>
+                        <div class="text-center mb-5">
+                            <table class="table table-responsive" id="table-komponen" style="display:none;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 90%">Nama Komponen</th>
+                                        <th style="width: 10%;">Lengkap</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                         <button class="btn btn-success mb-5 text-light">Validasi</button>
                     </form>
@@ -242,9 +246,10 @@ Scan Barcode
                         $('#oke').val(response['data']['oke']);
                         $('#titip').val(response['data']['titip']);
 
+                        $('#kode-barang').html(response['data']['kode_barang']);
                         $('#nama-barang').html(response['data']['nama_barang']);
                         $('#lokasi-barang').html(response['data']['nama_gudang']);
-                        $('#jumlah-barang').html(response['data']['jumlah']);
+                        $('#nup-barang').html(response['data']['nup']);
 
                         $('#detail-barang').show();
                         $('#view-detail-btn').show();
@@ -257,6 +262,24 @@ Scan Barcode
 
                         if(response['usulan_penghapusan'] > 0) $('#min-up-btn').show();
                         else $('#plus-up-btn').show();
+
+                        if(response['komponen'].length > 0)
+                        {
+                            $("#table-komponen tbody tr").remove();
+                            var tbody = document.getElementById('table-komponen').getElementsByTagName('tbody')[0];
+                            response['komponen'].forEach(function(komp){
+                                var newRow = tbody.insertRow();
+                                var namaCell = newRow.insertCell();
+                                namaCell.innerHTML = komp['nama_komponen'];
+
+                                var checkCell = newRow.insertCell();
+                                var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]"> <span class="css-control-indicator"></span></label>'
+                                html = html.replace(/:komp_id/g, komp['id']);
+                                console.log('html', html);
+                                checkCell.innerHTML = html;
+                            })
+                            $("#table-komponen").show();
+                        }
 
                         $("#spinner").hide();
                     }
@@ -277,6 +300,11 @@ Scan Barcode
             })
 
         }
+
+        document.getElementById('scanned-id').innerHTML = '201013160259';
+        fetchRecords('201013160259');
+        $('#modal-normal3').modal('show'); 
+        
     })
 </script>
 @endsection

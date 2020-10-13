@@ -55,9 +55,9 @@ class ValidasiPemasukanController extends Controller
                 DB::insert(
                     "
                     INSERT INTO master_barang
-                    (nama_barang, barcode, panjang_barang, lebar_barang, tinggi_barang, gudang_id, unit, tanggal, oke, titip, 
+                    (nama_barang, barcode, panjang_barang, lebar_barang, tinggi_barang, gudang_id, unit, tanggal, 
                     nup, tanggal_peroleh, merk_type, nilai_barang, jumlah, kondisi, kode_barang)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?, ?, ? , ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)
                     ", array($barang->nama_barang, $barang->barcode, $barang->panjang_barang, $barang->lebar_barang, $barang->tinggi_barang,
                     $barang->nama_gudang,$barang->unit, date("Y-m-d H:i:s"),  
                     $barang->nup, $barang->tanggal_peroleh, $barang->merk_type, $barang->nilai_barang, $barang->jumlah, $barang->kondisi, $barang->kode_barang));

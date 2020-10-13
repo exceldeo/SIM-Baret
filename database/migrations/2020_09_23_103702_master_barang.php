@@ -28,8 +28,9 @@ class MasterBarang extends Migration
             $table->integer('jumlah');
             $table->integer('gudang_id');
             $table->dateTime('tanggal', 0);
-            $table->integer('oke');
-            $table->integer('titip');
+            // $table->integer('oke');
+            // $table->integer('titip');
+            $table->string('cek_komponen')->nullable();
             $table->string('unit');
             $table->string('kondisi')->nullable();
             $table->integer('validasi_oleh')->nullable();
