@@ -13,50 +13,54 @@ class UsulanPemasukanController extends Controller
     
     public function index()
     {
+        $assets = DB::connection('second_db')->select("SELECT * from asset");
         $gudang = DB::select("SELECT * from gudang");
+        $kategori = DB::select("SELECT * from kategori_vol_asset");
         $carts = Cart::getContent();
 
-        return view('dashboard.usulan_pemasukan.index',compact('carts','gudang'));
+        return view('dashboard.usulan_pemasukan.index',compact('carts','gudang','assets','kategori'));
     }
 
     public function store(Request $request)
     {
         $message = "";
+        $asset = DB::connection('second_db')->select("SELECT * from asset WHERE id_barang = ?", [$request->pilih_barang])[0];
+        $kategori = DB::select("SELECT * from kategori_vol_asset WHERE id = ?", [$request->kategori])[0];
         $gudang = DB::select("SELECT * from gudang WHERE id_gudang = ?", [$request->gudang_id])[0];
         // $carts = json_decode($request->cookie('masuk-carts'), true); 
         // date_default_timezone_set('Asia/Jakarta');
         $carts = Cart::getContent();
         $gudang_sisa = $gudang->ruang_sisa;
-
+        
         foreach($carts as $c){
             if($c['attributes']['id_gudang'] == $request->gudang_id){
                 $gudang_sisa -= ($c['attributes']['jml'] * $c['attributes']['panjang'] * $c['attributes']['lebar']  * $c['attributes']['tinggi'] );
             }
         }
 
-        if($gudang_sisa <  ($request->panjang * $request->lebar * $request->tinggi * $request->jml)){
+        if($gudang_sisa <  ($kategori->panjang_barang * $kategori->lebar_barang * $kategori->tinggi_barang)){
             $message = ["fail" => "Gudang melebihi kapasitas"];
         }
         else{
             try {
-                $request->nilai = str_replace(",","",$request->nilai);
-                // dd(intval($request->nilai)/$request->jml);
+                $asset->nilai_barang = str_replace(",","",$asset->nilai_barang);
+                // dd(intval($asset->nilai)/$asset->jml);
                 Cart::add([
                     'id'        => date("ymdHis"),
-                    'name'      => $request->nama,
+                    'name'      => $asset->nama_barang,
                     'price'     => 1,
                     'quantity'  => 1,
                     'attributes' => array(
-                        'kode'      => $request->kode,
-                        'tanggal'   => $request->tanggal_peroleh,
-                        'nup'       => $request->nup,
-                        'merk'      => $request->merk,
-                        'jml'       => $request->jml,
-                        'nilai'     => intval($request->nilai)/$request->jml,
+                        'kode'      => $asset->kode_barang,
+                        'tanggal'   => $asset->tanggal_peroleh,
+                        'nup'       => $asset->nup,
+                        'merk'      => $asset->merk_type,
+                        'jml'       => 1,
+                        'nilai'     => intval($asset->nilai_barang),
                         'kondisi'   => $request->kondisi,
-                        'panjang'   => $request->panjang,
-                        'lebar'     => $request->lebar,
-                        'tinggi'    => $request->tinggi,
+                        'panjang'   => $kategori->panjang_barang,
+                        'lebar'     => $kategori->lebar_barang,
+                        'tinggi'    => $kategori->tinggi_barang,
                         'lokasi'    => $gudang->nama_gudang,
                         'id_gudang' => $request->gudang_id,
                         'role'      => 1

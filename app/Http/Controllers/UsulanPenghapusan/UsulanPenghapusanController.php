@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UsulanPenghapusanController extends Controller
 {
@@ -16,6 +17,7 @@ class UsulanPenghapusanController extends Controller
             "
             SELECT * from master_barang
             JOIN gudang ON gudang.id_gudang = master_barang.gudang_id
+            WHERE status = 1
             ");
         $carts = Cart::getContent();
             // dd($carts);
@@ -24,6 +26,7 @@ class UsulanPenghapusanController extends Controller
 
     public function store(Request $request)
     {
+
         $message = "";
         try {
             $asset = DB::select(
@@ -33,7 +36,9 @@ class UsulanPenghapusanController extends Controller
                 WHERE id_master_barang = ?
                 ", [$request->id])[0];
 
-                $jml = Cart::get($asset->barcode);
+            DB::update("UPDATE master_barang set status = -1 WHERE id_master_barang = ?", [$request->id]);
+                
+            $jml = Cart::get($asset->barcode);
                 
                 if( $jml != NULL){
                     // dd($asset->jumlah < $jml['attributes']['jml'] + 1);
@@ -101,6 +106,8 @@ class UsulanPenghapusanController extends Controller
     {
         $message = "";
         try {
+            DB::update("UPDATE master_barang set status = 1 WHERE barcode = ?", [$request->id]);
+
             Cart::remove($request->id);
 
             $message = ["success" => "Barang berhasil dihapus dari Usulan Penghapusan!"];
