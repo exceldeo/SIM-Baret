@@ -20,8 +20,8 @@ class KomponenTableSeeder extends Seeder
             VALUES
             (1, '1234', 'Monitor'),
             (2, '1234', 'CPU'),
-            (3, '1235', 'AC Indoor'),
-            (4, '1235', 'AC Outdoor')
+            (3, '123123', 'AC Indoor'),
+            (4, '123123', 'AC Outdoor')
             "
         );
     }

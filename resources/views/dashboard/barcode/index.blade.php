@@ -311,8 +311,8 @@ Scan Barcode
 
         }
 
-        // document.getElementById('scanned-id').innerHTML = '201014121800';
-        // fetchRecords('201014121800');
+        // document.getElementById('scanned-id').innerHTML = '201014140001';
+        // fetchRecords('201014140001');
         // $('#modal-normal3').modal('show'); 
         
     })

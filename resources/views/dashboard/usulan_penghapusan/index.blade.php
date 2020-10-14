@@ -60,7 +60,7 @@ Usulan Penghapusan Aset
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Tanggal Perolehan</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nup</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Merk/Type</th>
-                        <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
+                        <!-- <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th> -->
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Nilai Aset</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Kondisi</th>
                         <th class="text-center d-none d-sm-table-cell" style="width: 10%;">Volume</th>
@@ -83,7 +83,7 @@ Usulan Penghapusan Aset
                                 <td class="text-center">{{ $c['attributes']['tanggal'] }} </td>
                                 <td class="text-center">{{ $c['attributes']['nup'] }} </td>
                                 <td class="text-center">{{ $c['attributes']['merk'] }} </td>
-                                <td class="text-center">{{ $c['attributes']['jml'] }} </td>
+                                <!-- <td class="text-center">{{ $c['attributes']['jml'] }} </td> -->
                                 <td class="text-center">Rp. {{number_format($c['attributes']['nilai']*$c['attributes']['jml']) }} </td>
                                 <td class="text-center">{{ $c['attributes']['kondisi'] }} </td>
                                 <td class="text-center">{{ $c['attributes']['lebar'] * $c['attributes']['panjang'] * $c['attributes']['tinggi'] }} m<sup>3</sup></td>
@@ -143,10 +143,10 @@ Usulan Penghapusan Aset
                                     <tr>
                                         <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
                                         <th class="d-none d-sm-table-cell text-center">Nama Asset</th>
-                                        <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Volume</th>
+                                        <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Merk/Type</th>
+                                        <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Nup</th>
                                         <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Gudang</th>
                                         <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Unit</th>
-                                        <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Jumlah</th>
                                         <th class="text-center" style="width: 5%;">Action</th>
                                     </tr>
                                 </thead>
@@ -157,10 +157,10 @@ Usulan Penghapusan Aset
                                                 <tr>
                                                     <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
                                                     <td class="d-none d-sm-table-cell">{!! $as->nama_barang !!}</td>
-                                                    <td class="d-none d-sm-table-cell">{!! $as->panjang_barang * $as->lebar_barang * $as->tinggi_barang !!} m<sup>3</sup></td>
+                                                    <td class="d-none d-sm-table-cell">{!! $as->merk_type !!}</td>
+                                                    <td class="d-none d-sm-table-cell">{!! $as->nup !!} </td>
                                                     <td class="d-none d-sm-table-cell">{!! $as->nama_gudang !!}</td>
                                                     <td class="d-none d-sm-table-cell">{!! $as->unit !!}</td>
-                                                    <td class="d-none d-sm-table-cell">{!! $as->jumlah !!}</td>
                                                     <td>
                                                         <form action="{{route('dashboard.usulan_penghapusan.store')}}"
                                                             method="post">

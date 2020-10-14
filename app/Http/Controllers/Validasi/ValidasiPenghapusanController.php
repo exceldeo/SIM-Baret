@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Validasi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ValidasiPenghapusanController extends Controller
 {
@@ -71,6 +72,11 @@ class ValidasiPenghapusanController extends Controller
 
             }
 
+            DB::update("UPDATE master_barang ms
+            INNER JOIN barang b ON ms.barcode = b.barcode  
+            SET ms.status = 1 
+            WHERE b.catatan_id = ?", [$request->id_catatan]);
+            
             $message = ["success" => "Usulan berhasil tervalidasi"];
         } catch (\Throwable $th) {
             $message = ["fail" => $th->getMessage()];
