@@ -52,7 +52,8 @@ Catatan Penghapusan
                         <thead>
                             <tr>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 5%;">Mo</th>
-                                <th class="d-none d-sm-table-cell text-center">Nama Pengusul</th>
+                                <th class="d-none d-sm-table-cell text-center">Penghapusan</th>
+                                <th class="d-none d-sm-table-cell text-center">Pengusul</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Tanggal Usulan</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Tanggal Validasi</th>
@@ -64,10 +65,15 @@ Catatan Penghapusan
                                     @if((Auth::user()->level == 2 && Auth::user()->unit == $l->unit) || Auth::user()->level != 2)
                                         <tr>
                                             <td class="d-none d-sm-table-cell text-center">{!! $loop->iteration !!}</td>
+                                            @php
+                                            setlocale(LC_ALL, 'id_ID.UTF8', 'id_ID.UTF-8', 'id_ID.8859-1', 'id_ID', 'IND.UTF8', 'IND.UTF-8', 'IND.8859-1', 'IND', 'Indonesian.UTF8', 'Indonesian.UTF-8', 'Indonesian.8859-1', 'Indonesian', 'Indonesia', 'id', 'ID');
+                                            $monthName = strftime('%B %Y', strtotime($l->tanggal_catatan));
+                                            @endphp
+                                            <td class="d-none d-sm-table-cell">{!! $monthName !!} </td>
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->unit !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_catatan!!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! $l->tanggal_validasi !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan, 0, 10) !!}</td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_validasi, 0, 19) !!}</td>
                                             <td>
                                                 <a href="{{route('dashboard.catatan.penghapusan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i

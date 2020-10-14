@@ -53,6 +53,11 @@ Catatan Penghapusan
                         <li>
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
+                                @php
+                                setlocale(LC_ALL, 'id_ID.UTF8', 'id_ID.UTF-8', 'id_ID.8859-1', 'id_ID', 'IND.UTF8', 'IND.UTF-8', 'IND.8859-1', 'IND', 'Indonesian.UTF8', 'Indonesian.UTF-8', 'Indonesian.8859-1', 'Indonesian', 'Indonesia', 'id', 'ID');
+                                $monthName = strftime('%B %Y', strtotime($catatan->tanggal_catatan));
+                                @endphp
+                                Penghapusan : {!! $monthName !!} <br>
                                 Nama Pengusul : {!! $catatan->nama_user !!} <br>
                                 Unit : {!! $catatan->unit !!} <br>
                                 Tanggal Pengusulan : {!! substr($catatan->tanggal_catatan,0,10) !!}

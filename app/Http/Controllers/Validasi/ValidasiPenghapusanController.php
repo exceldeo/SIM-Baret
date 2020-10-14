@@ -72,10 +72,10 @@ class ValidasiPenghapusanController extends Controller
 
             }
 
-            DB::update("UPDATE master_barang ms
-            INNER JOIN barang b ON ms.barcode = b.barcode  
-            SET ms.status = 1 
-            WHERE b.catatan_id = ?", [$request->id_catatan]);
+            DB::update("UPDATE master_barang 
+            INNER JOIN barang ON master_barang.barcode = barang.barcode  
+            SET master_barang.status = 1 
+            WHERE barang.catatan_id = ?", [$request->id_catatan]);
             
             $message = ["success" => "Usulan berhasil tervalidasi"];
         } catch (\Throwable $th) {

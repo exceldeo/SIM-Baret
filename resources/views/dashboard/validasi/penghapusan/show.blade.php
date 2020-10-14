@@ -51,6 +51,11 @@ Validasi Penghapusan
                         <li>
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
+                                @php
+                                setlocale(LC_ALL, 'id_ID.UTF8', 'id_ID.UTF-8', 'id_ID.8859-1', 'id_ID', 'IND.UTF8', 'IND.UTF-8', 'IND.8859-1', 'IND', 'Indonesian.UTF8', 'Indonesian.UTF-8', 'Indonesian.8859-1', 'Indonesian', 'Indonesia', 'id', 'ID');
+                                $monthName = strftime('%B %Y', strtotime($catatan->tanggal_catatan));
+                                @endphp
+                                Penghapusan <span style="padding: 19px;"> </span> : {!! $monthName !!} <br>
                                 Nama Pengaju <span style="padding: 15px;"> </span> : {!! $catatan->nama_user !!} <br>
                                 Asal Unit  <span style="padding: 34px;"> </span>: {!! $catatan->unit !!} <br>
                                 Tanggal Pengajuan : {!! substr($catatan->tanggal_catatan,0,10) !!}
