@@ -130,26 +130,15 @@ class BarangController extends Controller
     public function validateScan(Request $request)
     {
         $message = "";
-        // $result = DB::select('SELECT * from master_barang WHERE id_master_barang = ?', [$request->id])[0];
-        // $request['sum_of_barang'] = $request->oke + $request->titip;
-        // $validate = Validator::make($request->all(), [
-        //         'sum_of_barang' => 'in:'.$result->jumlah
-        //     ],
-        //     [
-        //         'in' => 'Jumlah oke dan titip harus sama dengan jumlah barang.'
-        //     ]
-        // );
-
-        // if($validate->fails())
-        // {
-        //     $message = ["fail" => $validate->errors()->first()];
-        //     return redirect()->route('dashboard.scan')->with($message);
-        // }
+        
 
         $cek_komponen = array();
-        foreach($request->komp as $key => $komp)
+        if(!is_null($request->komp))
         {
-            array_push($cek_komponen, $key);
+            foreach($request->komp as $key => $komp)
+            {
+                array_push($cek_komponen, $key);
+            }
         }
 
         $cek_komponen_json = json_encode($cek_komponen);

@@ -101,7 +101,7 @@ Scan Barcode
                             @csrf
                             <input type="hidden" name="id" id="id-field"></input>
                             <div class="text-center mb-5">
-                                <table class="table table-responsive" id="table-komponen">
+                                <table class="table table-responsive" id="table-komponen" style="display:none;">
                                     <thead>
                                         <tr>
                                             <th style="width: 90%">Nama Komponen</th>
@@ -251,10 +251,15 @@ Scan Barcode
                         $('#lokasi-barang').html(response['data']['nama_gudang']);
                         $('#nup-barang').html(response['data']['nup']);
 
-                        if(response['data']['tanggal_validasi'])
+                        if(response['data']['tanggal_validasi'] && (response['komponen'].length == response['cek_komponen'].length))
                         {
                             var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
                             $("#scanned-id").append(html);
+                            $('#form-validasi').hide();
+                        }
+                        else
+                        {
+                            $('#form-validasi').show();
                         }
 
                         if(response['usulan_penghapusan'] > 0) $('#min-up-btn').show();
@@ -270,21 +275,16 @@ Scan Barcode
                                 namaCell.innerHTML = komp['nama_komponen'];
 
                                 var checkCell = newRow.insertCell();
-                                console.log('komponen', response['cek_komponen']);
-                                console.log('komp', komp['id']);
 
                                 if(response['cek_komponen'].includes(parseInt(komp['id'])))
                                 {
                                     var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]" checked> <span class="css-control-indicator"></span></label>'
-                                    console.log('include');
                                 }
                                 else
                                 {
                                     var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]"> <span class="css-control-indicator"></span></label>'
-                                    console.log('ga include');
                                 }
                                 html = html.replace(/:komp_id/g, komp['id']);
-                                console.log('html', html);
                                 checkCell.innerHTML = html;
                             })
                             $("#table-komponen").show();
@@ -293,7 +293,6 @@ Scan Barcode
                         $("#spinner").hide();
                         $('#detail-barang').show();
                         $('#view-detail-btn').show();
-                        $('#form-validasi').show();
                     }
                     else
                     {
