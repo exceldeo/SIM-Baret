@@ -34,6 +34,7 @@ class MasterBarang extends Migration
             $table->string('kondisi')->nullable();
             $table->integer('validasi_oleh')->nullable();
             $table->dateTime('tanggal_validasi', 0)->nullable();
+            $table->integer('status');
             // $table->timestamps();
         });
     }

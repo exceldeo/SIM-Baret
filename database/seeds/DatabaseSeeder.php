@@ -43,6 +43,15 @@ class JenisSuratSeeder extends Seeder {
             (13, 'Surat Lainnya')
             "
         );
+        DB::insert(
+            "
+            INSERT INTO kategori_vol_asset
+            (nama_kategori,panjang_barang,lebar_barang,tinggi_barang)
+            VALUES
+            ('aset kecil', '1', '1', '1'),
+            ('aset sedang', '5', '5', '5'),
+            ('aset besar', '10', '10', '10')
+            ");
     }
 
 }
