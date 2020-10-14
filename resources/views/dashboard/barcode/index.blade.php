@@ -95,25 +95,25 @@ Scan Barcode
                         </table>
                     </div>
 
-                    <div class="d-block text-center" id="form-validasi">
-                    <form action="{{route('dashboard.barang.validate')}}"
-                        method="post">
-                        @csrf
-                        <input type="hidden" name="id" id="id-field"></input>
-                        <div class="text-center mb-5">
-                            <table class="table table-responsive" id="table-komponen" style="display:none;">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 90%">Nama Komponen</th>
-                                        <th style="width: 10%;">Lengkap</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <button class="btn btn-success mb-5 text-light">Validasi</button>
-                    </form>
+                    <div class="text-center" id="form-validasi" style="display:none;">
+                        <form action="{{route('dashboard.barang.validate')}}"
+                            method="post">
+                            @csrf
+                            <input type="hidden" name="id" id="id-field"></input>
+                            <div class="text-center mb-5">
+                                <table class="table table-responsive" id="table-komponen">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 90%">Nama Komponen</th>
+                                            <th style="width: 10%;">Lengkap</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-success mb-5 text-light">Validasi</button>
+                        </form>
                     </div>
                     <div class="d-block text-center">
                     <form onclick="return confirm('Anda yakin menghapus barang dari usulan penghapusan?')"
@@ -251,9 +251,6 @@ Scan Barcode
                         $('#lokasi-barang').html(response['data']['nama_gudang']);
                         $('#nup-barang').html(response['data']['nup']);
 
-                        $('#detail-barang').show();
-                        $('#view-detail-btn').show();
-                        $('#form-validasi').show();
                         if(response['data']['tanggal_validasi'])
                         {
                             var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
@@ -273,7 +270,19 @@ Scan Barcode
                                 namaCell.innerHTML = komp['nama_komponen'];
 
                                 var checkCell = newRow.insertCell();
-                                var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]"> <span class="css-control-indicator"></span></label>'
+                                console.log('komponen', response['cek_komponen']);
+                                console.log('komp', komp['id']);
+
+                                if(response['cek_komponen'].includes(parseInt(komp['id'])))
+                                {
+                                    var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]" checked> <span class="css-control-indicator"></span></label>'
+                                    console.log('include');
+                                }
+                                else
+                                {
+                                    var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]"> <span class="css-control-indicator"></span></label>'
+                                    console.log('ga include');
+                                }
                                 html = html.replace(/:komp_id/g, komp['id']);
                                 console.log('html', html);
                                 checkCell.innerHTML = html;
@@ -282,6 +291,9 @@ Scan Barcode
                         }
 
                         $("#spinner").hide();
+                        $('#detail-barang').show();
+                        $('#view-detail-btn').show();
+                        $('#form-validasi').show();
                     }
                     else
                     {

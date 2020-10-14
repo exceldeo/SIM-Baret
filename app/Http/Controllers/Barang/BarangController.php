@@ -68,6 +68,8 @@ class BarangController extends Controller
             [$barcode]
         );
 
+        $result['cek_komponen'] = json_decode($result['data']->cek_komponen);
+
         $cart_items = Cart::getContent();
         $result['usulan_penghapusan'] = 0;
         foreach($cart_items as $key => $item)
