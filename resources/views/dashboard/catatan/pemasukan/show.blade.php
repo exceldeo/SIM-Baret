@@ -114,21 +114,20 @@ Catatan Pemasukan
                                                 <span class="badge badge-success">Diterima</span>
                                             </td>
                                         @endif
-
-                                        @if($b->oke == 0 || $b->titip == 0  )
+                                        @if(is_null($b->tanggal_validasi))
                                             <td class="d-none d-sm-table-cell text-center">
-                                                <span class="badge badge-danger">Belum divalidasi</span>
+                                                <span class="badge badge-danger">Belum Validasi</span>
                                             </td>
-                                        <!--  ntar dibuat bisa di klik terus pop up muncul catatan -->
-                                        @elseif($b->oke == 1 )  
+                                        @elseif($b->lengkap > 0)
                                             <td class="d-none d-sm-table-cell text-center">
-                                                <span class="badge badge-success">Titip divalidasi</span>
+                                                <span class="badge badge-success">Oke</span>
                                             </td>
-                                        @elseif($b->titip == 1 )
-                                        <td class="d-none d-sm-table-cell text-center">
-                                            <span class="badge badge-success">oke Tervalidasi</span>
-                                        </td>    
+                                        @else
+                                            <td class="d-none d-sm-table-cell text-center">
+                                                <span class="badge badge-warning">Titip</span>
+                                            </td>
                                         @endif
+
                                 @endforeach
 
                                     </tr>

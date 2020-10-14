@@ -275,8 +275,7 @@ Scan Barcode
                                 namaCell.innerHTML = komp['nama_komponen'];
 
                                 var checkCell = newRow.insertCell();
-
-                                if(response['cek_komponen'].includes(parseInt(komp['id'])))
+                                if(response['cek_komponen'] != null && response['cek_komponen'].includes(parseInt(komp['id'])))
                                 {
                                     var html = '<label class="css-control css-control-primary css-checkbox"> <input type="checkbox" class="css-control-input" id="komp[:komp_id]" name="komp[:komp_id]" checked> <span class="css-control-indicator"></span></label>'
                                 }
@@ -312,9 +311,9 @@ Scan Barcode
 
         }
 
-        document.getElementById('scanned-id').innerHTML = '201013160259';
-        fetchRecords('201013160259');
-        $('#modal-normal3').modal('show'); 
+        // document.getElementById('scanned-id').innerHTML = '201014121800';
+        // fetchRecords('201014121800');
+        // $('#modal-normal3').modal('show'); 
         
     })
 </script>

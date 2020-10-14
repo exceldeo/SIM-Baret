@@ -141,12 +141,23 @@ class BarangController extends Controller
             }
         }
 
+        $komponen = DB::select(
+            "SELECT id, nama_komponen from komponen
+            LEFT JOIN master_barang
+            ON master_barang.kode_barang = komponen.kode_barang
+            WHERE master_barang.id_master_barang = ?",
+            [$request->id]
+        );
+
         $cek_komponen_json = json_encode($cek_komponen);
+
+        $lengkap = 0;
+        if(count($cek_komponen) == count($komponen)) $lengkap = 1;
 
         try {
             
-            DB::update("UPDATE master_barang set cek_komponen = ?, validasi_oleh = ?, tanggal_validasi = ?
-            where id_master_barang = ?", [$cek_komponen_json, Auth::user()->id, date("Y-m-d H:i:s"), $request->id]);
+            DB::update("UPDATE master_barang set cek_komponen = ?, validasi_oleh = ?, tanggal_validasi = ?, lengkap = ?
+            where id_master_barang = ?", [$cek_komponen_json, Auth::user()->id, date("Y-m-d H:i:s"), $lengkap, $request->id]);
 
             $message = ["success" => "Barang berhasil divalidasi!"];
         } catch (\Throwable $th) {

@@ -114,6 +114,12 @@
                                         <dt class="col-sm-3">Lokasi penyimpanan</dt>
                                         <dd class="col-sm-9">{{ $result->nama_gudang }}</dd>
                                         @if(!(is_null($result->tanggal_validasi)))
+                                        <dt class="col-sm-3">Status</dt>
+                                        @if($result->lengkap > 0)
+                                        <dd class="col-sm-9"><span class="badge badge-success">Oke</span></dd>
+                                        @else
+                                        <dd class="col-sm-9"><span class="badge badge-warning">Titip</span></dd>
+                                        @endif
                                         <dt class="col-sm-3">Validasi oleh</dt>
                                         <dd class="col-sm-9">{{ $result->nama_user }}</dd>
                                         <dt class="col-sm-3">Validasi pada</dt>
