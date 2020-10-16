@@ -45,7 +45,9 @@
             <dd class="col-sm-6 text-center barcode">
                 <svg id="image-{{ $b->barcode }}"></svg>
                 <div class="value">{{ $b->barcode }}</div>
-                {{ $b->nama_barang }}
+                {{ $b->nama_barang }}<br>
+                {{ $b->nama_komponen }}<br>
+                
             </dd>
             @endforeach
         </div>

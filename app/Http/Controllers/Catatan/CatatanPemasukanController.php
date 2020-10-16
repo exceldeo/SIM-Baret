@@ -44,9 +44,11 @@ class CatatanPemasukanController extends Controller
     public function print_barcode($id_catatan){
         $barang = DB::select(
             "
-            SELECT * from barang
-            JOIN gudang ON gudang.id_gudang = barang.nama_gudang
-            WHERE catatan_id = ?
+            SELECT komponen.kode_barang, barang.barcode, barang.nama_barang, komponen.nama_komponen
+            FROM barang
+            JOIN komponen ON barang.kode_barang = komponen.kode_barang
+            WHERE barang.catatan_id = ?
+            ORDER BY barcode
             ", array($id_catatan));
     
             return view('dashboard.catatan.pemasukan.print_barcode',compact('barang'));
