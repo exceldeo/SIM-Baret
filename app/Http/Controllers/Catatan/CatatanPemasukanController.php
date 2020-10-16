@@ -46,8 +46,8 @@ class CatatanPemasukanController extends Controller
             "
             SELECT komponen.kode_barang, barang.barcode, barang.nama_barang, komponen.nama_komponen
             FROM barang
-            JOIN komponen ON barang.kode_barang = komponen.kode_barang
-            WHERE barang.catatan_id = ?
+            LEFT JOIN komponen ON barang.kode_barang = komponen.kode_barang
+            WHERE barang.catatan_id = ? AND status = 1
             ORDER BY barcode
             ", array($id_catatan));
     

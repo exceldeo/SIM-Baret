@@ -431,8 +431,8 @@ Aset Unit
 <script>
     function displayData() {
         var data = <?php echo json_encode($assets); ?>;
-        var index = document.getElementById("pilih_barang").selectedIndex;
-        
+        var index = document.getElementById("pilih_barang").selectedIndex - 1;
+
         document.getElementById("kode2").setAttribute('value',data[index]['kode_barang']); 
         document.getElementById("nama2").setAttribute('value',data[index]['nama_barang']);
         document.getElementById("example-datepicker12").setAttribute('value',data[index]['tanggal_peroleh']);

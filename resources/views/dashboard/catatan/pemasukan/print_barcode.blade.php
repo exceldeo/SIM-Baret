@@ -46,8 +46,9 @@
                 <svg id="image-{{ $b->barcode }}"></svg>
                 <div class="value">{{ $b->barcode }}</div>
                 {{ $b->nama_barang }}<br>
+                @if(!is_null($b->nama_komponen))
                 {{ $b->nama_komponen }}<br>
-                
+                @endif
             </dd>
             @endforeach
         </div>
