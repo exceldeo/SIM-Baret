@@ -109,12 +109,14 @@ Usulan Penghapusan Aset
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <form class="pull-right" onclick="return confirm('Are you sure?')"
+                        <button class="btn btn-sm btn-its-primary pull-right" data-toggle="modal" 
+                        data-target="#modal-simpan">Simpan</button>
+                        <!-- <form class="pull-right" onclick="return confirm('Are you sure?')"
                             action="{{route('dashboard.usulan_penghapusan.save')}}"
                             method="post">
                             @csrf
                             <button class="btn btn-its-primary">Simpan</button>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>
@@ -123,6 +125,48 @@ Usulan Penghapusan Aset
 </div>
 <!-- END Page Content -->
 
+<!-- Modal Simpan -->
+<div class="modal" id="modal-simpan" tabindex="-1" role="dialog" aria-labelledby="modal-normal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Simpan Usulan</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <form onsubmit="return confirm('Are you sure?')" 
+                action="{{route('dashboard.usulan_penghapusan.save')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="block-content">
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input type="file" class="form-control" id="surat" name="surat" required>
+                                <label for="surat">Upload Surat Tupoksi (jpg/png/pdf max 10MB)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                            Tutup
+                        </button>
+                    <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
+                        <i class="fa fa-check"></i> Simpan
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal Simpan -->
+
+<!-- Modal Pilih Asset -->
 <div class="modal" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-large" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

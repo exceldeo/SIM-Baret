@@ -55,7 +55,7 @@ Validasi Penghapusan
                                 setlocale(LC_ALL, 'id_ID.UTF8', 'id_ID.UTF-8', 'id_ID.8859-1', 'id_ID', 'IND.UTF8', 'IND.UTF-8', 'IND.8859-1', 'IND', 'Indonesian.UTF8', 'Indonesian.UTF-8', 'Indonesian.8859-1', 'Indonesian', 'Indonesia', 'id', 'ID');
                                 $monthName = strftime('%B %Y', strtotime($catatan->tanggal_catatan));
                                 @endphp
-                                Penghapusan <span style="padding: 19px;"> </span> : {!! $monthName !!} <br>
+                                Penghapusan <span style="padding: 18.5px;"> </span> : {!! $monthName !!} <br>
                                 Nama Pengaju <span style="padding: 15px;"> </span> : {!! $catatan->nama_user !!} <br>
                                 Asal Unit  <span style="padding: 34px;"> </span>: {!! $catatan->unit !!} <br>
                                 Tanggal Pengajuan : {!! substr($catatan->tanggal_catatan,0,10) !!}
@@ -72,6 +72,7 @@ Validasi Penghapusan
             <!-- <div class="row"> -->
                 <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Usulan Aset</div>
                 <div class="pull-right">
+                <a class="btn btn-sm btn-its-primary text-light" href="{{ asset($tupoksi->image_url) }}" target="__blank">Lihat Surat Tupoksi</a>
                 <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.surat.index', ['id_catatan' => $catatan->id_catatan]) }}">Upload Berkas</a>
                 </div>
             <!-- </div> -->
@@ -138,7 +139,14 @@ Validasi Penghapusan
             @if(Auth::user()->level != 2)
                 <div class="row">
                     <div class="col align-self-end" >
-                        <button type="submit" class="btn btn-its-primary pull-right" onclick="return confirm('Are you sure?')" required >Simpan</button>
+                        <div class="pull-right">
+                            @if(!$all_uploaded)
+                            <i class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="top" title="Surat Belum Lengkap"></i>
+                            <button type="button" class="btn btn-secondary" disabled>Simpan</button>
+                            @else
+                            <button type="submit" class="btn btn-its-primary" onclick="return confirm('Are you sure?')" required >Simpan</button>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @endif

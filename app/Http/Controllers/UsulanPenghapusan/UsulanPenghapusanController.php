@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsulanPenghapusanController extends Controller
 {
@@ -117,7 +118,8 @@ class UsulanPenghapusanController extends Controller
         }
         return redirect()->back()->with($message);
     }
-    public function save()
+    
+    public function save(Request $request)
     {
         $message = "";
         try {
@@ -127,8 +129,22 @@ class UsulanPenghapusanController extends Controller
                 'user_id_unit' => Auth::user()->id,
                 'status' => 3,
                 'unit'  => Auth::user()->unit,
-            ]);
-
+                ]);
+                
+            if ($request->hasFile('surat')) {
+                if ($request->file('surat')->isValid()) {
+                    $validated = $request->validate([
+                        'surat' => 'mimes:jpeg,png,pdf|max:10240',
+                    ]);
+                    echo "valid";
+                    $extension = $request->surat->extension();
+                    $filename = $id.'_8_'.date("YmdHis").'.'.$extension;
+                    $request->surat->storeAs('public', $filename);
+                    $url = Storage::url($filename);
+                }
+            }
+            DB::insert("INSERT INTO file_catatan (catatan_id, jenis_surat, image_url, waktu_upload, upload_oleh) VALUES(?, 8, ?, ?, ?)",
+            [$id, $url, date("Y-m-d H:i:s"), Auth::user()->nama_user]);
             $carts = Cart::getContent();
 
             foreach($carts as $c){

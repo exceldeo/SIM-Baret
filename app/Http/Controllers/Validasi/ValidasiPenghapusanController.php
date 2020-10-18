@@ -37,7 +37,19 @@ class ValidasiPenghapusanController extends Controller
             WHERE catatan_id = ?
             ", [$id_catatan]);
     
-        return view('dashboard.validasi.penghapusan.show',compact('catatan','barang'));
+        $tupoksi = DB::select("SELECT * FROM file_catatan WHERE catatan_id = ? AND jenis_surat = 8", [$id_catatan])[0];
+        $uploaded = DB::select(
+            "
+            SELECT count(image_url)
+            from jenis_surat
+            LEFT JOIN file_catatan ON jenis_surat.id = file_catatan.jenis_surat
+            AND (catatan_id = ?)
+            WHERE mandatory = 1
+            ", [$id_catatan])[0];
+        $need_upload = DB::select("SELECT count(id) from jenis_surat WHERE mandatory = 1")[0];
+        $all_uploaded = ($uploaded == $need_upload);
+        
+        return view('dashboard.validasi.penghapusan.show',compact('catatan','barang', 'tupoksi', 'all_uploaded'));
     }
 
     public function save(Request $request)
@@ -72,10 +84,11 @@ class ValidasiPenghapusanController extends Controller
 
             }
 
-            DB::update("UPDATE master_barang 
-            INNER JOIN barang ON master_barang.barcode = barang.barcode  
-            SET master_barang.status = 1 
-            WHERE barang.catatan_id = ?", [$request->id_catatan]);
+            DB::update("UPDATE m 
+            SET m.status = 1 
+            FROM master_barang AS m
+            INNER JOIN barang AS b ON m.barcode = b.barcode  
+            WHERE b.catatan_id = ?", [$request->id_catatan]);
             
             $message = ["success" => "Usulan berhasil tervalidasi"];
         } catch (\Throwable $th) {

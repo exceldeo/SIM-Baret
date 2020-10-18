@@ -68,11 +68,13 @@ Upload Berkas
                                     <tr>
                                         <td>{{ $surat->id }}</td>
                                         <td>
+                                        @if(is_null($surat->image_url))
+                                        {{ $surat->jenis_surat }}
+                                        <i class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="top" title="Belum diunggah"></i>
+                                        @else
                                         <a href="{{ asset($surat->image_url) }}" target="__blank">
                                         {{ $surat->jenis_surat }}
                                         </a>
-                                        @if(is_null($surat->image_url))
-                                        <i class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="top" title="Belum diunggah"></i>
                                         @endif
                                         </td>
                                         <td>{{ $surat->waktu_upload ? date( 'Y-m-d H:i:s', strtotime($surat->waktu_upload)) : '' }}</td>
@@ -104,7 +106,7 @@ Upload Berkas
         <div class="modal-content">
             <div class="block block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Ubah Surat</h3>
+                    <h3 class="block-title">{{ $surat->jenis_surat }}</h3>
                     <div class="block-options">
                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                             <i class="si si-close"></i>
@@ -124,7 +126,7 @@ Upload Berkas
                         <div class="col-9">
                             <div class="form-material">
                                 <input type="file" class="form-control" id="surat" name="surat" required>
-                                <label for="surat">Upload surat</label>
+                                <label for="surat">Upload surat (jpg/png/pdf max 10MB)</label>
                             </div>
                         </div>
                     </div>

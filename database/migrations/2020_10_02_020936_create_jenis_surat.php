@@ -16,6 +16,7 @@ class CreateJenisSurat extends Migration
         Schema::create('jenis_surat', function (Blueprint $table) {
             $table->integer('id');
             $table->string('jenis_surat');
+            $table->integer('mandatory');
         });
     }
 
