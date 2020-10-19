@@ -19,7 +19,6 @@ class SuratController extends Controller
             from jenis_surat
             LEFT JOIN file_catatan ON jenis_surat.id = file_catatan.jenis_surat
             AND (catatan_id = ?)
-            WHERE jenis_surat.id != 8
             ORDER BY jenis_surat.id
             ",[$id_catatan]);
         return view('dashboard.surat.index', ['result' => $result, 'id_catatan' => $id_catatan]);

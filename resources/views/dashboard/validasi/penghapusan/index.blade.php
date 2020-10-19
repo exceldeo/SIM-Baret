@@ -57,7 +57,7 @@ Validasi Penghapusan
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Unit Pengusul</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Waktu</th>
-                                <th class="text-center" style="width: 10%;">Action</th>
+                                <th class="text-center" style="width: 24%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,6 +76,10 @@ Validasi Penghapusan
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
                                             <td>
+                                                <a href="{{route('dashboard.validasi.pemasukan.export', ['id_catatan' => $l->id_catatan])}}">
+                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                            class="fa fa-download mr-1"></i>Download Detail</button>
+                                                </a>
                                                 <a href="{{route('dashboard.validasi.penghapusan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="si si-eye mr-1"></i> Detail</button>

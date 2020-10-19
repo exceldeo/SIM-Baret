@@ -37,7 +37,7 @@ class ValidasiPenghapusanController extends Controller
             WHERE catatan_id = ?
             ", [$id_catatan]);
     
-        $tupoksi = DB::select("SELECT * FROM file_catatan WHERE catatan_id = ? AND jenis_surat = 8", [$id_catatan])[0];
+        // $tupoksi = DB::select("SELECT * FROM file_catatan WHERE catatan_id = ? AND jenis_surat = 8", [$id_catatan])[0];
         $uploaded = DB::select(
             "
             SELECT count(image_url)
@@ -49,7 +49,7 @@ class ValidasiPenghapusanController extends Controller
         $need_upload = DB::select("SELECT count(id) from jenis_surat WHERE mandatory = 1")[0];
         $all_uploaded = ($uploaded == $need_upload);
         
-        return view('dashboard.validasi.penghapusan.show',compact('catatan','barang', 'tupoksi', 'all_uploaded'));
+        return view('dashboard.validasi.penghapusan.show',compact('catatan','barang', 'all_uploaded'));
     }
 
     public function save(Request $request)

@@ -109,14 +109,14 @@ Usulan Penghapusan Aset
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-sm btn-its-primary pull-right" data-toggle="modal" 
-                        data-target="#modal-simpan">Simpan</button>
-                        <!-- <form class="pull-right" onclick="return confirm('Are you sure?')"
+                        <!-- <button class="btn btn-sm btn-its-primary pull-right" data-toggle="modal" 
+                        data-target="#modal-simpan">Simpan</button> -->
+                        <form class="pull-right" onclick="return confirm('Are you sure?')"
                             action="{{route('dashboard.usulan_penghapusan.save')}}"
                             method="post">
                             @csrf
                             <button class="btn btn-its-primary">Simpan</button>
-                        </form> -->
+                        </form>
                     </div>
                 </div>
             </div>

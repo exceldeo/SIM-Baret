@@ -50,10 +50,10 @@ Aset Unit
                     data-target="#modal-otomatis">
                         <i class="fa fa-plus"></i> Pilih Aset
                     </button>
-                    <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
+                    <!-- <button type="submit" class="btn btn-sm btn-its-primary" data-toggle="modal"
                     data-target="#modal-normal">
                         <i class="fa fa-plus"></i> Masukan Aset
-                    </button>
+                    </button> -->
                 <!-- </form> -->
             </div>
         </div>

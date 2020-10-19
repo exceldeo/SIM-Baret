@@ -70,12 +70,10 @@ Verifikasi Pengajuan
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
                                             <td>
-                                                @if(Auth::user()->level != 2)
                                                 <a href="{{route('dashboard.validasi.pemasukan.export', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                             class="fa fa-download mr-1"></i>Download Detail</button>
                                                 </a>
-                                                @endif
                                                 @if(Auth::user()->level != 1)
                                                 <a href="{{route('dashboard.validasi.pemasukan.print', ['id_catatan' => $l->id_catatan])}}" target="_blank">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i

@@ -131,20 +131,20 @@ class UsulanPenghapusanController extends Controller
                 'unit'  => Auth::user()->unit,
                 ]);
                 
-            if ($request->hasFile('surat')) {
-                if ($request->file('surat')->isValid()) {
-                    $validated = $request->validate([
-                        'surat' => 'mimes:jpeg,png,pdf|max:10240',
-                    ]);
-                    echo "valid";
-                    $extension = $request->surat->extension();
-                    $filename = $id.'_8_'.date("YmdHis").'.'.$extension;
-                    $request->surat->storeAs('public', $filename);
-                    $url = Storage::url($filename);
-                }
-            }
-            DB::insert("INSERT INTO file_catatan (catatan_id, jenis_surat, image_url, waktu_upload, upload_oleh) VALUES(?, 8, ?, ?, ?)",
-            [$id, $url, date("Y-m-d H:i:s"), Auth::user()->nama_user]);
+            // if ($request->hasFile('surat')) {
+            //     if ($request->file('surat')->isValid()) {
+            //         $validated = $request->validate([
+            //             'surat' => 'mimes:jpeg,png,pdf|max:10240',
+            //         ]);
+            //         echo "valid";
+            //         $extension = $request->surat->extension();
+            //         $filename = $id.'_8_'.date("YmdHis").'.'.$extension;
+            //         $request->surat->storeAs('public', $filename);
+            //         $url = Storage::url($filename);
+            //     }
+            // }
+            // DB::insert("INSERT INTO file_catatan (catatan_id, jenis_surat, image_url, waktu_upload, upload_oleh) VALUES(?, 8, ?, ?, ?)",
+            // [$id, $url, date("Y-m-d H:i:s"), Auth::user()->nama_user]);
             $carts = Cart::getContent();
 
             foreach($carts as $c){

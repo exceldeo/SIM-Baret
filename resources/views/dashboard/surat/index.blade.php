@@ -65,6 +65,9 @@ Upload Berkas
                                 <tbody>
                                     @isset($result)
                                     @foreach($result as $surat)
+                                    @if($surat->id != 8 && Auth::user()->level == 2 )
+                                        @continue
+                                    @endif
                                     <tr>
                                         <td>{{ $surat->id }}</td>
                                         <td>
