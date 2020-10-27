@@ -379,7 +379,7 @@ Aset Unit
                             <select class="js-select2 form-control" id="kategori" name="kategori" style="width: 100%;" data-placeholder="Choose one.." >
                                 <option></option>
                                 @foreach($kategori as $key => $k)
-                                <option value="{{ $k->id }}">{{ $k->nama_kategori.' - '.$k->panjang_barang * $k->lebar_barang * $k->tinggi_barang.' ' }}m<sup>3</sup></option>
+                                <option value="{{ $k->id }}">{{ $k->nama_kategori.' - '.$k->panjang_barang.' x '.$k->lebar_barang.' x '.$k->tinggi_barang.' ' }}m</option>
                                 @endforeach
                             </select>
                         </div>

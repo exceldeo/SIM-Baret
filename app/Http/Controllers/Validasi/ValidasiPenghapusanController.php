@@ -15,7 +15,7 @@ class ValidasiPenghapusanController extends Controller
             "
             SELECT * from catatan
             JOIN users ON users.id = catatan.user_id_unit
-            WHERE status = 3
+            WHERE status = 3 ORDER BY catatan.tanggal_catatan DESC
             ");
 
         return view('dashboard.validasi.penghapusan.index',compact('list'));
@@ -47,9 +47,6 @@ class ValidasiPenghapusanController extends Controller
             WHERE mandatory = 1
             ", [$id_catatan])[0];
         $need_upload = DB::select("SELECT count(id) as count from jenis_surat WHERE mandatory = 1")[0];
-        // var_dump($uploaded);
-        // var_dump($need_upload);
-        // return;
         $all_uploaded = ($uploaded == $need_upload);
         
         return view('dashboard.validasi.penghapusan.show',compact('catatan','barang', 'all_uploaded'));
@@ -87,8 +84,8 @@ class ValidasiPenghapusanController extends Controller
 
             }
 
-            DB::update("UPDATE m 
-            SET m.status = 1 
+            DB::update("UPDATE master_barang
+            SET master_barang.status = 1 
             FROM master_barang AS m
             INNER JOIN barang AS b ON m.barcode = b.barcode  
             WHERE b.catatan_id = ?", [$request->id_catatan]);

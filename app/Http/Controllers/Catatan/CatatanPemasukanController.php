@@ -31,9 +31,9 @@ class CatatanPemasukanController extends Controller
 
         $barang = DB::select(
         "
-        SELECT * from barang
+        SELECT barang.* , master_barang.lengkap, master_barang.tanggal_validasi from barang
         JOIN gudang ON gudang.id_gudang = barang.nama_gudang
-        JOIN master_barang ON master_barang.barcode = barang.barcode
+        LEFT JOIN master_barang ON master_barang.barcode = barang.barcode
         WHERE catatan_id = ?
         ", array($id_catatan));
 

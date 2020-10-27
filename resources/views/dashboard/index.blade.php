@@ -74,6 +74,7 @@ Dashboard
                         </div>
                     </a>
                 </div> 
+                @endif
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.validasi.penghapusan.index')}}">
                         <div class="my-5 block-content">
@@ -90,7 +91,6 @@ Dashboard
                         </div>
                     </a>
                 </div>  
-                @endif
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dashboard.gudang.index')}}">
                         <div class="my-5 block-content">

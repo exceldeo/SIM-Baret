@@ -78,7 +78,7 @@ Validasi Penghapusan
                                             <td>
                                                 <a href="{{route('dashboard.validasi.pemasukan.export', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                            class="fa fa-download mr-1"></i>Download Detail</button>
+                                                            class="fa fa-download mr-1"></i>Unduh Lampiran</button>
                                                 </a>
                                                 <a href="{{route('dashboard.validasi.penghapusan.show', ['id_catatan' => $l->id_catatan])}}">
                                                     <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
