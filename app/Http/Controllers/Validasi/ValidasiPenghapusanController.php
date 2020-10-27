@@ -40,13 +40,16 @@ class ValidasiPenghapusanController extends Controller
         // $tupoksi = DB::select("SELECT * FROM file_catatan WHERE catatan_id = ? AND jenis_surat = 8", [$id_catatan])[0];
         $uploaded = DB::select(
             "
-            SELECT count(image_url)
+            SELECT count(image_url) as count
             from jenis_surat
             LEFT JOIN file_catatan ON jenis_surat.id = file_catatan.jenis_surat
             AND (catatan_id = ?)
             WHERE mandatory = 1
             ", [$id_catatan])[0];
-        $need_upload = DB::select("SELECT count(id) from jenis_surat WHERE mandatory = 1")[0];
+        $need_upload = DB::select("SELECT count(id) as count from jenis_surat WHERE mandatory = 1")[0];
+        // var_dump($uploaded);
+        // var_dump($need_upload);
+        // return;
         $all_uploaded = ($uploaded == $need_upload);
         
         return view('dashboard.validasi.penghapusan.show',compact('catatan','barang', 'all_uploaded'));

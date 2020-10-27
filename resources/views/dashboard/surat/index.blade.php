@@ -71,7 +71,7 @@ Upload Berkas
                                     <tr>
                                         <td>{{ $surat->id }}</td>
                                         <td>
-                                        @if(is_null($surat->image_url))
+                                        @if(is_null($surat->image_url) && $surat->mandatory == 1)
                                         {{ $surat->jenis_surat }}
                                         <i class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="top" title="Belum diunggah"></i>
                                         @else

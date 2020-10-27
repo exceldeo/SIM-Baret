@@ -14,7 +14,7 @@ class SuratController extends Controller
     {
         $result = DB::select(
             "
-            SELECT jenis_surat.id, jenis_surat.jenis_surat, file_catatan.image_url, file_catatan.catatan_id,
+            SELECT jenis_surat.id, jenis_surat.jenis_surat, file_catatan.image_url, file_catatan.catatan_id, jenis_surat.mandatory,
             file_catatan.waktu_upload, file_catatan.upload_oleh
             from jenis_surat
             LEFT JOIN file_catatan ON jenis_surat.id = file_catatan.jenis_surat
