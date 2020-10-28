@@ -103,7 +103,7 @@ Catatan Pemasukan
                                         @endphp
                                         <td> {{ $total }} m<sup>3</sup> </td>
                                         <td> {{ $b->nama_gudang }} </td>
-                                        @if( $b->status == 1  )
+                                        @if( $b->status == 1 )
                                             <td class="d-none d-sm-table-cell text-center">
                                                 <span class="badge badge-success">Diterima</span>
                                             </td>
@@ -112,17 +112,18 @@ Catatan Pemasukan
                                                 <span class="badge badge-danger">Ditolak</span>
                                             </td>
                                         @endif
-                                        @if(is_null($b->tanggal_validasi))
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="badge badge-danger">Belum Validasi</span>
-                                            </td>
-                                        @elseif($b->lengkap > 0)
+
+                                        @if($b->lengkap == 1 )
                                             <td class="d-none d-sm-table-cell text-center">
                                                 <span class="badge badge-success">Oke</span>
                                             </td>
-                                        @else
+                                        @elseif($b->lengkap == 2)
                                             <td class="d-none d-sm-table-cell text-center">
                                                 <span class="badge badge-warning">Titip</span>
+                                            </td>                       
+                                        @else
+                                        <td class="d-none d-sm-table-cell text-center">
+                                            <span class="badge badge-danger"> - </span>
                                             </td>
                                         @endif
 
