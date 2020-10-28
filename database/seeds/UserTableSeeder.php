@@ -13,37 +13,33 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('userdummy')->delete();
         DB::table('users')->delete();
+
         $pass = Hash::make('1234');
         DB::insert(
             "
             INSERT INTO users
-            (nrp, nama_user, email, password, unit, level)
+            (nip, nama_user, unit, level)
             VALUES
-            (?, ?, ?, ?, ?, ?)
-            ", ['05111840000117', 'Excel', 'excel@gmail.com', $pass, 'SuperAdmin', 0]);
+            (?, ?, ?, ?)
+            ", ['05111840000117', 'Excel', 'SuperAdmin', 0]);
     
         DB::insert(
             "
-            INSERT INTO users
-            (nrp, nama_user, email, password, unit, level)
+            INSERT INTO userdummy
+            (nip, nama_user, unit)
             VALUES
-            (?, ?, ?, ?, ?, ?)
-            ", ['05111840000053', 'Yulia', 'niza@gmail.com', $pass, 'Admin', 1]);
+            (?, ?, ?)
+            ", ['05111840000053', 'Yulia', 'Admin', 1]);
 
         DB::insert(
             "
-            INSERT INTO users
-            (nrp, nama_user, email, password, unit, level)
+            INSERT INTO userdummy
+            (nip, nama_user, unit)
             VALUES
-            (?, ?, ?, ?, ?, ?)
-            ", ['05111840000080', 'Zakiya', 'zakiya@gmail.com', $pass, 'Informatika', 2]);
-        DB::insert(
-            "
-            INSERT INTO users
-            (nrp, nama_user, email, password, unit, level)
-            VALUES
-            (?, ?, ?, ?, ?, ?)
-            ", ['05111840000080', 'Azizah', 'azizah@gmail.com', $pass, 'Kimia', 2]);
+            (?, ?, ?)
+            ", ['05111840000080', 'Zakiya', 'Informatika', 2]);
+        
     }
 }

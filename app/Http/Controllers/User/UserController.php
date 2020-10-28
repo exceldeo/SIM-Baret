@@ -50,8 +50,26 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $oidc = UserController::login();
-        $id = DB::select('SELECT id FROM users WHERE nrp = ?', [session('user_attr')->reg_id])[0];
-        Auth::loginUsingId($id->id);
+        $user = DB::select('SELECT id FROM users WHERE nip = ?', [session('user_attr')->reg_id]);
+        
+        if(count($user) == 0)
+        {
+            $user = DB::select('SELECT * FROM userdummy WHERE nip = ?', [session('user_attr')->reg_id])[0];
+            $id = DB::table('users')->insertGetID([
+                'nip' => $user->nip,
+                'nama_user' => $user->nama_user,
+                'unit' => $user->unit,
+                'level' => '2'
+                ]);
+        }
+        else
+        {
+            $id = $user[0]->id;
+        }
+        
+        // var_dump(session('user_attr'));
+        // return;
+        Auth::loginUsingId($id);
         return redirect()->route('dashboard.index');
     }
 
