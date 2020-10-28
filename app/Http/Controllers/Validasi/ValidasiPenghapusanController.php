@@ -15,7 +15,7 @@ class ValidasiPenghapusanController extends Controller
             "
             SELECT * from catatan
             JOIN users ON users.id = catatan.user_id_unit
-            WHERE status = 3
+            WHERE status = 3 ORDER BY catatan.tanggal_catatan DESC
             ");
 
         return view('dashboard.validasi.penghapusan.index',compact('list'));
@@ -84,8 +84,8 @@ class ValidasiPenghapusanController extends Controller
 
             }
 
-            DB::update("UPDATE m 
-            SET m.status = 1 
+            DB::update("UPDATE master_barang
+            SET master_barang.status = 1 
             FROM master_barang AS m
             INNER JOIN barang AS b ON m.barcode = b.barcode  
             WHERE b.catatan_id = ?", [$request->id_catatan]);

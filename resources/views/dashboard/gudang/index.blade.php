@@ -92,7 +92,7 @@ Gudang
                                                         method="post">
                                                         @method('delete')
                                                         @csrf
-                                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash mr-1"></i> Delete</button>
+                                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash mr-1"></i> Hapus</button>
                                                     </form>
                                                     <!-- <input type="hidden" name="user_id" value="">
                                                     <a data-toggle="modal" data-userid=""

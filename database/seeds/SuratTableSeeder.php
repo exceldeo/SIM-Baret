@@ -25,7 +25,7 @@ class SuratTableSeeder extends Seeder
             (5, 'Surat pernyataan tanggung jawab nilai limit', 1),
             (6, 'Surat penetapan atas nilai limit', 1),
             (7, 'Surat pernyataan', 1),
-            (8, 'Pernyataan tidak mengganggu Tupoksi', 1),
+            (8, 'Pernyataan tidak mengganggu Tupoksi dan Lampiran', 1),
             (9, 'Permohonan persetujuan penghapusan', 1),
             (10, 'Persetujuan penghapusan', 1),
             (11, 'Surat Tugas', 1),

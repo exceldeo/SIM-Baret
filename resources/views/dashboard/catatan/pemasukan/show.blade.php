@@ -83,7 +83,6 @@ Catatan Pemasukan
                                     <th class="d-none d-sm-table-cell">Nama Asset</th>
                                     <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Nup</th>
                                     <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Merk/Type</th>
-                                    <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Jumlah</th>
                                     <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Tahun Perolehan</th>
                                     <th class="d-none d-sm-table-cell" style="width: 10%;">Volume</th>
                                     <th class="d-none d-sm-table-cell" style="width: 10%;">Lokasi</th>
@@ -98,20 +97,19 @@ Catatan Pemasukan
                                         <td> {{ $b->nama_barang }} </td>
                                         <td class="d-none d-sm-table-cell">{!! $b->nup !!}</td>
                                         <td class="d-none d-sm-table-cell">{!! $b->merk_type !!}</td>
-                                        <td class="d-none d-sm-table-cell">{!! $b->jumlah !!}</td>
                                         <td class="d-none d-sm-table-cell">{!! substr($b->tanggal_peroleh,-4) !!}</td>
                                         @php
                                             $total = $b->panjang_barang * $b->lebar_barang * $b->tinggi_barang
                                         @endphp
                                         <td> {{ $total }} m<sup>3</sup> </td>
                                         <td> {{ $b->nama_gudang }} </td>
-                                        @if($b->status == -1 )
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="badge badge-danger">Ditolak</span>
-                                            </td>
-                                        @else
+                                        @if( $b->status == 1  )
                                             <td class="d-none d-sm-table-cell text-center">
                                                 <span class="badge badge-success">Diterima</span>
+                                            </td>
+                                        @elseif( $b->status == -1 )
+                                            <td class="d-none d-sm-table-cell text-center">
+                                                <span class="badge badge-danger">Ditolak</span>
                                             </td>
                                         @endif
                                         @if(is_null($b->tanggal_validasi))
