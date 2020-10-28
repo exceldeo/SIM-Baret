@@ -18,32 +18,32 @@ class UserTableSeeder extends Seeder
         DB::insert(
             "
             INSERT INTO users
-            (nama_user, email, password, unit, level)
+            (nrp, nama_user, email, password, unit, level)
             VALUES
-            (?, ?, ?, ?, ?)
-            ", ['Excel', 'excel@gmail.com', $pass, 'SuperAdmin', 0]);
+            (?, ?, ?, ?, ?, ?)
+            ", ['05111840000117', 'Excel', 'excel@gmail.com', $pass, 'SuperAdmin', 0]);
     
         DB::insert(
             "
             INSERT INTO users
-            (nama_user, email, password, unit, level)
+            (nrp, nama_user, email, password, unit, level)
             VALUES
-            (?, ?, ?, ?, ?)
-            ", ['Yulia', 'niza@gmail.com', $pass, 'Admin', 1]);
+            (?, ?, ?, ?, ?, ?)
+            ", ['05111840000053', 'Yulia', 'niza@gmail.com', $pass, 'Admin', 1]);
 
         DB::insert(
             "
             INSERT INTO users
-            (nama_user, email, password, unit, level)
+            (nrp, nama_user, email, password, unit, level)
             VALUES
-            (?, ?, ?, ?, ?)
-            ", ['Zakiya', 'zakiya@gmail.com', $pass, 'Informatika', 2]);
+            (?, ?, ?, ?, ?, ?)
+            ", ['05111840000080', 'Zakiya', 'zakiya@gmail.com', $pass, 'Informatika', 2]);
         DB::insert(
             "
             INSERT INTO users
-            (nama_user, email, password, unit, level)
+            (nrp, nama_user, email, password, unit, level)
             VALUES
-            (?, ?, ?, ?, ?)
-            ", ['Azizah', 'azizah@gmail.com', $pass, 'Kimia', 2]);
+            (?, ?, ?, ?, ?, ?)
+            ", ['05111840000080', 'Azizah', 'azizah@gmail.com', $pass, 'Kimia', 2]);
     }
 }

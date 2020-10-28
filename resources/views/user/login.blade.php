@@ -42,7 +42,7 @@
 			</div>
 
 
-		    <form id="form-login" method="post" action="{{route('authenticate')}}" autocomplete="off">
+		    <form id="form-login" method="post" action="{{route('auth')}}" autocomplete="off">
 		        @csrf
 		        <div class="text-orange" style="min-height: 20px; font-weight: bold; margin-bottom: 15px; text-align: center">
 					<small class="notification_caps" style="display: none;">Caps lock is on!</small>

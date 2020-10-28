@@ -27,7 +27,7 @@ Route::get('scan', function () {
 /* END Temporary route */
 
 Route::get('login', 'User\UserController@login')->name('login');
-Route::post('authenticate', 'User\UserController@authenticate')->name('authenticate');
+Route::get('/auth', 'User\UserController@authenticate')->name('auth');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {

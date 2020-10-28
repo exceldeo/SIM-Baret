@@ -5,29 +5,82 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+// ITS SSO
+// require '/vendor/autoload.php';
+
+use Its\Sso\OpenIDConnectClient;
+use Its\Sso\OpenIDConnectClientException;
 
 class UserController extends Controller
 {
     public function login()
     {
-        return view('user.login');
-    }
+        try {
+            $oidc = new OpenIDConnectClient(
+                    'https://dev-my.its.ac.id', // authorization_endpoint
+                    env('MYITSSSO_CLIENTID'), // Client ID
+                    env('MYITSSSO_CLIENTSECRET') // Client Secret
+                );
+         
+            $oidc->setRedirectURL(env('MYITSSSO_AUTH_REDIRECT')); // must be the same as you registered
+            $oidc->addScope(env('MYITSSSO_SCOPE')); //must be the same as you registered
+            
+            // remove this if in production mode
+            $oidc->setVerifyHost(false);
+            $oidc->setVerifyPeer(false);
+        
+            $oidc->authenticate(); //call the main function of myITS SSO login
+        
+            
+            $attr = $oidc->requestUserInfo();
+            session(['id_token' => $oidc->getIdToken(), 'user_attr' => $attr]);
+            session()->save();
 
+            return $oidc;
+            
+        } catch (OpenIDConnectClientException $e) {
+            echo $e->getMessage();
+        }
+
+        return null;
+    }
+    
     public function authenticate(Request $request)
     {
-        // dd($request);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('dashboard.index');
-        }
-        else
-        {
-            return redirect()->route('login');
-        }
+        $oidc = UserController::login();
+        $id = DB::select('SELECT id FROM users WHERE nrp = ?', [session('user_attr')->reg_id])[0];
+        Auth::loginUsingId($id->id);
+        return redirect()->route('dashboard.index');
     }
 
     public function logout()
     {
-        Auth::logout();
-        return redirect()->route('login');
+        try {
+			if (session()->has('id_token')) {
+				Auth::logout();
+				$accessToken = session('id_token');
+				session()->forget('id_token');
+				session()->save();
+
+                $oidc = new OpenIDConnectClient(
+                    'https://dev-my.its.ac.id', // authorization_endpoint
+                    env('MYITSSSO_CLIENTID'), // Client ID
+                    env('MYITSSSO_CLIENTSECRET') // Client Secret
+                );
+		
+				// PROD: Remove
+				$oidc->setVerifyHost(false);
+				$oidc->setVerifyPeer(false);
+
+				// Ask if user also wants to quit from myitssso
+				$oidc->signOut($accessToken, env('MYITSSSO_POSTLOGOUT_REDIRECT'));
+			}
+
+			header("Location: " . env('MYITSSSO_POSTLOGOUT_REDIRECT'));
+		} catch (OpenIDConnectClientException $e) {
+			\Log::error('OIDC logout err: '.$e->getMessage());
+		}
     }
 }

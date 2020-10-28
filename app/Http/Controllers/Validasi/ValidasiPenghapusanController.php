@@ -47,9 +47,6 @@ class ValidasiPenghapusanController extends Controller
             WHERE mandatory = 1
             ", [$id_catatan])[0];
         $need_upload = DB::select("SELECT count(id) as count from jenis_surat WHERE mandatory = 1")[0];
-        // var_dump($uploaded);
-        // var_dump($need_upload);
-        // return;
         $all_uploaded = ($uploaded == $need_upload);
         
         return view('dashboard.validasi.penghapusan.show',compact('catatan','barang', 'all_uploaded'));
