@@ -36,7 +36,7 @@ Catatan Penghapusan
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <a href="{{route('dashboard.catatan.pemasukan.index')}}" id="arrow-back" style="padding: 0px 0px 0px 12px;">
+                <a href="{{route('dashboard.catatan.penghapusan.index')}}" id="arrow-back" style="padding: 0px 0px 0px 12px;">
                     <button type="button" class="btn btn-sm btn-circle btn-secondary mr-5 mb-5">
                         <i class="fa fa-arrow-left"></i>
                     </button>

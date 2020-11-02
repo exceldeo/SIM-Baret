@@ -91,6 +91,18 @@ Upload Berkas
                                     @endif
                                 </tbody>
                                 </table>
+                                <div class="modal-footer ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <form class="pull-right" 
+                                                    action="{{route('dashboard.validasi.penghapusan.show', ['id_catatan' => $id_catatan])}}">
+                                                    <button class="btn btn-its-primary" >Selesai</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +151,7 @@ Upload Berkas
                             Tutup
                         </button>
                     <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
-                        <i class="fa fa-check"></i> Buat
+                        <i class="fa fa-check"></i> Upload
                     </button>
                 </div>
                 </form>
