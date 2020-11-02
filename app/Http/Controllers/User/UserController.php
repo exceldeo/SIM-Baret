@@ -54,11 +54,14 @@ class UserController extends Controller
         
         if(count($user) == 0)
         {
-            $user = DB::select('SELECT * FROM userdummy WHERE nip = ?', [session('user_attr')->reg_id])[0];
+            $user = DB::select('SELECT * FROM v_user_easet WHERE email = ? or username = ?', 
+            [session('user_attr')->email, session('user_attr')->preferred_username])[0];
+            $unit = DB::select('SELECT id_easet, code FROM v_unit_easet WHERE id_easet = ?', [$user->current_unit_id])[0];
             $id = DB::table('users')->insertGetID([
-                'nip' => $user->nip,
+                'nip' => session('user_attr')->reg_id,
+                'username' => session('user_attr')->preferred_username,
                 'nama_user' => $user->nama_user,
-                'unit' => $user->unit,
+                'unit' => $unit->code,
                 'level' => '2'
                 ]);
         }

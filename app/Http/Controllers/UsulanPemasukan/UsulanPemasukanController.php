@@ -13,10 +13,15 @@ class UsulanPemasukanController extends Controller
     
     public function index()
     {
-        $assets = DB::connection('second_db')->select("SELECT * from asset");
+        if(Auth::user()->level == 0) $assets = DB::select("SELECT TOP(100) * from v_aset_aktif join v_unit_easet on v_aset_aktif.kode_unit = v_unit_easet.code");
+        else $assets = DB::select("SELECT * from v_aset_aktif
+        join v_unit_easet on v_aset_aktif.kode_unit = v_unit_easet.code and v_unit_easet.code = ?", Auth::user()->unit);
         $gudang = DB::select("SELECT * from gudang");
         $kategori = DB::select("SELECT * from kategori_vol_asset");
         $carts = Cart::getContent();
+
+        // var_dump($carts);
+        // return;
 
         return view('dashboard.usulan_pemasukan.index',compact('carts','gudang','assets','kategori'));
     }
@@ -24,7 +29,12 @@ class UsulanPemasukanController extends Controller
     public function store(Request $request)
     {
         $message = "";
-        $asset = DB::connection('second_db')->select("SELECT * from asset WHERE id_barang = ?", [$request->pilih_barang])[0];
+        // var_dump($request->pilih_barang);
+        $pilih_barang = json_decode($request->pilih_barang);
+        // var_dump($pilih_barang->kode_barang);
+        // return;
+        $asset = DB::select("SELECT * from v_aset_aktif WHERE kode_unit = ? and kode_barang = ? and nup = ?", 
+                            [$pilih_barang->kode_unit, $pilih_barang->kode_barang, $pilih_barang->nup])[0];
         $kategori = DB::select("SELECT * from kategori_vol_asset WHERE id = ?", [$request->kategori])[0];
         $gudang = DB::select("SELECT * from gudang WHERE id_gudang = ?", [$request->gudang_id])[0];
         // $carts = json_decode($request->cookie('masuk-carts'), true); 
@@ -43,8 +53,11 @@ class UsulanPemasukanController extends Controller
         }
         else{
             try {
-                $asset->nilai_barang = str_replace(",","",$asset->nilai_barang);
+                // $asset->nilai_sekarang = str_replace(",","",$asset->nilai_sekarang);
                 // dd(intval($asset->nilai)/$asset->jml);
+                // var_dump($asset);
+                // var_dump(intval($asset->nilai_sekarang));
+                // return;
                 Cart::add([
                     'id'        => date("ymdHis"),
                     'name'      => $asset->nama_barang,
@@ -52,11 +65,11 @@ class UsulanPemasukanController extends Controller
                     'quantity'  => 1,
                     'attributes' => array(
                         'kode'      => $asset->kode_barang,
-                        'tanggal'   => $asset->tanggal_peroleh,
+                        'tanggal'   => $asset->tahun_perolehan,
                         'nup'       => $asset->nup,
-                        'merk'      => $asset->merk_type,
+                        'merk'      => $asset->merk,
                         'jml'       => 1,
-                        'nilai'     => intval($asset->nilai_barang),
+                        'nilai'     => intval($asset->nilai_sekarang),
                         'kondisi'   => $request->kondisi,
                         'panjang'   => $kategori->panjang_barang,
                         'lebar'     => $kategori->lebar_barang,

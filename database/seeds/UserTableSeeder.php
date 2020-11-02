@@ -35,11 +35,11 @@ class UserTableSeeder extends Seeder
 
         DB::insert(
             "
-            INSERT INTO userdummy
-            (nip, nama_user, unit)
+            INSERT INTO users
+            (nip, nama_user, unit, level)
             VALUES
-            (?, ?, ?)
-            ", ['05111840000080', 'Zakiya', 'Informatika', 2]);
+            (?, ?, ?, ?)
+            ", ['05111840000080', 'Zakiya', 'Informatika', 0]);
         
     }
 }

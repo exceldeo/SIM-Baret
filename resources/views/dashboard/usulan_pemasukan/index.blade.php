@@ -90,7 +90,7 @@ Aset Unit
                                 <td class="text-center">{{ $c['attributes']['nup'] }} </td>
                                 <td class="text-center">{{ $c['attributes']['merk'] }} </td>
                                 <!-- <td class="text-center">{{ $c['attributes']['jml'] }} </td> -->
-                                <td class="text-center">Rp. {{number_format($c['attributes']['nilai']*$c['attributes']['jml'],0,",",".") }} </td>
+                                <td class="text-center">Rp. {{number_format($c['attributes']['nilai'],0,",",".") }} </td>
                                 <td class="text-center">{{ $c['attributes']['kondisi'] }} </td>
                                 <td class="text-center">{{ $c['attributes']['lebar'] * $c['attributes']['panjang'] * $c['attributes']['tinggi'] *  $c['attributes']['jml'] }} m<sup>3</sup></td>
                                 <td class="text-center">{{ $c['attributes']['lokasi'] }}</td>
@@ -302,7 +302,9 @@ Aset Unit
                             <select class="js-select2 form-control" id="pilih_barang" name="pilih_barang" style="width: 100%;" data-placeholder="Choose one.." onchange="displayData()">
                                 <option></option>
                                 @foreach($assets as $key => $as)
-                                <option value="{{ $as->id_barang }}">{{ $as->kode_barang.' - '.$as->nama_barang.' - '.$as->nup.' - '.$as->merk_type }}</option>
+                                <option value='{"kode_unit": "{{ $as->kode_unit }}", "kode_barang": "{{ $as->kode_barang }}", "nup": {{ $as->nup }} }'>
+                                {{ $as->kode_barang.' - '.$as->nama_unit.' - '.$as->nama_barang.' - '.$as->nup.' - '.$as->merk }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -332,7 +334,7 @@ Aset Unit
                                 id="example-datepicker12"  data-week-start="1" 
                                 data-autoclose="true" data-today-highlight="true" data-date-format="mm/dd/yyyy" 
                                 placeholder="mm/dd/yyyy" name="tanggal_peroleh" value="" disabled>
-                                <label for="example-datepicker12">Tanggal Peroleh</label>
+                                <label for="example-datepicker12">Tahun Peroleh</label>
                             </div>
                         </div>
                     </div>
@@ -359,7 +361,7 @@ Aset Unit
                             <div class="form-material">
                                 <input autocomplete="off" type="text" 
                                 class="form-control" id="nilai2" name="nilai" value="" disabled>
-                                <label for="nilai2">Nilai Barang (Rp)</label>
+                                <label for="nilai2">Nilai Sekarang (Rp)</label>
                             </div>
                         </div>
                     </div>
@@ -376,7 +378,7 @@ Aset Unit
                     <div class="form-group row">
                         <label class="col-12" for="kategori">Kategori Aset</label>
                         <div class="col-lg-12">
-                            <select class="js-select2 form-control" id="kategori" name="kategori" style="width: 100%;" data-placeholder="Choose one.." >
+                            <select class="js-select2 form-control" id="kategori" name="kategori" style="width: 100%;" data-placeholder="Choose one.." required>
                                 <option></option>
                                 @foreach($kategori as $key => $k)
                                 <option value="{{ $k->id }}">{{ $k->nama_kategori.' - '.$k->panjang_barang.' x '.$k->lebar_barang.' x '.$k->tinggi_barang.' ' }}m</option>
@@ -387,7 +389,7 @@ Aset Unit
                     <div class="form-group row">
                         <label class="col-12" for="gudang_id">Lokasi Barang</label>
                         <div class="col-lg-12">
-                            <select class="js-select2 form-control" id="gudang_id2" name="gudang_id" style="width: 100%;" data-placeholder="Choose one..">
+                            <select class="js-select2 form-control" id="gudang_id2" name="gudang_id" style="width: 100%;" data-placeholder="Choose one.." required>
                                 <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
                                 @foreach($gudang as $g)
                                     <option value="{{$g->id_gudang}}">{{ $g->nama_gudang }}</option>
@@ -435,10 +437,10 @@ Aset Unit
 
         document.getElementById("kode2").setAttribute('value',data[index]['kode_barang']); 
         document.getElementById("nama2").setAttribute('value',data[index]['nama_barang']);
-        document.getElementById("example-datepicker12").setAttribute('value',data[index]['tanggal_peroleh']);
+        document.getElementById("example-datepicker12").setAttribute('value',data[index]['tahun_perolehan']);
         document.getElementById("nup2").setAttribute('value',data[index]['nup']);
-        document.getElementById("merk2").setAttribute('value',data[index]['merk_type']);
-        document.getElementById("nilai2").setAttribute('value',data[index]['nilai_barang']);
+        document.getElementById("merk2").setAttribute('value',data[index]['merk']);
+        document.getElementById("nilai2").setAttribute('value',data[index]['nilai_sekarang']);
     }
 
 </script>
