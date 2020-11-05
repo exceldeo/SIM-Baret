@@ -7,18 +7,19 @@ use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
 class UsulanPemasukanController extends Controller
 {
     
     public function index()
     {
-        if(Auth::user()->level == 0) $assets = DB::select("SELECT TOP(100) * from v_aset_aktif join v_unit_easet on v_aset_aktif.kode_unit = v_unit_easet.code");
-        else $assets = DB::select("SELECT * from v_aset_aktif
-        join v_unit_easet on v_aset_aktif.kode_unit = v_unit_easet.code and v_unit_easet.code = ?", Auth::user()->unit);
+        if(Auth::user()->level == 0) $assets = DB::table("v_aset_aktif")->join("v_unit_easet","v_aset_aktif.kode_unit","=", "v_unit_easet.code")->select("*")->paginate(5000);
+        else $assets = DB::table("v_aset_aktif")->join("v_unit_easet","v_aset_aktif.kode_unit", "=","v_unit_easet.code")->select("*")->where("v_unit_easet.code",Auth::user()->unit)->paginate(5000);
         $gudang = DB::select("SELECT * from gudang");
         $kategori = DB::select("SELECT * from kategori_vol_asset");
         $carts = Cart::getContent();
+
+        // $assets = $this->paginate($data);
+        // dd($assets);
 
         // var_dump($carts);
         // return;

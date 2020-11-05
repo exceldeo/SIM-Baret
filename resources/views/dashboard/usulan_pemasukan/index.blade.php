@@ -307,6 +307,7 @@ Aset Unit
                                 </option>
                                 @endforeach
                             </select>
+                            {{ $assets->links() }}
                         </div>
                     </div>
                     <div class="form-group row">
