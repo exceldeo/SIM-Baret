@@ -20,10 +20,10 @@ class UserTableSeeder extends Seeder
         DB::insert(
             "
             INSERT INTO users
-            (nip, nama_user, unit, level)
+            (nip, nama_user, unit, nama_unit, level)
             VALUES
-            (?, ?, ?, ?)
-            ", ['05111840000117', 'Excel', 'SuperAdmin', 0]);
+            (?, ?, ?, ?, ?)
+            ", ['05111840000117', 'Excel', 'SuperAdmin', 'INFORMATIKA', 0]);
     
         DB::insert(
             "
@@ -36,10 +36,10 @@ class UserTableSeeder extends Seeder
         DB::insert(
             "
             INSERT INTO users
-            (nip, nama_user, unit, level)
+            (nip, nama_user, unit, nama_unit, level)
             VALUES
-            (?, ?, ?, ?)
-            ", ['05111840000080', 'Zakiya', 'Informatika', 0]);
+            (?, ?, ?, ?, ?)
+            ", ['05111840000080', 'Zakiya', '67755450505', 'INFORMATIKA', 2]);
         
     }
 }

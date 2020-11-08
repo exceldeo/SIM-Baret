@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('nip')->nullable();
             $table->string('username')->nullable();
             $table->string('unit');
+            $table->string('nama_unit');
             $table->string('level');
         });
     }

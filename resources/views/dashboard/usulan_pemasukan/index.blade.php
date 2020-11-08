@@ -303,7 +303,7 @@ Aset Unit
                                 <option></option>
                                 @foreach($assets as $key => $as)
                                 <option value='{"kode_unit": "{{ $as->kode_unit }}", "kode_barang": "{{ $as->kode_barang }}", "nup": {{ $as->nup }} }'>
-                                {{ $as->kode_barang.' - '.$as->nama_unit.' - '.$as->nama_barang.' - '.$as->nup.' - '.$as->merk }}
+                                {{ $as->nama_barang.' - '.$as->nup.' - '.$as->merk }}
                                 </option>
                                 @endforeach
                             </select>
@@ -436,12 +436,14 @@ Aset Unit
         var data = <?php echo json_encode($assets); ?>;
         var index = document.getElementById("pilih_barang").selectedIndex - 1;
 
-        document.getElementById("kode2").setAttribute('value',data[index]['kode_barang']); 
-        document.getElementById("nama2").setAttribute('value',data[index]['nama_barang']);
-        document.getElementById("example-datepicker12").setAttribute('value',data[index]['tahun_perolehan']);
-        document.getElementById("nup2").setAttribute('value',data[index]['nup']);
-        document.getElementById("merk2").setAttribute('value',data[index]['merk']);
-        document.getElementById("nilai2").setAttribute('value',data[index]['nilai_sekarang']);
+        console.log('index ', data['data']);
+        console.log('kode_barang ', data);
+        document.getElementById("kode2").setAttribute('value',data['data'][index]['kode_barang']); 
+        document.getElementById("nama2").setAttribute('value',data['data'][index]['nama_barang']);
+        document.getElementById("example-datepicker12").setAttribute('value',data['data'][index]['tahun_perolehan']);
+        document.getElementById("nup2").setAttribute('value',data['data'][index]['nup']);
+        document.getElementById("merk2").setAttribute('value',data['data'][index]['merk']);
+        document.getElementById("nilai2").setAttribute('value',data['data'][index]['nilai_sekarang']);
     }
 
 </script>

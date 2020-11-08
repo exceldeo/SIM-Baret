@@ -13,7 +13,7 @@ class UsulanPemasukanController extends Controller
     public function index()
     {
         if(Auth::user()->level == 0) $assets = DB::table("v_aset_aktif")->join("v_unit_easet","v_aset_aktif.kode_unit","=", "v_unit_easet.code")->select("*")->paginate(5000);
-        else $assets = DB::table("v_aset_aktif")->join("v_unit_easet","v_aset_aktif.kode_unit", "=","v_unit_easet.code")->select("*")->where("v_unit_easet.code",Auth::user()->unit)->paginate(5000);
+        else $assets = DB::table("v_aset_aktif")->join("v_unit_easet","v_aset_aktif.kode_unit", "=","v_unit_easet.code")->select("*")->where("v_unit_easet.code",Auth::user()->unit)->paginate(1000);
         $gudang = DB::select("SELECT * from gudang");
         $kategori = DB::select("SELECT * from kategori_vol_asset");
         $carts = Cart::getContent();

@@ -27,7 +27,7 @@ Dashboard
                     @elseif(Auth::user()->level == 1)
                     Administrator
                     @else
-                    Unit {{ Auth::user()->unit }}
+                    Unit {{ Auth::user()->nama_unit }}
                     @endif
                     </span>
             </strong>

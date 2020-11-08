@@ -1,0 +1,29 @@
+version: '2.1'
+services:
+   webapp:
+     image: royyana/myits-apache:latest
+     restart: always
+     privileged: true
+     ports:
+     - "9998:80"
+     volumes:
+     - ./:/var/www/html
+     environment:
+     - MYITSSSO_CLIENTID=080507F5-DA58-45D2-B516-FD1BEFE7345B
+     - MYITSSSO_CLIENTSECRET=6vi17be2fn0o0o8gw4g84c4g
+     - MYITSSSO_URL=https://dev-my.its.ac.id
+     - MYITSSSO_AUTH_REDIRECT=http://localhost:9998/auth
+     - MYITSSSO_APP_REDIRECT=http://localhost:9998
+     - MYITSSSO_POSTLOGOUT_REDIRECT=http://dev-my.its.ac.id
+     - MYITSSSO_SCOPE=email group integra phone profile role openid secret
+     - MYITSSSO_INCLUDEFILE=NOFILE
+   redis:
+     image: redis:5.0-alpine
+     environment:
+     - ALLOW_EMPTY_PASSWORD=yes  
+networks:
+   default:
+     driver: bridge
+     ipam:
+       config:
+       - subnet: 172.10.1.0/24
