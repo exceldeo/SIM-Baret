@@ -72,13 +72,14 @@ Validasi Penghapusan
             <!-- <div class="row"> -->
                 <div class="font-size-lg font-w600">&nbsp;&nbsp;&nbsp;Daftar Usulan Aset</div>
                 <div class="pull-right">
+                <button class="btn btn-sm btn-its-primary " data-toggle="modal" data-target="#modal-simpan">Upload Tupoksi</button>
                 <a class="btn btn-sm btn-its-primary text-light" href="{{ route('dashboard.surat.index', ['id_catatan' => $catatan->id_catatan]) }}">Upload Berkas</a>
                 </div>
             <!-- </div> -->
         </div>
         <form action="{{route('dashboard.validasi.penghapusan.save')}}" method="post">
         @csrf
-        <input type="hidden" name="id_catatan" value="{!! $catatan->id_catatan !!}">
+            <input type="hidden" name="id_catatan" value="{!! $catatan->id_catatan !!}">
             <div class="block-content">
                 <div class="row py-5">
                     <div class="col-12" style="padding-left: 20px;padding-right: 20px;">
@@ -155,6 +156,47 @@ Validasi Penghapusan
 </div>
 <!-- END Page Content -->
 
+<!-- Modal Simpan -->
+<div class="modal" id="modal-simpan" tabindex="-1" role="dialog" aria-labelledby="modal-normal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Simpan Usulan</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <form action="{{route('dashboard.surat.upload')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="catatan_id" value="{!! $catatan->id_catatan !!}">
+                <input type="hidden" name="jenis_surat" value="8">
+                <div class="block-content">
+                    <div class="form-group row">
+                        <div class="col-9">
+                            <div class="form-material">
+                                <input type="file" class="form-control" id="surat" name="surat" required>
+                                <label for="surat">Upload Surat Tupoksi (jpg/png/pdf max 10MB)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                            Tutup
+                        </button>
+                    <button type="submit" id="create_participant_btn" class="btn btn-alt-success">
+                        <i class="fa fa-check"></i> Simpan
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal Simpan -->
 
 @endsection
 @section('js')

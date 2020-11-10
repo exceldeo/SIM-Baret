@@ -39,7 +39,7 @@ class UserTableSeeder extends Seeder
             (nip, nama_user, unit, nama_unit, level)
             VALUES
             (?, ?, ?, ?, ?)
-            ", ['05111840000080', 'Zakiya', '67755450505', 'INFORMATIKA', 2]);
+            ", ['05111840000080', 'Zakiya', '67755450505', 'INFORMATIKA', 0]);
         
     }
 }

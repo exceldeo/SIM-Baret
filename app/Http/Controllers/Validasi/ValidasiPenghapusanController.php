@@ -84,10 +84,12 @@ class ValidasiPenghapusanController extends Controller
 
             }
 
-            DB::update("UPDATE master_barang m, barang b
-            SET m.status = 1 
-            WHERE  m.barcode = b.barcode and b.catatan_id = ?", [$request->id_catatan]);
-            
+            DB::update("UPDATE master_barang
+            SET master_barang.status = 1 
+            FROM master_barang 
+            JOIN barang on master_barang.barcode = barang.barcode
+            WHERE barang.catatan_id = ?", [$request->id_catatan]);
+
             $message = ["success" => "Usulan berhasil tervalidasi"];
         } catch (\Throwable $th) {
             $message = ["fail" => $th->getMessage()];
