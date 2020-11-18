@@ -46,20 +46,20 @@
 		        @csrf
 		        <div class="text-orange" style="min-height: 20px; font-weight: bold; margin-bottom: 15px; text-align: center">
 					<small class="notification_caps" style="display: none;">Caps lock is on!</small>
-					<small class="my_its_id_required" style="display: none;">Email is required</small>
+					<small class="my_its_id_required" style="display: none;">MyITS ID is required</small>
 				</div>
 
 				<div id="inputusername" class="inputbox">
-					<input type="text" id="username" name="email" value="" required autocomplete="off">
-					<label for="">Email</label>
+					<input type="text" id="username" name="nip" value="" required autocomplete="off">
+					<label for="">MyITS ID</label>
 		        </div>
 
 				<div id="inputpassword" class="inputbox" >
 					<input type="password" name="password" id="password" required autocomplete="off">
-					<label for="">Password</label>
+					<label for="">Kata Sandi</label>
 				</div>
 				<div class="inputbox">
-		            <button id="login" type="submit" class="btn btn-block bg-orange">Sign in</button>
+		            <button id="login" type="submit" class="btn btn-block bg-orange">Masuk</button>
 				</div>
 			</form>
 

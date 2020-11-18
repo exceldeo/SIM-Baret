@@ -25,9 +25,12 @@ Route::get('scan', function () {
 
 
 /* END Temporary route */
-
-Route::get('login', 'User\UserController@login')->name('login');
-Route::get('/auth', 'User\UserController@authenticate')->name('auth');
+// primary
+// Route::get('login', 'User\UserController@login')->name('login');
+// Route::get('/auth', 'User\UserController@authenticate')->name('auth');
+// clone
+Route::get('login', 'User\UserControllerClone@login')->name('login');
+Route::post('/auth', 'User\UserControllerClone@authenticate')->name('auth');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -35,8 +38,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('dashboard.index');
         })->name('index');
-    
-        Route::get('logout', 'User\UserController@logout')->name('logout');
+
+        // primary
+        // Route::get('logout', 'User\UserController@logout')->name('logout');
+
+        // clone
+        Route::get('logout', 'User\UserControllerClone@logout')->name('logout');
         
         Route::get('scan', function () {
             return view('dashboard.barcode.index');
