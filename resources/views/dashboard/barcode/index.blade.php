@@ -251,6 +251,9 @@ Scan Barcode
                         $('#lokasi-barang').html(response['data']['nama_gudang']);
                         $('#nup-barang').html(response['data']['nup']);
 
+                        if(response['usulan_penghapusan'] > 0) $('#min-up-btn').show();
+                        else $('#plus-up-btn').show();
+
                         if(response['data']['tanggal_validasi'] && (response['komponen'].length == response['cek_komponen'].length))
                         {
                             var html = ' <i class="fa fa-check-circle-o text-success" data-toggle="tooltip" data-placement="top" title="Tervalidasi"></i>'
@@ -260,10 +263,9 @@ Scan Barcode
                         else
                         {
                             $('#form-validasi').show();
+                            $('#min-up-btn').hide();
+                            $('#plus-up-btn').hide();
                         }
-
-                        if(response['usulan_penghapusan'] > 0) $('#min-up-btn').show();
-                        else $('#plus-up-btn').show();
 
                         if(response['komponen'].length > 0)
                         {

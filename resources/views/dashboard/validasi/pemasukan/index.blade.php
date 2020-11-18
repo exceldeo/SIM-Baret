@@ -51,12 +51,12 @@ Verifikasi Pengajuan
                     <table id="list_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="d-none d-sm-table-cell text-center" style="width: 5%;">No</th>
+                                <th class="d-none d-sm-table-cell text-center" style="width: 1%;">No</th>
                                 <th class="d-none d-sm-table-cell text-center">Nama Pengaju</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Asal Unit </th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Tanggal</th>
                                 <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Waktu</th>
-                                <th class="text-center" style="width: 35%;">Action</th>
+                                <th class="text-center" style="width: 39%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,22 +68,22 @@ Verifikasi Pengajuan
                                             <td class="d-none d-sm-table-cell">{!! $l->nama_user !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! $l->unit !!}</td>
                                             <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,0,10) !!}</td>
-                                            <td class="d-none d-sm-table-cell text-center">{!! substr($l->tanggal_catatan,11) !!}</td>
-                                            <td>
+                                            <td class="d-none d-sm-table-cell text-center">{!! date('h:i:s', strtotime($l->tanggal_catatan)) !!}</td>
+                                            <td class="text-center">
                                                 @if(Auth::user()->level != 2)
                                                 <a href="{{route('dashboard.validasi.pemasukan.export', ['id_catatan' => $l->id_catatan])}}">
-                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    <button class="btn btn-sm btn-its-primary mr-3"><i
                                                             class="fa fa-download mr-1"></i>Download Detail</button>
                                                 </a>
                                                 @endif
                                                 @if(Auth::user()->level != 1)
                                                 <a href="{{route('dashboard.validasi.pemasukan.print', ['id_catatan' => $l->id_catatan])}}" target="_blank">
-                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    <button class="btn btn-sm btn-its-primary mr-3"><i
                                                             class="si si-printer mr-1"></i>Cetak Lampiran</button>
                                                 </a>
                                                 @endif
                                                 <a href="{{route('dashboard.validasi.pemasukan.show', ['id_catatan' => $l->id_catatan])}}">
-                                                    <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    <button class="btn btn-sm btn-its-primary"><i
                                                             class="si si-eye mr-1"></i> Detail</button>
                                                 </a>
                                                 

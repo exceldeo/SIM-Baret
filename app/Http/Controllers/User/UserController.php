@@ -20,45 +20,55 @@ class UserController extends Controller
         try {
             $oidc = new OpenIDConnectClient(
                     'https://dev-my.its.ac.id', // authorization_endpoint
-                    env('MYITSSSO_CLIENTID'), // Client ID
-                    env('MYITSSSO_CLIENTSECRET') // Client Secret
+                    '080507F5-DA58-45D2-B516-FD1BEFE7345B', // Client ID
+                    '6vi17be2fn0o0o8gw4g84c4g' // Client Secret
                 );
          
-            $oidc->setRedirectURL(env('MYITSSSO_AUTH_REDIRECT')); // must be the same as you registered
-            $oidc->addScope(env('MYITSSSO_SCOPE')); //must be the same as you registered
+            $oidc->setRedirectURL('http://localhost:9998/auth'); // must be the same as you registered
+            $oidc->addScope('email group integra phone profile role openid secret'); //must be the same as you registered
             
             // remove this if in production mode
             $oidc->setVerifyHost(false);
             $oidc->setVerifyPeer(false);
-        
+            
             $oidc->authenticate(); //call the main function of myITS SSO login
-        
+            
             
             $attr = $oidc->requestUserInfo();
             session(['id_token' => $oidc->getIdToken(), 'user_attr' => $attr]);
             session()->save();
-
+            
             return $oidc;
             
         } catch (OpenIDConnectClientException $e) {
+            echo 'test';
             echo $e->getMessage();
         }
+        
+        // Auth::loginUsingId(2);
+        // return redirect()->route('dashboard.index');
 
         return null;
     }
     
     public function authenticate(Request $request)
     {
+        // echo 'test2';
+        // die;
         $oidc = UserController::login();
         $user = DB::select('SELECT id FROM users WHERE nip = ?', [session('user_attr')->reg_id]);
         
         if(count($user) == 0)
         {
-            $user = DB::select('SELECT * FROM userdummy WHERE nip = ?', [session('user_attr')->reg_id])[0];
+            $user = DB::select('SELECT * FROM v_user_easet WHERE email = ? or username = ?', 
+            [session('user_attr')->email, session('user_attr')->preferred_username])[0];
+            $unit = DB::select('SELECT id_easet, code FROM v_unit_easet WHERE id_easet = ?', [$user->current_unit_id])[0];
             $id = DB::table('users')->insertGetID([
-                'nip' => $user->nip,
+                'nip' => session('user_attr')->reg_id,
+                'username' => session('user_attr')->preferred_username,
                 'nama_user' => $user->nama_user,
-                'unit' => $user->unit,
+                'unit' => $unit->code,
+                'nama_unit' => $unit->nama_unit,
                 'level' => '2'
                 ]);
         }
