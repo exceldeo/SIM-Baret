@@ -306,6 +306,12 @@ Scan Barcode
                     }
                 },
                 error: function(jqXHR, exception) {
+                    $('#detail-barang').hide();
+                    $('#view-detail-btn').hide();
+                    $('#form-validasi').hide();
+                    $('#min-up-btn').hide();
+                    $('#plus-up-btn').hide();
+                    $("#spinner").hide();
                     console.log(jqXHR.status);
                     console.log(exception);
                 }
